@@ -20,8 +20,6 @@ class IMkvReader {
  public:
   virtual int Read(long long pos, long len, unsigned char* buf) = 0;
   virtual int Length(long long* total, long long* available) = 0;
-
- protected:
   virtual ~IMkvReader() {}
 };
 
