@@ -12,7 +12,7 @@
 
 #include "src/parser_utils.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#block_structure
@@ -73,4 +73,4 @@ Status BlockHeaderParser::Feed(Callback* callback, Reader* reader,
   }
 }
 
-}  // namespace webm
+}  // namespace adhoc::webm

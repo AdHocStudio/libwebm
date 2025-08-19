@@ -14,7 +14,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#BlockMore
@@ -27,6 +27,5 @@ class BlockMoreParser : public MasterValueParser<BlockMore> {
             MakeChild<BinaryParser>(Id::kBlockAdditional, &BlockMore::data)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_BLOCK_MORE_PARSER_H_

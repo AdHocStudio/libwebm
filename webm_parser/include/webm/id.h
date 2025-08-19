@@ -15,7 +15,7 @@
  A full enumeration of WebM's EBML IDs.
  */
 
-namespace webm {
+namespace adhoc::webm {
 
 /**
  \addtogroup PUBLIC_API

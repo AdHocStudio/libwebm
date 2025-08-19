@@ -14,7 +14,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec references:
 // http://matroska.org/technical/specs/index.html#EBML
@@ -43,6 +43,5 @@ class EbmlParser : public MasterValueParser<Ebml> {
   }
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_EBML_PARSER_H_

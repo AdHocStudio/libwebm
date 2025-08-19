@@ -43,7 +43,7 @@
 // emulation prevention bytes must be stripped from the output stream before
 // it can be parsed.
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 // Stores a value and its size in bits for writing into a PES Optional Header.
 // Maximum size is 64 bits. Users may call the Check() method to perform minimal
@@ -228,13 +228,13 @@ class Webm2Pes {
 
  private:
   bool InitWebmParser();
-  bool ReadVideoFrame(const mkvparser::Block::Frame& mkvparser_frame,
+  bool ReadVideoFrame(const adhoc::mkvparser::Block::Frame& mkvparser_frame,
                       VideoFrame* frame);
 
   const std::string input_file_name_;
   const std::string output_file_name_;
-  std::unique_ptr<mkvparser::Segment> webm_parser_;
-  mkvparser::MkvReader webm_reader_;
+  std::unique_ptr<adhoc::mkvparser::Segment> webm_parser_;
+  adhoc::mkvparser::MkvReader webm_reader_;
   FilePtr output_file_;
 
   // Video track num in the WebM file.
@@ -269,6 +269,5 @@ class Webm2Pes {
 bool CopyAndEscapeStartCodes(const std::uint8_t* raw_input,
                              std::size_t raw_input_length,
                              PacketDataBuffer* packet_buffer);
-}  // namespace libwebm
-
+}  // namespace adhoc::libwebm
 #endif  // LIBWEBM_M2TS_WEBM2PES_H_

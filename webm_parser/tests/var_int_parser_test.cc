@@ -12,9 +12,9 @@
 #include "test_utils/parser_test.h"
 #include "webm/status.h"
 
-using webm::ParserTest;
-using webm::Status;
-using webm::VarIntParser;
+using adhoc::webm::ParserTest;
+using adhoc::webm::Status;
+using adhoc::webm::VarIntParser;
 
 namespace {
 

@@ -9,7 +9,7 @@
 
 #include <cassert>
 
-namespace webm {
+namespace adhoc::webm {
 
 Status Callback::OnElementBegin(const ElementMetadata& /* metadata */,
                                 Action* action) {
@@ -152,4 +152,4 @@ Status Callback::Skip(Reader* reader, std::uint64_t* bytes_remaining) {
   return status;
 }
 
-}  // namespace webm
+}  // namespace adhoc::webm

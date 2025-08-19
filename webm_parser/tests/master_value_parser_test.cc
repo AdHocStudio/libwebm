@@ -23,15 +23,15 @@ using testing::NotNull;
 using testing::Return;
 using testing::SetArgPointee;
 
-using webm::Action;
-using webm::Callback;
-using webm::Cluster;
-using webm::ElementMetadata;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::MasterValueParser;
-using webm::Status;
-using webm::UnsignedIntParser;
+using adhoc::webm::Action;
+using adhoc::webm::Callback;
+using adhoc::webm::Cluster;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::MasterValueParser;
+using adhoc::webm::Status;
+using adhoc::webm::UnsignedIntParser;
 
 namespace {
 

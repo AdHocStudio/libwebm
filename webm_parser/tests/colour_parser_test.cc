@@ -12,15 +12,15 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::Colour;
-using webm::ColourParser;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::MasteringMetadata;
-using webm::MatrixCoefficients;
-using webm::Primaries;
-using webm::Range;
-using webm::TransferCharacteristics;
+using adhoc::webm::Colour;
+using adhoc::webm::ColourParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::MasteringMetadata;
+using adhoc::webm::MatrixCoefficients;
+using adhoc::webm::Primaries;
+using adhoc::webm::Range;
+using adhoc::webm::TransferCharacteristics;
 
 namespace {
 

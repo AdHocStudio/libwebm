@@ -13,7 +13,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#MasteringMetadata
@@ -52,6 +52,5 @@ class MasteringMetadataParser : public MasterValueParser<MasteringMetadata> {
                                    &MasteringMetadata::luminance_min)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_MASTERING_METADATA_PARSER_H_

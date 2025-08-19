@@ -28,7 +28,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // A general purpose parser for EBML master elements.
 //
@@ -222,6 +222,5 @@ class MasterParser : public ElementParser {
   void PrepareForNextChild();
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_MASTER_PARSER_H_

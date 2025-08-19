@@ -12,7 +12,7 @@
 #include "src/tag_parser.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Tags
@@ -22,6 +22,5 @@ class TagsParser : public MasterParser {
   TagsParser() : MasterParser(MakeChild<TagParser>(Id::kTag)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_TAGS_PARSER_H_

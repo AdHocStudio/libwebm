@@ -12,10 +12,10 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/status.h"
 
-using webm::DateParser;
-using webm::ElementParserTest;
-using webm::kUnknownElementSize;
-using webm::Status;
+using adhoc::webm::DateParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Status;
 
 namespace {
 

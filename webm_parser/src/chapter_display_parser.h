@@ -13,7 +13,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#ChapterDisplay
@@ -29,6 +29,5 @@ class ChapterDisplayParser : public MasterValueParser<ChapterDisplay> {
                                     &ChapterDisplay::countries)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_CHAPTER_DISPLAY_PARSER_H_

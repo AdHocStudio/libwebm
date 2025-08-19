@@ -13,10 +13,10 @@
 #include "webm/element.h"
 #include "webm/status.h"
 
-using webm::ElementParserTest;
-using webm::kUnknownElementSize;
-using webm::SkipParser;
-using webm::Status;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::SkipParser;
+using adhoc::webm::Status;
 
 namespace {
 

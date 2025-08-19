@@ -19,7 +19,7 @@
  The main parser class for parsing WebM files.
  */
 
-namespace webm {
+namespace adhoc::webm {
 
 /**
  \defgroup PUBLIC_API Public API
@@ -128,6 +128,5 @@ void swap(WebmParser& left, WebmParser& right);
  @}
  */
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // INCLUDE_WEBM_WEBM_PARSER_H_

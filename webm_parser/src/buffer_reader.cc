@@ -17,7 +17,7 @@
 
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 BufferReader::BufferReader(std::initializer_list<std::uint8_t> bytes)
     : data_(bytes) {}
@@ -107,4 +107,4 @@ Status BufferReader::Skip(std::uint64_t num_to_skip,
 
 std::uint64_t BufferReader::Position() const { return pos_; }
 
-}  // namespace webm
+}  // namespace adhoc::webm

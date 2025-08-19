@@ -14,7 +14,7 @@
 #include <share.h>  // for _SH_DENYWR
 #endif
 
-namespace mkvmuxer {
+namespace adhoc::mkvmuxer {
 
 MkvWriter::MkvWriter() : file_(NULL), writer_owns_file_(true) {}
 
@@ -89,4 +89,4 @@ bool MkvWriter::Seekable() const { return true; }
 
 void MkvWriter::ElementStartNotify(uint64, int64) {}
 
-}  // namespace mkvmuxer
+}  // namespace adhoc::mkvmuxer

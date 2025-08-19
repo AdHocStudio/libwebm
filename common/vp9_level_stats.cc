@@ -14,7 +14,7 @@
 
 #include "common/webm_constants.h"
 
-namespace vp9_parser {
+namespace adhoc::vp9_parser {
 
 const Vp9LevelRow Vp9LevelStats::Vp9LevelTable[kNumVp9Levels] = {
     {LEVEL_1, 829440, 36864, 512, 200, 400, 2, 1, 4, 8},
@@ -52,7 +52,7 @@ void Vp9LevelStats::AddFrame(const Vp9HeaderParser& parser, int64_t time_ns) {
 
   while (!luma_window_.empty() &&
          luma_window_.front().first <
-             (time_ns - (libwebm::kNanosecondsPerSecondi - 1))) {
+             (time_ns - (adhoc::libwebm::kNanosecondsPerSecondi - 1))) {
     current_luma_size_ -= luma_window_.front().second;
     luma_window_.pop();
   }
@@ -234,11 +234,11 @@ double Vp9LevelStats::GetAverageBitRate() const {
   const int64_t frame_duration_ns = end_ns_ - start_ns_;
   double duration_seconds =
       ((duration_ns_ == -1) ? frame_duration_ns : duration_ns_) /
-      libwebm::kNanosecondsPerSecond;
+      adhoc::libwebm::kNanosecondsPerSecond;
   if (estimate_last_frame_duration_ &&
       (duration_ns_ == -1 || duration_ns_ <= frame_duration_ns)) {
     const double sec_per_frame = frame_duration_ns /
-                                 libwebm::kNanosecondsPerSecond /
+                                 adhoc::libwebm::kNanosecondsPerSecond /
                                  (displayed_frames - 1);
     duration_seconds += sec_per_frame;
   }

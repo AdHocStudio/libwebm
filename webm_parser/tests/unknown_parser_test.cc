@@ -16,10 +16,10 @@
 
 using testing::NotNull;
 
-using webm::ElementParserTest;
-using webm::kUnknownElementSize;
-using webm::Status;
-using webm::UnknownParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Status;
+using adhoc::webm::UnknownParser;
 
 namespace {
 

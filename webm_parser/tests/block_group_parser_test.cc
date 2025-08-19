@@ -19,17 +19,17 @@ using testing::InSequence;
 using testing::NotNull;
 using testing::Return;
 
-using webm::Block;
-using webm::BlockAdditions;
-using webm::BlockGroup;
-using webm::BlockGroupParser;
-using webm::BlockMore;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::Slices;
-using webm::Status;
-using webm::TimeSlice;
-using webm::VirtualBlock;
+using adhoc::webm::Block;
+using adhoc::webm::BlockAdditions;
+using adhoc::webm::BlockGroup;
+using adhoc::webm::BlockGroupParser;
+using adhoc::webm::BlockMore;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::Slices;
+using adhoc::webm::Status;
+using adhoc::webm::TimeSlice;
+using adhoc::webm::VirtualBlock;
 
 namespace {
 

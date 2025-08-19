@@ -12,7 +12,7 @@
 #include "src/seek_parser.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#SeekHead
@@ -22,6 +22,5 @@ class SeekHeadParser : public MasterParser {
   SeekHeadParser() : MasterParser(MakeChild<SeekParser>(Id::kSeek)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_SEEK_HEAD_PARSER_H_

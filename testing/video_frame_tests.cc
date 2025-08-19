@@ -10,23 +10,23 @@
 #include "gtest/gtest.h"
 
 namespace {
-const libwebm::VideoFrame::Codec kCodec = libwebm::VideoFrame::kVP8;
+const adhoc::libwebm::VideoFrame::Codec kCodec = adhoc::libwebm::VideoFrame::kVP8;
 const std::int64_t kPts = 12345;
 const std::size_t kSize = 1;
 const std::size_t kEmptySize = 0;
 
 TEST(VideoFrameTests, DefaultsTest) {
-  libwebm::VideoFrame frame;
+  adhoc::libwebm::VideoFrame frame;
   EXPECT_EQ(kEmptySize, frame.buffer().capacity);
   EXPECT_EQ(kEmptySize, frame.buffer().length);
   EXPECT_EQ(nullptr, frame.buffer().data.get());
   EXPECT_FALSE(frame.keyframe());
   EXPECT_EQ(0, frame.nanosecond_pts());
-  EXPECT_EQ(libwebm::VideoFrame::kVP9, frame.codec());
+  EXPECT_EQ(adhoc::libwebm::VideoFrame::kVP9, frame.codec());
 }
 
 TEST(VideoFrameTests, SizeTest) {
-  libwebm::VideoFrame frame;
+  adhoc::libwebm::VideoFrame frame;
   EXPECT_TRUE(frame.Init(kSize));
 
   // Buffer inits empty, length should be 0, aka |kEmpty|.
@@ -49,7 +49,7 @@ TEST(VideoFrameTests, OverloadsTest) {
   const bool kKeyframe = true;
 
   // Test VideoFrame::VideoFrame(bool keyframe, int64_t nano_pts, Codec c).
-  libwebm::VideoFrame keyframe(kKeyframe, kPts, kCodec);
+  adhoc::libwebm::VideoFrame keyframe(kKeyframe, kPts, kCodec);
   EXPECT_EQ(kKeyframe, keyframe.keyframe());
   EXPECT_EQ(kPts, keyframe.nanosecond_pts());
   EXPECT_EQ(kCodec, keyframe.codec());
@@ -65,7 +65,7 @@ TEST(VideoFrameTests, OverloadsTest) {
   EXPECT_NE(nullptr, keyframe.buffer().data.get());
 
   // Test VideoFrame::Init(size_t length, int64_t nano_pts, Codec c).
-  EXPECT_TRUE(keyframe.Init(kSize, kPts + 1, libwebm::VideoFrame::kVP9));
+  EXPECT_TRUE(keyframe.Init(kSize, kPts + 1, adhoc::libwebm::VideoFrame::kVP9));
   EXPECT_EQ(kSize, keyframe.buffer().capacity);
   EXPECT_GT(kSize, keyframe.buffer().length);
   EXPECT_NE(kPts, keyframe.nanosecond_pts());

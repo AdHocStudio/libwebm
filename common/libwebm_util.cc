@@ -12,7 +12,7 @@
 #include <cstdio>
 #include <limits>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 std::int64_t NanosecondsTo90KhzTicks(std::int64_t nanoseconds) {
   const double pts_seconds = nanoseconds / kNanosecondsPerSecond;

@@ -16,7 +16,7 @@
 #include "src/unknown_parser.h"
 #include "webm/element.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Parses WebM EBML documents (i.e. level-0 WebM elements).
 class WebmParser::DocumentParser {

@@ -22,7 +22,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Parses Block and SimpleBlock elements. It is recommended to use the
 // BlockParser and SimpleBlockParser aliases.
@@ -121,6 +121,5 @@ extern template class BasicBlockParser<SimpleBlock>;
 using BlockParser = BasicBlockParser<Block>;
 using SimpleBlockParser = BasicBlockParser<SimpleBlock>;
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_BLOCK_PARSER_H_

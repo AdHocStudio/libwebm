@@ -15,8 +15,8 @@
 
 #include "gtest/gtest.h"
 
-using webm::IstreamReader;
-using webm::Status;
+using adhoc::webm::IstreamReader;
+using adhoc::webm::Status;
 
 namespace {
 

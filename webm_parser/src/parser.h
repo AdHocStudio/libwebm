@@ -12,7 +12,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 class Parser {
  public:
@@ -29,6 +29,5 @@ class Parser {
                       std::uint64_t* num_bytes_read) = 0;
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_PARSER_H_

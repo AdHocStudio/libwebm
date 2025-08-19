@@ -30,19 +30,19 @@ using testing::NotNull;
 using testing::Return;
 using testing::SetArgPointee;
 
-using webm::Action;
-using webm::Block;
-using webm::BlockParser;
-using webm::ElementParserTest;
-using webm::FrameMetadata;
-using webm::Id;
-using webm::kUnknownElementSize;
-using webm::Lacing;
-using webm::ReadByte;
-using webm::Reader;
-using webm::SimpleBlock;
-using webm::SimpleBlockParser;
-using webm::Status;
+using adhoc::webm::Action;
+using adhoc::webm::Block;
+using adhoc::webm::BlockParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::FrameMetadata;
+using adhoc::webm::Id;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Lacing;
+using adhoc::webm::ReadByte;
+using adhoc::webm::Reader;
+using adhoc::webm::SimpleBlock;
+using adhoc::webm::SimpleBlockParser;
+using adhoc::webm::Status;
 
 namespace {
 

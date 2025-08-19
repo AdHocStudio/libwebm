@@ -159,10 +159,10 @@ int ParseArgWebVTT(char* argv[], int* argv_index, int argc_check,
   return 0;  // not a WebVTT arg
 }
 
-bool CopyVideoProjection(const mkvparser::Projection& parser_projection,
-                         mkvmuxer::Projection* muxer_projection) {
-  typedef mkvmuxer::Projection::ProjectionType MuxerProjType;
-  const int kTypeNotPresent = mkvparser::Projection::kTypeNotPresent;
+bool CopyVideoProjection(const adhoc::mkvparser::Projection& parser_projection,
+                         adhoc::mkvmuxer::Projection* muxer_projection) {
+  typedef adhoc::mkvmuxer::Projection::ProjectionType MuxerProjType;
+  const int kTypeNotPresent = adhoc::mkvparser::Projection::kTypeNotPresent;
   if (parser_projection.type != kTypeNotPresent) {
     muxer_projection->set_type(
         static_cast<MuxerProjType>(parser_projection.type));
@@ -176,7 +176,7 @@ bool CopyVideoProjection(const mkvparser::Projection& parser_projection,
     }
   }
 
-  const float kValueNotPresent = mkvparser::Projection::kValueNotPresent;
+  const float kValueNotPresent = adhoc::mkvparser::Projection::kValueNotPresent;
   if (parser_projection.pose_yaw != kValueNotPresent)
     muxer_projection->set_pose_yaw(parser_projection.pose_yaw);
   if (parser_projection.pose_pitch != kValueNotPresent)
@@ -219,10 +219,10 @@ int main(int argc, char* argv[]) {
   uint64_t pixel_height = 0;
   uint64_t stereo_mode = 0;
   const char* projection_file = 0;
-  int64_t projection_type = mkvparser::Projection::kTypeNotPresent;
-  float projection_pose_roll = mkvparser::Projection::kValueNotPresent;
-  float projection_pose_pitch = mkvparser::Projection::kValueNotPresent;
-  float projection_pose_yaw = mkvparser::Projection::kValueNotPresent;
+  int64_t projection_type = adhoc::mkvparser::Projection::kTypeNotPresent;
+  float projection_pose_roll = adhoc::mkvparser::Projection::kValueNotPresent;
+  float projection_pose_pitch = adhoc::mkvparser::Projection::kValueNotPresent;
+  float projection_pose_yaw = adhoc::mkvparser::Projection::kValueNotPresent;
   int vp9_profile = -1;  // No profile set.
   int vp9_level = -1;  // No level set.
 
@@ -323,7 +323,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Get parser header info
-  mkvparser::MkvReader reader;
+  adhoc::mkvparser::MkvReader reader;
 
   if (reader.Open(input)) {
     printf("\n Filename is invalid or error while opening.\n");
@@ -331,28 +331,28 @@ int main(int argc, char* argv[]) {
   }
 
   long long pos = 0;
-  mkvparser::EBMLHeader ebml_header;
+  adhoc::mkvparser::EBMLHeader ebml_header;
   long long ret = ebml_header.Parse(&reader, pos);
   if (ret) {
     printf("\n EBMLHeader::Parse() failed.");
     return EXIT_FAILURE;
   }
 
-  mkvparser::Segment* parser_segment_;
-  ret = mkvparser::Segment::CreateInstance(&reader, pos, parser_segment_);
+  adhoc::mkvparser::Segment* parser_segment_;
+  ret = adhoc::mkvparser::Segment::CreateInstance(&reader, pos, parser_segment_);
   if (ret) {
     printf("\n Segment::CreateInstance() failed.");
     return EXIT_FAILURE;
   }
 
-  const std::unique_ptr<mkvparser::Segment> parser_segment(parser_segment_);
+  const std::unique_ptr<adhoc::mkvparser::Segment> parser_segment(parser_segment_);
   ret = parser_segment->Load();
   if (ret < 0) {
     printf("\n Segment::Load() failed.");
     return EXIT_FAILURE;
   }
 
-  const mkvparser::SegmentInfo* const segment_info = parser_segment->GetInfo();
+  const adhoc::mkvparser::SegmentInfo* const segment_info = parser_segment->GetInfo();
   if (segment_info == NULL) {
     printf("\n Segment::GetInfo() failed.");
     return EXIT_FAILURE;
@@ -360,17 +360,17 @@ int main(int argc, char* argv[]) {
   const long long timeCodeScale = segment_info->GetTimeCodeScale();
 
   // Set muxer header info
-  mkvmuxer::MkvWriter writer;
+  adhoc::mkvmuxer::MkvWriter writer;
 
   const std::string temp_file =
-      cues_before_clusters ? libwebm::GetTempFileName() : output;
+      cues_before_clusters ? adhoc::libwebm::GetTempFileName() : output;
   if (!writer.Open(temp_file.c_str())) {
     printf("\n Filename is invalid or error while opening.\n");
     return EXIT_FAILURE;
   }
 
   // Set Segment element attributes
-  mkvmuxer::Segment muxer_segment;
+  adhoc::mkvmuxer::Segment muxer_segment;
 
   if (!muxer_segment.Init(&writer)) {
     printf("\n Could not initialize muxer segment!\n");
@@ -381,9 +381,9 @@ int main(int argc, char* argv[]) {
   muxer_segment.UseFixedSizeClusterTimecode(fixed_size_cluster_timecode);
 
   if (live_mode)
-    muxer_segment.set_mode(mkvmuxer::Segment::kLive);
+    muxer_segment.set_mode(adhoc::mkvmuxer::Segment::kLive);
   else
-    muxer_segment.set_mode(mkvmuxer::Segment::kFile);
+    muxer_segment.set_mode(adhoc::mkvmuxer::Segment::kFile);
 
   if (chunking)
     muxer_segment.SetChunking(true, chunk_name);
@@ -395,18 +395,18 @@ int main(int argc, char* argv[]) {
   muxer_segment.OutputCues(output_cues);
 
   // Set SegmentInfo element attributes
-  mkvmuxer::SegmentInfo* const info = muxer_segment.GetSegmentInfo();
+  adhoc::mkvmuxer::SegmentInfo* const info = muxer_segment.GetSegmentInfo();
   info->set_timecode_scale(timeCodeScale);
   info->set_writing_app("mkvmuxer_sample");
 
-  const mkvparser::Tags* const tags = parser_segment->GetTags();
+  const adhoc::mkvparser::Tags* const tags = parser_segment->GetTags();
   if (copy_tags && tags) {
     for (int i = 0; i < tags->GetTagCount(); i++) {
-      const mkvparser::Tags::Tag* const tag = tags->GetTag(i);
-      mkvmuxer::Tag* muxer_tag = muxer_segment.AddTag();
+      const adhoc::mkvparser::Tags::Tag* const tag = tags->GetTag(i);
+      adhoc::mkvmuxer::Tag* muxer_tag = muxer_segment.AddTag();
 
       for (int j = 0; j < tag->GetSimpleTagCount(); j++) {
-        const mkvparser::Tags::SimpleTag* const simple_tag =
+        const adhoc::mkvparser::Tags::SimpleTag* const simple_tag =
             tag->GetSimpleTag(j);
         muxer_tag->add_simple_tag(simple_tag->GetTagName(),
                                   simple_tag->GetTagString());
@@ -415,12 +415,12 @@ int main(int argc, char* argv[]) {
   }
 
   // Set Tracks element attributes
-  const mkvparser::Tracks* const parser_tracks = parser_segment->GetTracks();
+  const adhoc::mkvparser::Tracks* const parser_tracks = parser_segment->GetTracks();
   unsigned long i = 0;
   uint64_t vid_track = 0;  // no track added
   uint64_t aud_track = 0;  // no track added
 
-  using mkvparser::Track;
+  using adhoc::mkvparser::Track;
 
   while (i != parser_tracks->GetTracksCount()) {
     unsigned long track_num = i++;
@@ -439,8 +439,8 @@ int main(int argc, char* argv[]) {
 
     if (track_type == Track::kVideo && output_video) {
       // Get the video track from the parser
-      const mkvparser::VideoTrack* const pVideoTrack =
-          static_cast<const mkvparser::VideoTrack*>(parser_track);
+      const adhoc::mkvparser::VideoTrack* const pVideoTrack =
+          static_cast<const adhoc::mkvparser::VideoTrack*>(parser_track);
       const long long width = pVideoTrack->GetWidth();
       const long long height = pVideoTrack->GetHeight();
 
@@ -453,7 +453,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
       }
 
-      mkvmuxer::VideoTrack* const video = static_cast<mkvmuxer::VideoTrack*>(
+      adhoc::mkvmuxer::VideoTrack* const video = static_cast<adhoc::mkvmuxer::VideoTrack*>(
           muxer_segment.GetTrackByNumber(vid_track));
       if (!video) {
         printf("\n Could not get video track.\n");
@@ -461,41 +461,41 @@ int main(int argc, char* argv[]) {
       }
 
       if (pVideoTrack->GetColour()) {
-        mkvmuxer::Colour muxer_colour;
-        if (!libwebm::CopyColour(*pVideoTrack->GetColour(), &muxer_colour))
+        adhoc::mkvmuxer::Colour muxer_colour;
+        if (!adhoc::libwebm::CopyColour(*pVideoTrack->GetColour(), &muxer_colour))
           return EXIT_FAILURE;
         if (!video->SetColour(muxer_colour))
           return EXIT_FAILURE;
       }
 
       if (pVideoTrack->GetProjection() ||
-          projection_type != mkvparser::Projection::kTypeNotPresent) {
-        mkvmuxer::Projection muxer_projection;
-        const mkvparser::Projection* const parser_projection =
+          projection_type != adhoc::mkvparser::Projection::kTypeNotPresent) {
+        adhoc::mkvmuxer::Projection muxer_projection;
+        const adhoc::mkvparser::Projection* const parser_projection =
             pVideoTrack->GetProjection();
-        typedef mkvmuxer::Projection::ProjectionType MuxerProjType;
+        typedef adhoc::mkvmuxer::Projection::ProjectionType MuxerProjType;
         if (parser_projection &&
             !CopyVideoProjection(*parser_projection, &muxer_projection)) {
           printf("\n Unable to copy video projection.\n");
           return EXIT_FAILURE;
         }
         // Override the values that came from parser if set on command line.
-        if (projection_type != mkvparser::Projection::kTypeNotPresent) {
+        if (projection_type != adhoc::mkvparser::Projection::kTypeNotPresent) {
           muxer_projection.set_type(
               static_cast<MuxerProjType>(projection_type));
-          if (projection_type == mkvparser::Projection::kRectangular &&
+          if (projection_type == adhoc::mkvparser::Projection::kRectangular &&
               projection_file != NULL) {
             printf("\n Rectangular projection must not have private data.\n");
             return EXIT_FAILURE;
-          } else if ((projection_type == mkvparser::Projection::kCubeMap ||
-                      projection_type == mkvparser::Projection::kMesh) &&
+          } else if ((projection_type == adhoc::mkvparser::Projection::kCubeMap ||
+                      projection_type == adhoc::mkvparser::Projection::kMesh) &&
                      projection_file == NULL) {
             printf("\n Mesh or CubeMap projection must have private data.\n");
             return EXIT_FAILURE;
           }
           if (projection_file != NULL) {
             std::string contents;
-            if (!libwebm::GetFileContents(projection_file, &contents) ||
+            if (!adhoc::libwebm::GetFileContents(projection_file, &contents) ||
                 contents.size() == 0) {
               printf("\n Failed to read file \"%s\" or file is empty\n",
                      projection_file);
@@ -510,7 +510,7 @@ int main(int argc, char* argv[]) {
             }
           }
         }
-        const float kValueNotPresent = mkvparser::Projection::kValueNotPresent;
+        const float kValueNotPresent = adhoc::mkvparser::Projection::kValueNotPresent;
         if (projection_pose_yaw != kValueNotPresent)
           muxer_projection.set_pose_yaw(projection_pose_yaw);
         if (projection_pose_pitch != kValueNotPresent)
@@ -547,14 +547,14 @@ int main(int argc, char* argv[]) {
       const unsigned char* const parser_private_data =
           pVideoTrack->GetCodecPrivate(parser_private_size);
 
-      if (!strcmp(video->codec_id(), mkvmuxer::Tracks::kAv1CodecId)) {
+      if (!strcmp(video->codec_id(), adhoc::mkvmuxer::Tracks::kAv1CodecId)) {
         if (parser_private_data == NULL || parser_private_size == 0) {
           printf("AV1 input track has no CodecPrivate. %s is invalid.", input);
           return EXIT_FAILURE;
         }
       }
 
-      if (!strcmp(video->codec_id(), mkvmuxer::Tracks::kVp9CodecId) &&
+      if (!strcmp(video->codec_id(), adhoc::mkvmuxer::Tracks::kVp9CodecId) &&
           (vp9_profile >= 0 || vp9_level >= 0)) {
         const int kMaxVp9PrivateSize = 6;
         unsigned char vp9_private_data[kMaxVp9PrivateSize];
@@ -604,8 +604,8 @@ int main(int argc, char* argv[]) {
       }
     } else if (track_type == Track::kAudio && output_audio) {
       // Get the audio track from the parser
-      const mkvparser::AudioTrack* const pAudioTrack =
-          static_cast<const mkvparser::AudioTrack*>(parser_track);
+      const adhoc::mkvparser::AudioTrack* const pAudioTrack =
+          static_cast<const adhoc::mkvparser::AudioTrack*>(parser_track);
       const long long channels = pAudioTrack->GetChannels();
       const double sample_rate = pAudioTrack->GetSamplingRate();
 
@@ -618,7 +618,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
       }
 
-      mkvmuxer::AudioTrack* const audio = static_cast<mkvmuxer::AudioTrack*>(
+      adhoc::mkvmuxer::AudioTrack* const audio = static_cast<adhoc::mkvmuxer::AudioTrack*>(
           muxer_segment.GetTrackByNumber(aud_track));
       if (!audio) {
         printf("\n Could not get audio track.\n");
@@ -670,7 +670,7 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
 
   // Set Cues element attributes
-  mkvmuxer::Cues* const cues = muxer_segment.GetCues();
+  adhoc::mkvmuxer::Cues* const cues = muxer_segment.GetCues();
   cues->set_output_block_number(output_cues_block_number);
   if (cues_on_video_track && vid_track)
     muxer_segment.CuesTrack(vid_track);
@@ -681,10 +681,10 @@ int main(int argc, char* argv[]) {
   unsigned char* data = NULL;
   long data_len = 0;
 
-  const mkvparser::Cluster* cluster = parser_segment->GetFirst();
+  const adhoc::mkvparser::Cluster* cluster = parser_segment->GetFirst();
 
   while (cluster != NULL && !cluster->EOS()) {
-    const mkvparser::BlockEntry* block_entry;
+    const adhoc::mkvparser::BlockEntry* block_entry;
 
     long status = cluster->GetFirst(block_entry);
 
@@ -694,9 +694,9 @@ int main(int argc, char* argv[]) {
     }
 
     while (block_entry != NULL && !block_entry->EOS()) {
-      const mkvparser::Block* const block = block_entry->GetBlock();
+      const adhoc::mkvparser::Block* const block = block_entry->GetBlock();
       const long long trackNum = block->GetTrackNumber();
-      const mkvparser::Track* const parser_track =
+      const adhoc::mkvparser::Track* const parser_track =
           parser_tracks->GetTrackByNumber(static_cast<unsigned long>(trackNum));
 
       // When |parser_track| is NULL, it means that the track number in the
@@ -719,7 +719,7 @@ int main(int argc, char* argv[]) {
         const int frame_count = block->GetFrameCount();
 
         for (int i = 0; i < frame_count; ++i) {
-          const mkvparser::Block::Frame& frame = block->GetFrame(i);
+          const adhoc::mkvparser::Block::Frame& frame = block->GetFrame(i);
 
           if (frame.len > data_len) {
             delete[] data;
@@ -732,7 +732,7 @@ int main(int argc, char* argv[]) {
           if (frame.Read(&reader, data))
             return EXIT_FAILURE;
 
-          mkvmuxer::Frame muxer_frame;
+          adhoc::mkvmuxer::Frame muxer_frame;
           if (!muxer_frame.Init(data, frame.len))
             return EXIT_FAILURE;
           muxer_frame.set_track_number(track_type == Track::kAudio ? aud_track

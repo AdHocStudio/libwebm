@@ -28,6 +28,6 @@ int main(int argc, const char* argv[]) {
   const std::string input_path = argv[1];
   const std::string output_path = argv[2];
 
-  libwebm::VpxPes2Ts converter(input_path, output_path);
+  adhoc::libwebm::VpxPes2Ts converter(input_path, output_path);
   return converter.ConvertToFile() == true ? EXIT_SUCCESS : EXIT_FAILURE;
 }

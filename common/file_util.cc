@@ -19,7 +19,7 @@
 #include <ios>
 #include <string>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 std::string GetTempFileName() {
 #if !defined _MSC_VER && !defined __MINGW32__
@@ -90,4 +90,4 @@ TempFileDeleter::~TempFileDeleter() {
   }
 }
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm

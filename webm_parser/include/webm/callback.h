@@ -19,7 +19,7 @@
  The main callback type that receives parsing events.
  */
 
-namespace webm {
+namespace adhoc::webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -358,6 +358,5 @@ class Callback {
  @}
  */
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // INCLUDE_WEBM_CALLBACK_H_

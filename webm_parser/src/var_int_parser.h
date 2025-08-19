@@ -16,7 +16,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 class VarIntParser : public Parser {
  public:

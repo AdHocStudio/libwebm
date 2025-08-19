@@ -14,11 +14,11 @@
 #include "webm/id.h"
 #include "webm/status.h"
 
-using webm::ElementParserTest;
-using webm::Id;
-using webm::IdElementParser;
-using webm::kUnknownElementSize;
-using webm::Status;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::IdElementParser;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Status;
 
 namespace {
 

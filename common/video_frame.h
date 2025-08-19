@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 // VideoFrame is a storage class for compressed video frames.
 class VideoFrame {
@@ -63,6 +63,5 @@ class VideoFrame {
   Codec codec_ = kVP9;
 };
 
-}  // namespace libwebm
-
+}  // namespace adhoc::libwebm
 #endif  // LIBWEBM_COMMON_VIDEO_FRAME_H_

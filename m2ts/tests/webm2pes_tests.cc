@@ -40,12 +40,12 @@ class Webm2PesTests : public ::testing::Test {
   ~Webm2PesTests() = default;
 
   void CreateAndLoadTestInput() {
-    libwebm::Webm2Pes converter(input_file_name_, temp_file_name_.name());
+    adhoc::libwebm::Webm2Pes converter(input_file_name_, temp_file_name_.name());
     ASSERT_TRUE(converter.ConvertToFile());
     ASSERT_TRUE(parser_.Open(pes_file_name()));
   }
 
-  bool VerifyPacketStartCode(const libwebm::VpxPesParser::PesHeader& header) {
+  bool VerifyPacketStartCode(const adhoc::libwebm::VpxPesParser::PesHeader& header) {
     // PES packets all start with the byte sequence 0x0 0x0 0x1.
     if (header.start_code[0] != 0 || header.start_code[1] != 0 ||
         header.start_code[2] != 1) {
@@ -55,21 +55,21 @@ class Webm2PesTests : public ::testing::Test {
   }
 
   const std::string& pes_file_name() const { return temp_file_name_.name(); }
-  libwebm::VpxPesParser* parser() { return &parser_; }
+  adhoc::libwebm::VpxPesParser* parser() { return &parser_; }
 
  private:
-  const libwebm::TempFileDeleter temp_file_name_;
+  const adhoc::libwebm::TempFileDeleter temp_file_name_;
   const std::string input_file_name_ =
-      test::GetTestFilePath("bbb_480p_vp9_opus_1second.webm");
-  libwebm::VpxPesParser parser_;
+      adhoc::test::GetTestFilePath("bbb_480p_vp9_opus_1second.webm");
+  adhoc::libwebm::VpxPesParser parser_;
 };
 
 TEST_F(Webm2PesTests, CreatePesFile) { CreateAndLoadTestInput(); }
 
 TEST_F(Webm2PesTests, CanParseFirstPacket) {
   CreateAndLoadTestInput();
-  libwebm::VpxPesParser::PesHeader header;
-  libwebm::VideoFrame frame;
+  adhoc::libwebm::VpxPesParser::PesHeader header;
+  adhoc::libwebm::VideoFrame frame;
   ASSERT_TRUE(parser()->ParseNextPacket(&header, &frame));
   EXPECT_TRUE(VerifyPacketStartCode(header));
 
@@ -99,7 +99,7 @@ TEST_F(Webm2PesTests, CanParseFirstPacket) {
   // Note: The length field of the BCMV header includes its own length.
   const std::size_t kBcmvBaseLength = 10;
   const std::size_t kFirstFrameLength = 83;
-  const libwebm::VpxPesParser::BcmvHeader kFirstBcmvHeader(kFirstFrameLength +
+  const adhoc::libwebm::VpxPesParser::BcmvHeader kFirstBcmvHeader(kFirstFrameLength +
                                                            kBcmvBaseLength);
   EXPECT_TRUE(header.bcmv_header.Valid());
   EXPECT_EQ(kFirstBcmvHeader, header.bcmv_header);
@@ -110,29 +110,29 @@ TEST_F(Webm2PesTests, CanParseFirstPacket) {
 
 TEST_F(Webm2PesTests, CanMuxLargeBuffers) {
   const std::size_t kBufferSize = 100 * 1024;
-  const std::int64_t kFakeTimestamp = libwebm::kNanosecondsPerSecond;
-  libwebm::VideoFrame fake_frame(kFakeTimestamp, libwebm::VideoFrame::kVP9);
+  const std::int64_t kFakeTimestamp = adhoc::libwebm::kNanosecondsPerSecond;
+  adhoc::libwebm::VideoFrame fake_frame(kFakeTimestamp, adhoc::libwebm::VideoFrame::kVP9);
   ASSERT_TRUE(fake_frame.Init(kBufferSize));
   std::memset(fake_frame.buffer().data.get(), 0x80, kBufferSize);
   ASSERT_TRUE(fake_frame.SetBufferLength(kBufferSize));
-  libwebm::PacketDataBuffer pes_packet_buffer;
+  adhoc::libwebm::PacketDataBuffer pes_packet_buffer;
   ASSERT_TRUE(
-      libwebm::Webm2Pes::WritePesPacket(fake_frame, &pes_packet_buffer));
+      adhoc::libwebm::Webm2Pes::WritePesPacket(fake_frame, &pes_packet_buffer));
 
   // TODO(tomfinegan): Change VpxPesParser so it can read from a buffer, and get
   // rid of this extra step.
-  libwebm::FilePtr pes_file(std::fopen(pes_file_name().c_str(), "wb"),
-                            libwebm::FILEDeleter());
+  adhoc::libwebm::FilePtr pes_file(std::fopen(pes_file_name().c_str(), "wb"),
+                            adhoc::libwebm::FILEDeleter());
   ASSERT_EQ(pes_packet_buffer.size(),
             fwrite(&pes_packet_buffer[0], 1, pes_packet_buffer.size(),
                    pes_file.get()));
   fclose(pes_file.get());
   pes_file.release();
 
-  libwebm::VpxPesParser parser;
+  adhoc::libwebm::VpxPesParser parser;
   ASSERT_TRUE(parser.Open(pes_file_name()));
-  libwebm::VpxPesParser::PesHeader header;
-  libwebm::VideoFrame parsed_frame;
+  adhoc::libwebm::VpxPesParser::PesHeader header;
+  adhoc::libwebm::VideoFrame parsed_frame;
   ASSERT_TRUE(parser.ParseNextPacket(&header, &parsed_frame));
   EXPECT_EQ(fake_frame.nanosecond_pts(), parsed_frame.nanosecond_pts());
   EXPECT_EQ(fake_frame.buffer().length, parsed_frame.buffer().length);
@@ -142,8 +142,8 @@ TEST_F(Webm2PesTests, CanMuxLargeBuffers) {
 
 TEST_F(Webm2PesTests, ParserConsumesAllInput) {
   CreateAndLoadTestInput();
-  libwebm::VpxPesParser::PesHeader header;
-  libwebm::VideoFrame frame;
+  adhoc::libwebm::VpxPesParser::PesHeader header;
+  adhoc::libwebm::VideoFrame frame;
   while (parser()->ParseNextPacket(&header, &frame) == true) {
     EXPECT_TRUE(VerifyPacketStartCode(header));
   }

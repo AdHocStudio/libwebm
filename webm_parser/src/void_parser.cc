@@ -16,7 +16,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 Status VoidParser::Init(const ElementMetadata& metadata,
                         std::uint64_t max_size) {

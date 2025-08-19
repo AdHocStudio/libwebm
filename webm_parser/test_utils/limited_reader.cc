@@ -7,7 +7,7 @@
 // be found in the AUTHORS file in the root of the source tree.
 #include "test_utils/limited_reader.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 LimitedReader::LimitedReader(std::unique_ptr<Reader> impl)
     : impl_(std::move(impl)) {}

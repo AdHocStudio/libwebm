@@ -15,12 +15,12 @@
 #include "webm/element.h"
 #include "webm/status.h"
 
-using webm::Action;
-using webm::BufferReader;
-using webm::Callback;
-using webm::ElementMetadata;
-using webm::Reader;
-using webm::Status;
+using adhoc::webm::Action;
+using adhoc::webm::BufferReader;
+using adhoc::webm::Callback;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::Reader;
+using adhoc::webm::Status;
 
 namespace {
 

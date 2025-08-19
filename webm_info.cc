@@ -28,10 +28,10 @@
 
 namespace {
 
-using libwebm::Indent;
-using libwebm::kNanosecondsPerSecond;
-using libwebm::kNanosecondsPerSecondi;
-using mkvparser::ContentEncoding;
+using adhoc::libwebm::Indent;
+using adhoc::libwebm::kNanosecondsPerSecond;
+using adhoc::libwebm::kNanosecondsPerSecondi;
+using adhoc::mkvparser::ContentEncoding;
 using std::string;
 using std::wstring;
 
@@ -179,10 +179,10 @@ wstring UTF8ToWideString(const char* str) {
 
 string ToString(const char* str) { return string((str == NULL) ? "" : str); }
 
-void OutputEBMLHeader(const mkvparser::EBMLHeader& ebml, FILE* o,
+void OutputEBMLHeader(const adhoc::mkvparser::EBMLHeader& ebml, FILE* o,
                       Indent* indent) {
   fprintf(o, "EBML Header:\n");
-  indent->Adjust(libwebm::kIncreaseIndent);
+  indent->Adjust(adhoc::libwebm::kIncreaseIndent);
   fprintf(o, "%sEBMLVersion       : %lld\n", indent->indent_str().c_str(),
           ebml.m_version);
   fprintf(o, "%sEBMLReadVersion   : %lld\n", indent->indent_str().c_str(),
@@ -197,10 +197,10 @@ void OutputEBMLHeader(const mkvparser::EBMLHeader& ebml, FILE* o,
           ebml.m_docTypeVersion);
   fprintf(o, "%sDocTypeReadVersion: %lld\n", indent->indent_str().c_str(),
           ebml.m_docTypeReadVersion);
-  indent->Adjust(libwebm::kDecreaseIndent);
+  indent->Adjust(adhoc::libwebm::kDecreaseIndent);
 }
 
-void OutputSegment(const mkvparser::Segment& segment, const Options& options,
+void OutputSegment(const adhoc::mkvparser::Segment& segment, const Options& options,
                    FILE* o) {
   fprintf(o, "Segment:");
   if (options.output_offset)
@@ -211,9 +211,9 @@ void OutputSegment(const mkvparser::Segment& segment, const Options& options,
   fprintf(o, "\n");
 }
 
-bool OutputSeekHead(const mkvparser::Segment& segment, const Options& options,
+bool OutputSeekHead(const adhoc::mkvparser::Segment& segment, const Options& options,
                     FILE* o, Indent* indent) {
-  const mkvparser::SeekHead* const seekhead = segment.GetSeekHead();
+  const adhoc::mkvparser::SeekHead* const seekhead = segment.GetSeekHead();
   if (!seekhead) {
     // SeekHeads are optional.
     return true;
@@ -226,10 +226,10 @@ bool OutputSeekHead(const mkvparser::Segment& segment, const Options& options,
     fprintf(o, "  size: %lld", seekhead->m_element_size);
   fprintf(o, "\n");
 
-  indent->Adjust(libwebm::kIncreaseIndent);
+  indent->Adjust(adhoc::libwebm::kIncreaseIndent);
 
   for (int i = 0; i < seekhead->GetCount(); ++i) {
-    const mkvparser::SeekHead::Entry* const entry = seekhead->GetEntry(i);
+    const adhoc::mkvparser::SeekHead::Entry* const entry = seekhead->GetEntry(i);
     if (!entry) {
       fprintf(stderr, "Error retrieving SeekHead entry #%d\n", i);
       return false;
@@ -242,17 +242,17 @@ bool OutputSeekHead(const mkvparser::Segment& segment, const Options& options,
       fprintf(o, "  size: %lld", entry->element_size);
     fprintf(o, "\n");
 
-    indent->Adjust(libwebm::kIncreaseIndent);
+    indent->Adjust(adhoc::libwebm::kIncreaseIndent);
     std::string entry_indent = indent->indent_str();
     // TODO(jzern): 1) known ids could be stringified. 2) ids could be
     // reencoded to EBML for ease of lookup.
     fprintf(o, "%sSeek ID       : %llx\n", entry_indent.c_str(), entry->id);
     fprintf(o, "%sSeek position : %lld\n", entry_indent.c_str(), entry->pos);
-    indent->Adjust(libwebm::kDecreaseIndent);
+    indent->Adjust(adhoc::libwebm::kDecreaseIndent);
   }
 
   for (int i = 0; i < seekhead->GetVoidElementCount(); ++i) {
-    const mkvparser::SeekHead::VoidElement* const entry =
+    const adhoc::mkvparser::SeekHead::VoidElement* const entry =
         seekhead->GetVoidElement(i);
     if (!entry) {
       fprintf(stderr, "Error retrieving SeekHead void element #%d\n", i);
@@ -267,13 +267,13 @@ bool OutputSeekHead(const mkvparser::Segment& segment, const Options& options,
     fprintf(o, "\n");
   }
 
-  indent->Adjust(libwebm::kDecreaseIndent);
+  indent->Adjust(adhoc::libwebm::kDecreaseIndent);
   return true;
 }
 
-bool OutputSegmentInfo(const mkvparser::Segment& segment,
+bool OutputSegmentInfo(const adhoc::mkvparser::Segment& segment,
                        const Options& options, FILE* o, Indent* indent) {
-  const mkvparser::SegmentInfo* const segment_info = segment.GetInfo();
+  const adhoc::mkvparser::SegmentInfo* const segment_info = segment.GetInfo();
   if (!segment_info) {
     fprintf(stderr, "SegmentInfo was NULL.\n");
     return false;
@@ -294,7 +294,7 @@ bool OutputSegmentInfo(const mkvparser::Segment& segment,
     fprintf(o, "  size: %lld", segment_info->m_element_size);
   fprintf(o, "\n");
 
-  indent->Adjust(libwebm::kIncreaseIndent);
+  indent->Adjust(adhoc::libwebm::kIncreaseIndent);
   fprintf(o, "%sTimecodeScale : %" PRId64 " \n", indent->indent_str().c_str(),
           timecode_scale);
   if (options.output_seconds)
@@ -313,13 +313,13 @@ bool OutputSegmentInfo(const mkvparser::Segment& segment,
   if (!writing_app.empty())
     fprintf(o, "%sWritingApp    : %ls\n", indent->indent_str().c_str(),
             writing_app.c_str());
-  indent->Adjust(libwebm::kDecreaseIndent);
+  indent->Adjust(adhoc::libwebm::kDecreaseIndent);
   return true;
 }
 
-bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
+bool OutputTracks(const adhoc::mkvparser::Segment& segment, const Options& options,
                   FILE* o, Indent* indent) {
-  const mkvparser::Tracks* const tracks = segment.GetTracks();
+  const adhoc::mkvparser::Tracks* const tracks = segment.GetTracks();
   if (!tracks) {
     fprintf(stderr, "Tracks was NULL.\n");
     return false;
@@ -335,11 +335,11 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
   unsigned int i = 0;
   const unsigned long j = tracks->GetTracksCount();
   while (i != j) {
-    const mkvparser::Track* const track = tracks->GetTrackByIndex(i++);
+    const adhoc::mkvparser::Track* const track = tracks->GetTrackByIndex(i++);
     if (track == NULL)
       continue;
 
-    indent->Adjust(libwebm::kIncreaseIndent);
+    indent->Adjust(adhoc::libwebm::kIncreaseIndent);
     fprintf(o, "%sTrack:", indent->indent_str().c_str());
     if (options.output_offset)
       fprintf(o, "  @: %lld", track->m_element_start);
@@ -351,7 +351,7 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
     const int64_t track_number = track->GetNumber();
     const wstring track_name = UTF8ToWideString(track->GetNameAsUTF8());
 
-    indent->Adjust(libwebm::kIncreaseIndent);
+    indent->Adjust(adhoc::libwebm::kIncreaseIndent);
     fprintf(o, "%sTrackType   : %" PRId64 "\n", indent->indent_str().c_str(),
             track_type);
     fprintf(o, "%sTrackNumber : %" PRId64 "\n", indent->indent_str().c_str(),
@@ -377,12 +377,12 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
       fprintf(o, "%sPrivateData(size): %d\n", indent->indent_str().c_str(),
               static_cast<int>(private_size));
 
-      if (track_type == mkvparser::Track::kVideo) {
+      if (track_type == adhoc::mkvparser::Track::kVideo) {
         const std::string codec_id = ToString(track->GetCodecId());
         const std::string v_vp9 = "V_VP9";
         if (codec_id == v_vp9) {
-          libwebm::Vp9CodecFeatures features;
-          if (!libwebm::ParseVpxCodecPrivate(private_data,
+          adhoc::libwebm::Vp9CodecFeatures features;
+          if (!adhoc::libwebm::ParseVpxCodecPrivate(private_data,
                                              static_cast<int32_t>(private_size),
                                              &features)) {
             fprintf(stderr, "Error parsing VpxCodecPrivate.\n");
@@ -475,9 +475,9 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
       }
     }
 
-    if (track_type == mkvparser::Track::kVideo) {
-      const mkvparser::VideoTrack* const video_track =
-          static_cast<const mkvparser::VideoTrack*>(track);
+    if (track_type == adhoc::mkvparser::Track::kVideo) {
+      const adhoc::mkvparser::VideoTrack* const video_track =
+          static_cast<const adhoc::mkvparser::VideoTrack*>(track);
       const int64_t width = video_track->GetWidth();
       const int64_t height = video_track->GetHeight();
       const int64_t display_width = video_track->GetDisplayWidth();
@@ -501,11 +501,11 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
                 indent->indent_str().c_str(), display_unit);
       }
 
-      const mkvparser::Colour* const colour = video_track->GetColour();
+      const adhoc::mkvparser::Colour* const colour = video_track->GetColour();
       if (colour) {
         // TODO(fgalligan): Add support for Colour's address and size.
         fprintf(o, "%sColour:\n", indent->indent_str().c_str());
-        indent->Adjust(libwebm::kIncreaseIndent);
+        indent->Adjust(adhoc::libwebm::kIncreaseIndent);
 
         const int64_t matrix_coefficients = colour->matrix_coefficients;
         const int64_t bits_per_channel = colour->bits_per_channel;
@@ -521,58 +521,58 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
         const int64_t primaries = colour->primaries;
         const int64_t max_cll = colour->max_cll;
         const int64_t max_fall = colour->max_fall;
-        if (matrix_coefficients != mkvparser::Colour::kValueNotPresent)
+        if (matrix_coefficients != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sMatrixCoefficients      : %" PRId64 "\n",
                   indent->indent_str().c_str(), matrix_coefficients);
-        if (bits_per_channel != mkvparser::Colour::kValueNotPresent)
+        if (bits_per_channel != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sBitsPerChannel          : %" PRId64 "\n",
                   indent->indent_str().c_str(), bits_per_channel);
-        if (chroma_subsampling_horz != mkvparser::Colour::kValueNotPresent)
+        if (chroma_subsampling_horz != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sChromaSubsamplingHorz   : %" PRId64 "\n",
                   indent->indent_str().c_str(), chroma_subsampling_horz);
-        if (chroma_subsampling_vert != mkvparser::Colour::kValueNotPresent)
+        if (chroma_subsampling_vert != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sChromaSubsamplingVert   : %" PRId64 "\n",
                   indent->indent_str().c_str(), chroma_subsampling_vert);
-        if (cb_subsampling_horz != mkvparser::Colour::kValueNotPresent)
+        if (cb_subsampling_horz != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sCbSubsamplingHorz       : %" PRId64 "\n",
                   indent->indent_str().c_str(), cb_subsampling_horz);
-        if (cb_subsampling_vert != mkvparser::Colour::kValueNotPresent)
+        if (cb_subsampling_vert != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sCbSubsamplingVert       : %" PRId64 "\n",
                   indent->indent_str().c_str(), cb_subsampling_vert);
-        if (chroma_siting_horz != mkvparser::Colour::kValueNotPresent)
+        if (chroma_siting_horz != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sChromaSitingHorz        : %" PRId64 "\n",
                   indent->indent_str().c_str(), chroma_siting_horz);
-        if (chroma_siting_vert != mkvparser::Colour::kValueNotPresent)
+        if (chroma_siting_vert != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sChromaSitingVert        : %" PRId64 "\n",
                   indent->indent_str().c_str(), chroma_siting_vert);
-        if (range != mkvparser::Colour::kValueNotPresent)
+        if (range != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sRange                   : %" PRId64 "\n",
                   indent->indent_str().c_str(), range);
-        if (transfer_characteristics != mkvparser::Colour::kValueNotPresent)
+        if (transfer_characteristics != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sTransferCharacteristics : %" PRId64 "\n",
                   indent->indent_str().c_str(), transfer_characteristics);
-        if (primaries != mkvparser::Colour::kValueNotPresent)
+        if (primaries != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sPrimaries               : %" PRId64 "\n",
                   indent->indent_str().c_str(), primaries);
-        if (max_cll != mkvparser::Colour::kValueNotPresent)
+        if (max_cll != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sMaxCLL                  : %" PRId64 "\n",
                   indent->indent_str().c_str(), max_cll);
-        if (max_fall != mkvparser::Colour::kValueNotPresent)
+        if (max_fall != adhoc::mkvparser::Colour::kValueNotPresent)
           fprintf(o, "%sMaxFALL                 : %" PRId64 "\n",
                   indent->indent_str().c_str(), max_fall);
 
-        const mkvparser::MasteringMetadata* const metadata =
+        const adhoc::mkvparser::MasteringMetadata* const metadata =
             colour->mastering_metadata;
         if (metadata) {
           // TODO(fgalligan): Add support for MasteringMetadata's address and
           // size.
           fprintf(o, "%sMasteringMetadata:\n", indent->indent_str().c_str());
-          indent->Adjust(libwebm::kIncreaseIndent);
+          indent->Adjust(adhoc::libwebm::kIncreaseIndent);
 
-          const mkvparser::PrimaryChromaticity* const red = metadata->r;
-          const mkvparser::PrimaryChromaticity* const green = metadata->g;
-          const mkvparser::PrimaryChromaticity* const blue = metadata->b;
-          const mkvparser::PrimaryChromaticity* const white =
+          const adhoc::mkvparser::PrimaryChromaticity* const red = metadata->r;
+          const adhoc::mkvparser::PrimaryChromaticity* const green = metadata->g;
+          const adhoc::mkvparser::PrimaryChromaticity* const blue = metadata->b;
+          const adhoc::mkvparser::PrimaryChromaticity* const white =
               metadata->white_point;
           const float max = metadata->luminance_max;
           const float min = metadata->luminance_min;
@@ -600,27 +600,27 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
             fprintf(o, "%sWhitePointChromaticityY : %g\n",
                     indent->indent_str().c_str(), white->y);
           }
-          if (max != mkvparser::MasteringMetadata::kValueNotPresent)
+          if (max != adhoc::mkvparser::MasteringMetadata::kValueNotPresent)
             fprintf(o, "%sLuminanceMax            : %g\n",
                     indent->indent_str().c_str(), max);
-          if (min != mkvparser::MasteringMetadata::kValueNotPresent)
+          if (min != adhoc::mkvparser::MasteringMetadata::kValueNotPresent)
             fprintf(o, "%sLuminanceMin            : %g\n",
                     indent->indent_str().c_str(), min);
-          indent->Adjust(libwebm::kDecreaseIndent);
+          indent->Adjust(adhoc::libwebm::kDecreaseIndent);
         }
-        indent->Adjust(libwebm::kDecreaseIndent);
+        indent->Adjust(adhoc::libwebm::kDecreaseIndent);
       }
 
-      const mkvparser::Projection* const projection =
+      const adhoc::mkvparser::Projection* const projection =
           video_track->GetProjection();
       if (projection) {
         fprintf(o, "%sProjection:\n", indent->indent_str().c_str());
-        indent->Adjust(libwebm::kIncreaseIndent);
+        indent->Adjust(adhoc::libwebm::kIncreaseIndent);
 
         const int projection_type = static_cast<int>(projection->type);
         const int kTypeNotPresent =
-            static_cast<int>(mkvparser::Projection::kTypeNotPresent);
-        const float kValueNotPresent = mkvparser::Projection::kValueNotPresent;
+            static_cast<int>(adhoc::mkvparser::Projection::kTypeNotPresent);
+        const float kValueNotPresent = adhoc::mkvparser::Projection::kValueNotPresent;
         if (projection_type != kTypeNotPresent)
           fprintf(o, "%sProjectionType            : %d\n",
                   indent->indent_str().c_str(), projection_type);
@@ -637,11 +637,11 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
         if (projection->pose_roll != kValueNotPresent)
           fprintf(o, "%sProjectionPoseRoll         : %g\n",
                   indent->indent_str().c_str(), projection->pose_roll);
-        indent->Adjust(libwebm::kDecreaseIndent);
+        indent->Adjust(adhoc::libwebm::kDecreaseIndent);
       }
-    } else if (track_type == mkvparser::Track::kAudio) {
-      const mkvparser::AudioTrack* const audio_track =
-          static_cast<const mkvparser::AudioTrack*>(track);
+    } else if (track_type == adhoc::mkvparser::Track::kAudio) {
+      const adhoc::mkvparser::AudioTrack* const audio_track =
+          static_cast<const adhoc::mkvparser::AudioTrack*>(track);
       const int64_t channels = audio_track->GetChannels();
       const int64_t bit_depth = audio_track->GetBitDepth();
       const uint64_t codec_delay = audio_track->GetCodecDelay();
@@ -660,7 +660,7 @@ bool OutputTracks(const mkvparser::Segment& segment, const Options& options,
         fprintf(o, "%sSeekPreRoll      : %" PRIu64 "\n",
                 indent->indent_str().c_str(), seek_preroll);
     }
-    indent->Adjust(libwebm::kDecreaseIndent * 2);
+    indent->Adjust(adhoc::libwebm::kDecreaseIndent * 2);
   }
 
   return true;
@@ -695,8 +695,8 @@ void ParseSuperframeIndex(const uint8_t* data, size_t data_sz,
 }
 
 void PrintVP9Info(const uint8_t* data, int size, FILE* o, int64_t time_ns,
-                  FrameStats* stats, vp9_parser::Vp9HeaderParser* parser,
-                  vp9_parser::Vp9LevelStats* level_stats) {
+                  FrameStats* stats, adhoc::vp9_parser::Vp9HeaderParser* parser,
+                  adhoc::vp9_parser::Vp9LevelStats* level_stats) {
   if (size < 1)
     return;
 
@@ -829,7 +829,7 @@ int PrintSubSampleEncryption(const uint8_t* data, int size, FILE* o) {
       return 0;
     uint32_t partition_offset;
     memcpy(&partition_offset, data, sizeof(partition_offset));
-    partition_offset = libwebm::bigendian_to_host(partition_offset);
+    partition_offset = adhoc::libwebm::bigendian_to_host(partition_offset);
     fprintf(o, " off[%d]:%u", i, partition_offset);
     data += sizeof(uint32_t);
   }
@@ -837,15 +837,15 @@ int PrintSubSampleEncryption(const uint8_t* data, int size, FILE* o) {
   return read_end;
 }
 
-bool OutputCluster(const mkvparser::Cluster& cluster,
-                   const mkvparser::Tracks& tracks, const Options& options,
-                   FILE* o, mkvparser::MkvReader* reader, Indent* indent,
+bool OutputCluster(const adhoc::mkvparser::Cluster& cluster,
+                   const adhoc::mkvparser::Tracks& tracks, const Options& options,
+                   FILE* o, adhoc::mkvparser::MkvReader* reader, Indent* indent,
                    int64_t* clusters_size, FrameStats* stats,
-                   vp9_parser::Vp9HeaderParser* parser,
-                   vp9_parser::Vp9LevelStats* level_stats) {
+                   adhoc::vp9_parser::Vp9HeaderParser* parser,
+                   adhoc::vp9_parser::Vp9LevelStats* level_stats) {
   if (clusters_size) {
     // Load the Cluster.
-    const mkvparser::BlockEntry* block_entry;
+    const adhoc::mkvparser::BlockEntry* block_entry;
     long status = cluster.GetFirst(block_entry);
     if (status) {
       fprintf(stderr, "Could not get first Block of Cluster.\n");
@@ -865,7 +865,7 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
     if (options.output_size)
       fprintf(o, "  size: %lld", cluster.GetElementSize());
     fprintf(o, "\n");
-    indent->Adjust(libwebm::kIncreaseIndent);
+    indent->Adjust(adhoc::libwebm::kIncreaseIndent);
     if (options.output_seconds)
       fprintf(o, "%sTimecode (sec) : %g\n", indent->indent_str().c_str(),
               time_ns / kNanosecondsPerSecond);
@@ -884,7 +884,7 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
   }
 
   if (options.output_blocks) {
-    const mkvparser::BlockEntry* block_entry;
+    const adhoc::mkvparser::BlockEntry* block_entry;
     long status = cluster.GetFirst(block_entry);
     if (status) {
       fprintf(stderr, "Could not get first Block of Cluster.\n");
@@ -893,7 +893,7 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
 
     std::vector<unsigned char> vector_data;
     while (block_entry != NULL && !block_entry->EOS()) {
-      const mkvparser::Block* const block = block_entry->GetBlock();
+      const adhoc::mkvparser::Block* const block = block_entry->GetBlock();
       if (!block) {
         fprintf(stderr, "Could not getblock entry.\n");
         return false;
@@ -901,25 +901,25 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
 
       const unsigned int track_number =
           static_cast<unsigned int>(block->GetTrackNumber());
-      const mkvparser::Track* track = tracks.GetTrackByNumber(track_number);
+      const adhoc::mkvparser::Track* track = tracks.GetTrackByNumber(track_number);
       if (!track) {
         fprintf(stderr, "Could not get Track.\n");
         return false;
       }
 
       const int64_t track_type = track->GetType();
-      if ((track_type == mkvparser::Track::kVideo && options.output_video) ||
-          (track_type == mkvparser::Track::kAudio && options.output_audio)) {
+      if ((track_type == adhoc::mkvparser::Track::kVideo && options.output_video) ||
+          (track_type == adhoc::mkvparser::Track::kAudio && options.output_audio)) {
         const int64_t time_ns = block->GetTime(&cluster);
         const bool is_key = block->IsKey();
 
-        if (block_entry->GetKind() == mkvparser::BlockEntry::kBlockGroup) {
+        if (block_entry->GetKind() == adhoc::mkvparser::BlockEntry::kBlockGroup) {
           fprintf(o, "%sBlockGroup:\n", indent->indent_str().c_str());
-          indent->Adjust(libwebm::kIncreaseIndent);
+          indent->Adjust(adhoc::libwebm::kIncreaseIndent);
         }
 
         fprintf(o, "%sBlock: type:%s frame:%s", indent->indent_str().c_str(),
-                track_type == mkvparser::Track::kVideo ? "V" : "A",
+                track_type == adhoc::mkvparser::Track::kVideo ? "V" : "A",
                 is_key ? "I" : "P");
         if (options.output_seconds)
           fprintf(o, " secs:%5g", time_ns / kNanosecondsPerSecond);
@@ -956,7 +956,7 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
           }
 
           if (encrypted_stream) {
-            const mkvparser::Block::Frame& frame = block->GetFrame(0);
+            const adhoc::mkvparser::Block::Frame& frame = block->GetFrame(0);
             if (frame.len > static_cast<int>(vector_data.size())) {
               vector_data.resize(frame.len + 1024);
             }
@@ -985,12 +985,12 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
 
           if (frame_count > 1) {
             fprintf(o, "\n");
-            indent->Adjust(libwebm::kIncreaseIndent);
+            indent->Adjust(adhoc::libwebm::kIncreaseIndent);
           }
 
           for (int i = 0; i < frame_count; ++i) {
-            if (track_type == mkvparser::Track::kVideo) {
-              const mkvparser::Block::Frame& frame = block->GetFrame(i);
+            if (track_type == adhoc::mkvparser::Track::kVideo) {
+              const adhoc::mkvparser::Block::Frame& frame = block->GetFrame(i);
               if (frame.len > static_cast<int>(vector_data.size())) {
                 vector_data.resize(frame.len + 1024);
               }
@@ -1040,16 +1040,16 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
           }
 
           if (frame_count > 1)
-            indent->Adjust(libwebm::kDecreaseIndent);
+            indent->Adjust(adhoc::libwebm::kDecreaseIndent);
         }
 
-        if (block_entry->GetKind() == mkvparser::BlockEntry::kBlockGroup) {
+        if (block_entry->GetKind() == adhoc::mkvparser::BlockEntry::kBlockGroup) {
           const int64_t discard_padding = block->GetDiscardPadding();
           if (discard_padding != 0) {
             fprintf(o, "\n%sDiscardPadding: %10" PRId64,
                     indent->indent_str().c_str(), discard_padding);
           }
-          indent->Adjust(libwebm::kDecreaseIndent);
+          indent->Adjust(adhoc::libwebm::kDecreaseIndent);
         }
 
         fprintf(o, "\n");
@@ -1064,15 +1064,15 @@ bool OutputCluster(const mkvparser::Cluster& cluster,
   }
 
   if (options.output_clusters)
-    indent->Adjust(libwebm::kDecreaseIndent);
+    indent->Adjust(adhoc::libwebm::kDecreaseIndent);
 
   return true;
 }
 
-bool OutputCues(const mkvparser::Segment& segment,
-                const mkvparser::Tracks& tracks, const Options& options,
+bool OutputCues(const adhoc::mkvparser::Segment& segment,
+                const adhoc::mkvparser::Tracks& tracks, const Options& options,
                 FILE* o, Indent* indent) {
-  const mkvparser::Cues* const cues = segment.GetCues();
+  const adhoc::mkvparser::Cues* const cues = segment.GetCues();
   if (cues == NULL)
     return true;
 
@@ -1081,7 +1081,7 @@ bool OutputCues(const mkvparser::Segment& segment,
     cues->LoadCuePoint();
 
   // Confirm that the input has cue points.
-  const mkvparser::CuePoint* const first_cue = cues->GetFirst();
+  const adhoc::mkvparser::CuePoint* const first_cue = cues->GetFirst();
   if (first_cue == NULL) {
     fprintf(o, "%sNo cue points.\n", indent->indent_str().c_str());
     return true;
@@ -1095,20 +1095,20 @@ bool OutputCues(const mkvparser::Segment& segment,
     fprintf(o, " size:%lld", cues->m_element_size);
   fprintf(o, "\n");
 
-  const mkvparser::CuePoint* cue_point = first_cue;
+  const adhoc::mkvparser::CuePoint* cue_point = first_cue;
   int cue_point_num = 1;
   const int num_tracks = static_cast<int>(tracks.GetTracksCount());
-  indent->Adjust(libwebm::kIncreaseIndent);
+  indent->Adjust(adhoc::libwebm::kIncreaseIndent);
 
   do {
     for (int track_num = 0; track_num < num_tracks; ++track_num) {
-      const mkvparser::Track* const track = tracks.GetTrackByIndex(track_num);
-      const mkvparser::CuePoint::TrackPosition* const track_pos =
+      const adhoc::mkvparser::Track* const track = tracks.GetTrackByIndex(track_num);
+      const adhoc::mkvparser::CuePoint::TrackPosition* const track_pos =
           cue_point->Find(track);
 
       if (track_pos != NULL) {
         const char track_type =
-            (track->GetType() == mkvparser::Track::kVideo) ? 'V' : 'A';
+            (track->GetType() == adhoc::mkvparser::Track::kVideo) ? 'V' : 'A';
         fprintf(o, "%sCue Point:%d type:%c track:%d",
                 indent->indent_str().c_str(), cue_point_num, track_type,
                 static_cast<int>(track->GetNumber()));
@@ -1134,7 +1134,7 @@ bool OutputCues(const mkvparser::Segment& segment,
     ++cue_point_num;
   } while (cue_point != NULL);
 
-  indent->Adjust(libwebm::kDecreaseIndent);
+  indent->Adjust(adhoc::libwebm::kDecreaseIndent);
   return true;
 }
 
@@ -1199,16 +1199,16 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
   }
 
-  std::unique_ptr<mkvparser::MkvReader> reader(
-      new (std::nothrow) mkvparser::MkvReader());  // NOLINT
+  std::unique_ptr<adhoc::mkvparser::MkvReader> reader(
+      new (std::nothrow) adhoc::mkvparser::MkvReader());  // NOLINT
   if (reader->Open(input.c_str())) {
     fprintf(stderr, "Error opening file:%s\n", input.c_str());
     return EXIT_FAILURE;
   }
 
   long long int pos = 0;
-  std::unique_ptr<mkvparser::EBMLHeader> ebml_header(
-      new (std::nothrow) mkvparser::EBMLHeader());  // NOLINT
+  std::unique_ptr<adhoc::mkvparser::EBMLHeader> ebml_header(
+      new (std::nothrow) adhoc::mkvparser::EBMLHeader());  // NOLINT
   if (ebml_header->Parse(reader.get(), pos) < 0) {
     fprintf(stderr, "Error parsing EBML header.\n");
     return EXIT_FAILURE;
@@ -1220,12 +1220,12 @@ int main(int argc, char* argv[]) {
   if (options.output_ebml_header)
     OutputEBMLHeader(*ebml_header.get(), out, &indent);
 
-  mkvparser::Segment* temp_segment;
-  if (mkvparser::Segment::CreateInstance(reader.get(), pos, temp_segment)) {
+  adhoc::mkvparser::Segment* temp_segment;
+  if (adhoc::mkvparser::Segment::CreateInstance(reader.get(), pos, temp_segment)) {
     fprintf(stderr, "Segment::CreateInstance() failed.\n");
     return EXIT_FAILURE;
   }
-  std::unique_ptr<mkvparser::Segment> segment(temp_segment);
+  std::unique_ptr<adhoc::mkvparser::Segment> segment(temp_segment);
 
   if (segment->Load() < 0) {
     fprintf(stderr, "Segment::Load() failed.\n");
@@ -1234,7 +1234,7 @@ int main(int argc, char* argv[]) {
 
   if (options.output_segment) {
     OutputSegment(*(segment.get()), options, out);
-    indent.Adjust(libwebm::kIncreaseIndent);
+    indent.Adjust(adhoc::libwebm::kIncreaseIndent);
   }
 
   if (options.output_seekhead)
@@ -1249,7 +1249,7 @@ int main(int argc, char* argv[]) {
     if (!OutputTracks(*(segment.get()), options, out, &indent))
       return EXIT_FAILURE;
 
-  const mkvparser::Tracks* const tracks = segment->GetTracks();
+  const adhoc::mkvparser::Tracks* const tracks = segment->GetTracks();
   if (!tracks) {
     fprintf(stderr, "Could not get Tracks.\n");
     return EXIT_FAILURE;
@@ -1257,8 +1257,8 @@ int main(int argc, char* argv[]) {
 
   // If Cues are before the clusters output them first.
   if (options.output_cues) {
-    const mkvparser::Cluster* cluster = segment->GetFirst();
-    const mkvparser::Cues* const cues = segment->GetCues();
+    const adhoc::mkvparser::Cluster* cluster = segment->GetFirst();
+    const adhoc::mkvparser::Cues* const cues = segment->GetCues();
     if (cluster != NULL && cues != NULL) {
       if (cues->m_element_start < cluster->m_element_start) {
         if (!OutputCues(*segment, *tracks, options, out, &indent)) {
@@ -1275,9 +1275,9 @@ int main(int argc, char* argv[]) {
 
   int64_t clusters_size = 0;
   FrameStats stats;
-  vp9_parser::Vp9HeaderParser parser;
-  vp9_parser::Vp9LevelStats level_stats;
-  const mkvparser::Cluster* cluster = segment->GetFirst();
+  adhoc::vp9_parser::Vp9HeaderParser parser;
+  adhoc::vp9_parser::Vp9LevelStats level_stats;
+  const adhoc::mkvparser::Cluster* cluster = segment->GetFirst();
   while (cluster != NULL && !cluster->EOS()) {
     if (!OutputCluster(*cluster, *tracks, options, out, reader.get(), &indent,
                        &clusters_size, &stats, &parser, &level_stats))
@@ -1319,7 +1319,7 @@ int main(int argc, char* argv[]) {
 
   if (options.output_vp9_level) {
     level_stats.set_duration(segment->GetInfo()->GetDuration());
-    const vp9_parser::Vp9Level level = level_stats.GetLevel();
+    const adhoc::vp9_parser::Vp9Level level = level_stats.GetLevel();
     fprintf(out, "VP9 Level:%d\n", level);
     fprintf(
         out,

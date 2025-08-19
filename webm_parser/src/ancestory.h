@@ -14,7 +14,7 @@
 
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Represents an element's ancestory in descending order. For example, the
 // Id::kTrackNumber element has an ancestory of {Id::kSegment, Id::kTracks,
@@ -78,6 +78,5 @@ class Ancestory {
   const Id* end_ = nullptr;
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_ANCESTORY_H_

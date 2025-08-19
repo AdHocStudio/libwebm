@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-namespace webm {
+namespace adhoc::webm {
 
 // Counts the number of leading zero bits.
 // For example:
@@ -19,6 +19,5 @@ namespace webm {
 //   assert(0 == CountLeadingZeros(0xf0));
 std::uint8_t CountLeadingZeros(std::uint8_t value);
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_BIT_UTILS_H_

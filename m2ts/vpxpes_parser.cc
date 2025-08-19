@@ -15,7 +15,7 @@
 
 #include "common/file_util.h"
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 VpxPesParser::BcmvHeader::BcmvHeader(std::uint32_t len) : length(len) {
   id[0] = 'B';
@@ -38,12 +38,12 @@ bool VpxPesParser::BcmvHeader::Valid() const {
 // file, and one that reads one packet at a time. As things are files larger
 // than the maximum availble memory for the current process cannot be loaded.
 bool VpxPesParser::Open(const std::string& pes_file) {
-  pes_file_size_ = static_cast<size_t>(libwebm::GetFileSize(pes_file));
+  pes_file_size_ = static_cast<size_t>(adhoc::libwebm::GetFileSize(pes_file));
   if (pes_file_size_ <= 0)
     return false;
   pes_file_data_.reserve(static_cast<size_t>(pes_file_size_));
-  libwebm::FilePtr file = libwebm::FilePtr(std::fopen(pes_file.c_str(), "rb"),
-                                           libwebm::FILEDeleter());
+  adhoc::libwebm::FilePtr file = adhoc::libwebm::FilePtr(std::fopen(pes_file.c_str(), "rb"),
+                                           adhoc::libwebm::FILEDeleter());
   int byte;
   while ((byte = fgetc(file.get())) != EOF) {
     pes_file_data_.push_back(static_cast<std::uint8_t>(byte));
@@ -406,4 +406,4 @@ bool VpxPesParser::ParseNextPacket(PesHeader* header, VideoFrame* frame) {
   return true;
 }
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm

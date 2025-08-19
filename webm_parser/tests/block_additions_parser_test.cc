@@ -12,11 +12,11 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::BlockAdditions;
-using webm::BlockAdditionsParser;
-using webm::BlockMore;
-using webm::ElementParserTest;
-using webm::Id;
+using adhoc::webm::BlockAdditions;
+using adhoc::webm::BlockAdditionsParser;
+using adhoc::webm::BlockMore;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
 
 namespace {
 

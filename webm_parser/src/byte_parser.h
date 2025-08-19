@@ -20,7 +20,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Parses an EBML string (UTF-8 and ASCII) or binary element from a byte stream.
 // Spec reference for string/binary elements:
@@ -139,6 +139,5 @@ class ByteParser : public ElementParser {
 using StringParser = ByteParser<std::string>;
 using BinaryParser = ByteParser<std::vector<std::uint8_t>>;
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_BYTE_PARSER_H_

@@ -39,18 +39,18 @@ class Vp9HeaderParserTests : public ::testing::Test {
 
   void CreateAndLoadSegment(const std::string& filename,
                             int expected_doc_type_ver) {
-    filename_ = test::GetTestFilePath(filename);
+    filename_ = adhoc::test::GetTestFilePath(filename);
     ASSERT_EQ(0, reader_.Open(filename_.c_str()));
     is_reader_open_ = true;
     pos_ = 0;
-    mkvparser::EBMLHeader ebml_header;
+    adhoc::mkvparser::EBMLHeader ebml_header;
     ebml_header.Parse(&reader_, pos_);
     ASSERT_EQ(1, ebml_header.m_version);
     ASSERT_EQ(1, ebml_header.m_readVersion);
     ASSERT_STREQ("webm", ebml_header.m_docType);
     ASSERT_EQ(expected_doc_type_ver, ebml_header.m_docTypeVersion);
     ASSERT_EQ(2, ebml_header.m_docTypeReadVersion);
-    ASSERT_EQ(0, mkvparser::Segment::CreateInstance(&reader_, pos_, segment_));
+    ASSERT_EQ(0, adhoc::mkvparser::Segment::CreateInstance(&reader_, pos_, segment_));
     ASSERT_FALSE(HasFailure());
     ASSERT_GE(0, segment_->Load());
   }
@@ -61,44 +61,44 @@ class Vp9HeaderParserTests : public ::testing::Test {
 
   // Load a corrupted segment with no expectation of correctness.
   void CreateAndLoadInvalidSegment(const std::string& filename) {
-    filename_ = test::GetTestFilePath(filename);
+    filename_ = adhoc::test::GetTestFilePath(filename);
     ASSERT_EQ(0, reader_.Open(filename_.c_str()));
     is_reader_open_ = true;
     pos_ = 0;
-    mkvparser::EBMLHeader ebml_header;
+    adhoc::mkvparser::EBMLHeader ebml_header;
     ebml_header.Parse(&reader_, pos_);
-    ASSERT_EQ(0, mkvparser::Segment::CreateInstance(&reader_, pos_, segment_));
+    ASSERT_EQ(0, adhoc::mkvparser::Segment::CreateInstance(&reader_, pos_, segment_));
     ASSERT_GE(0, segment_->Load());
   }
 
   void ProcessTheFrames(bool invalid_bitstream) {
     unsigned char* data = NULL;
     size_t data_len = 0;
-    const mkvparser::Tracks* const parser_tracks = segment_->GetTracks();
+    const adhoc::mkvparser::Tracks* const parser_tracks = segment_->GetTracks();
     ASSERT_TRUE(parser_tracks != NULL);
-    const mkvparser::Cluster* cluster = segment_->GetFirst();
+    const adhoc::mkvparser::Cluster* cluster = segment_->GetFirst();
     ASSERT_TRUE(cluster != NULL);
 
     while ((cluster != NULL) && !cluster->EOS()) {
-      const mkvparser::BlockEntry* block_entry;
+      const adhoc::mkvparser::BlockEntry* block_entry;
       long status = cluster->GetFirst(block_entry);  // NOLINT
       ASSERT_EQ(0, status);
 
       while ((block_entry != NULL) && !block_entry->EOS()) {
-        const mkvparser::Block* const block = block_entry->GetBlock();
+        const adhoc::mkvparser::Block* const block = block_entry->GetBlock();
         ASSERT_TRUE(block != NULL);
         const long long trackNum = block->GetTrackNumber();  // NOLINT
-        const mkvparser::Track* const parser_track =
+        const adhoc::mkvparser::Track* const parser_track =
             parser_tracks->GetTrackByNumber(
                 static_cast<unsigned long>(trackNum));  // NOLINT
         ASSERT_TRUE(parser_track != NULL);
         const long long track_type = parser_track->GetType();  // NOLINT
 
-        if (track_type == mkvparser::Track::kVideo) {
+        if (track_type == adhoc::mkvparser::Track::kVideo) {
           const int frame_count = block->GetFrameCount();
 
           for (int i = 0; i < frame_count; ++i) {
-            const mkvparser::Block::Frame& frame = block->GetFrame(i);
+            const adhoc::mkvparser::Block::Frame& frame = block->GetFrame(i);
 
             if (static_cast<size_t>(frame.len) > data_len) {
               delete[] data;
@@ -122,12 +122,12 @@ class Vp9HeaderParserTests : public ::testing::Test {
   }
 
  protected:
-  mkvparser::MkvReader reader_;
+  adhoc::mkvparser::MkvReader reader_;
   bool is_reader_open_;
-  mkvparser::Segment* segment_;
+  adhoc::mkvparser::Segment* segment_;
   std::string filename_;
   long long pos_;  // NOLINT
-  vp9_parser::Vp9HeaderParser parser_;
+  adhoc::vp9_parser::Vp9HeaderParser parser_;
 };
 
 TEST_F(Vp9HeaderParserTests, VideoOnlyFile) {
@@ -166,7 +166,7 @@ TEST_F(Vp9HeaderParserTests, Invalid) {
 }
 
 TEST_F(Vp9HeaderParserTests, API) {
-  vp9_parser::Vp9HeaderParser parser;
+  adhoc::vp9_parser::Vp9HeaderParser parser;
   uint8_t data;
   EXPECT_FALSE(parser.ParseUncompressedHeader(NULL, 0));
   EXPECT_FALSE(parser.ParseUncompressedHeader(NULL, 10));

@@ -14,7 +14,7 @@
 
 #include "mkvmuxer/mkvmuxertypes.h"  // LIBWEBM_DISALLOW_COPY_AND_ASSIGN()
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 // Returns a temporary file name.
 std::string GetTempFileName();
@@ -39,6 +39,6 @@ class TempFileDeleter {
   LIBWEBM_DISALLOW_COPY_AND_ASSIGN(TempFileDeleter);
 };
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm
 
 #endif  // LIBWEBM_COMMON_FILE_UTIL_H_

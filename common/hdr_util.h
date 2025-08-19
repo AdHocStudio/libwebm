@@ -14,13 +14,13 @@
 
 #include "mkvmuxer/mkvmuxer.h"
 
-namespace mkvparser {
+namespace adhoc::mkvparser {
 struct Colour;
 struct MasteringMetadata;
 struct PrimaryChromaticity;
-}  // namespace mkvparser
+}  // namespace adhoc::mkvparser
 
-namespace libwebm {
+namespace adhoc::libwebm {
 // Utility types and functions for working with the Colour element and its
 // children. Copiers return true upon success. Presence functions return true
 // when the specified element is present.
@@ -47,20 +47,20 @@ struct Vp9CodecFeatures {
   int chroma_subsampling;
 };
 
-typedef std::unique_ptr<mkvmuxer::PrimaryChromaticity> PrimaryChromaticityPtr;
+typedef std::unique_ptr<adhoc::mkvmuxer::PrimaryChromaticity> PrimaryChromaticityPtr;
 
-bool CopyPrimaryChromaticity(const mkvparser::PrimaryChromaticity& parser_pc,
+bool CopyPrimaryChromaticity(const adhoc::mkvparser::PrimaryChromaticity& parser_pc,
                              PrimaryChromaticityPtr* muxer_pc);
 
 bool MasteringMetadataValuePresent(double value);
 
-bool CopyMasteringMetadata(const mkvparser::MasteringMetadata& parser_mm,
-                           mkvmuxer::MasteringMetadata* muxer_mm);
+bool CopyMasteringMetadata(const adhoc::mkvparser::MasteringMetadata& parser_mm,
+                           adhoc::mkvmuxer::MasteringMetadata* muxer_mm);
 
 bool ColourValuePresent(long long value);
 
-bool CopyColour(const mkvparser::Colour& parser_colour,
-                mkvmuxer::Colour* muxer_colour);
+bool CopyColour(const adhoc::mkvparser::Colour& parser_colour,
+                adhoc::mkvmuxer::Colour* muxer_colour);
 
 // Returns true if |features| is set to one or more valid values.
 bool ParseVpxCodecPrivate(const uint8_t* private_data, int32_t length,

@@ -13,7 +13,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // An implementation of Callback that skips all elements. Every method that
 // yields an action will yield Action::kSkip, and Reader::Skip will be called
@@ -58,6 +58,5 @@ class SkipCallback : public Callback {
   }
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_SKIP_CALLBACK_H_

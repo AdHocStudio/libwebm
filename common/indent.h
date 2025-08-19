@@ -15,7 +15,7 @@
 
 #include "mkvmuxer/mkvmuxertypes.h"
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 const int kIncreaseIndent = 2;
 const int kDecreaseIndent = -2;
@@ -43,6 +43,6 @@ class Indent {
   LIBWEBM_DISALLOW_COPY_AND_ASSIGN(Indent);
 };
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm
 
 #endif  // LIBWEBM_COMMON_INDENT_H_

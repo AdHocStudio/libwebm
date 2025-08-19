@@ -12,9 +12,9 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/buffer_reader.h"
 
-using webm::ElementParserTest;
-using webm::Id;
-using webm::SeekHeadParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::SeekHeadParser;
 
 namespace {
 

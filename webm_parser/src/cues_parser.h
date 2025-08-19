@@ -12,7 +12,7 @@
 #include "src/master_parser.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Cues
@@ -22,6 +22,5 @@ class CuesParser : public MasterParser {
   CuesParser() : MasterParser(MakeChild<CuePointParser>(Id::kCuePoint)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_CUES_PARSER_H_

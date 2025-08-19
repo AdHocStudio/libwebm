@@ -14,7 +14,7 @@
 #include "common/libwebm_util.h"
 #include "m2ts/webm2pes.h"
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 class VpxPes2Ts : public PacketReceiverInterface {
  public:
@@ -40,6 +40,5 @@ class VpxPes2Ts : public PacketReceiverInterface {
   PacketDataBuffer ts_buffer_;
 };
 
-}  // namespace libwebm
-
+}  // namespace adhoc::libwebm
 #endif  // LIBWEBM_M2TS_VPXPES2TS_H_

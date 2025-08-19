@@ -12,11 +12,11 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::ContentEncoding;
-using webm::ContentEncodings;
-using webm::ContentEncodingsParser;
-using webm::ElementParserTest;
-using webm::Id;
+using adhoc::webm::ContentEncoding;
+using adhoc::webm::ContentEncodings;
+using adhoc::webm::ContentEncodingsParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
 
 namespace {
 

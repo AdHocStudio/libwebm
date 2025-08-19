@@ -15,7 +15,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // https://github.com/google/spatial-media/blob/master/docs/spherical-video-v2-rfc.md#projection-master-element
@@ -35,6 +35,5 @@ class ProjectionParser : public MasterValueParser<Projection> {
                                    &Projection::pose_roll)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_PROJECTION_PARSER_H_

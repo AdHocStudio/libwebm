@@ -21,11 +21,10 @@
 // For a description of the WebM elements see
 // http://www.webmproject.org/code/specs/container/.
 
-namespace mkvparser {
+namespace adhoc::mkvparser {
 class IMkvReader;
-}  // namespace mkvparser
-
-namespace mkvmuxer {
+}  // namespace adhoc::mkvparser
+namespace adhoc::mkvmuxer {
 
 class MkvWriter;
 class Segment;
@@ -79,7 +78,7 @@ bool WriteEbmlHeader(IMkvWriter* writer, uint64_t doc_type_version);
 bool WriteEbmlHeader(IMkvWriter* writer);
 
 // Copies in Chunk from source to destination between the given byte positions
-bool ChunkedCopy(mkvparser::IMkvReader* source, IMkvWriter* dst, int64_t start,
+bool ChunkedCopy(adhoc::mkvparser::IMkvReader* source, IMkvWriter* dst, int64_t start,
                  int64_t size);
 
 ///////////////////////////////////////////////////////////////
@@ -364,11 +363,11 @@ class PrimaryChromaticity {
   ~PrimaryChromaticity() {}
 
   // Returns sum of |x_id| and |y_id| element id sizes and payload sizes.
-  uint64_t PrimaryChromaticitySize(libwebm::MkvId x_id,
-                                   libwebm::MkvId y_id) const;
+  uint64_t PrimaryChromaticitySize(adhoc::libwebm::MkvId x_id,
+                                   adhoc::libwebm::MkvId y_id) const;
   bool Valid() const;
-  bool Write(IMkvWriter* writer, libwebm::MkvId x_id,
-             libwebm::MkvId y_id) const;
+  bool Write(IMkvWriter* writer, adhoc::libwebm::MkvId x_id,
+             adhoc::libwebm::MkvId y_id) const;
 
   float x() const { return x_; }
   void set_x(float new_x) { x_ = new_x; }
@@ -1630,7 +1629,7 @@ class Segment {
   // writer - an IMkvWriter object pointing to a *different* file than the one
   //          pointed by the current writer object. This file will contain the
   //          Cues element before the Clusters.
-  bool CopyAndMoveCuesBeforeClusters(mkvparser::IMkvReader* reader,
+  bool CopyAndMoveCuesBeforeClusters(adhoc::mkvparser::IMkvReader* reader,
                                      IMkvWriter* writer);
 
   // Sets which track to use for the Cues element. Must have added the track
@@ -1919,6 +1918,5 @@ class Segment {
   LIBWEBM_DISALLOW_COPY_AND_ASSIGN(Segment);
 };
 
-}  // namespace mkvmuxer
-
+}  // namespace adhoc::mkvmuxer
 #endif  // MKVMUXER_MKVMUXER_H_

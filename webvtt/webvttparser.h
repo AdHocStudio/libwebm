@@ -12,7 +12,7 @@
 #include <list>
 #include <string>
 
-namespace libwebvtt {
+namespace adhoc::libwebvtt {
 
 class Reader {
  public:

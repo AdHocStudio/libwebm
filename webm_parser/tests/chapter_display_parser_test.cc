@@ -12,10 +12,10 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::ChapterDisplay;
-using webm::ChapterDisplayParser;
-using webm::ElementParserTest;
-using webm::Id;
+using adhoc::webm::ChapterDisplay;
+using adhoc::webm::ChapterDisplayParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
 
 namespace {
 

@@ -12,7 +12,7 @@
 
 #include <string>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 Indent::Indent(int indent) : indent_(indent), indent_str_() { Update(); }
 
@@ -26,4 +26,4 @@ void Indent::Adjust(int indent) {
 
 void Indent::Update() { indent_str_ = std::string(indent_, ' '); }
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm

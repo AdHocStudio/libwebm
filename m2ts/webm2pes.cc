@@ -16,7 +16,7 @@
 
 #include "common/libwebm_util.h"
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 const std::size_t Webm2Pes::kMaxPayloadSize = 32768;
 
@@ -229,9 +229,9 @@ bool Webm2Pes::ConvertToFile() {
   }
 
   // Walk clusters in segment.
-  const mkvparser::Cluster* cluster = webm_parser_->GetFirst();
+  const adhoc::mkvparser::Cluster* cluster = webm_parser_->GetFirst();
   while (cluster != nullptr && cluster->EOS() == false) {
-    const mkvparser::BlockEntry* block_entry = nullptr;
+    const adhoc::mkvparser::BlockEntry* block_entry = nullptr;
     std::int64_t block_status = cluster->GetFirst(block_entry);
     if (block_status < 0) {
       std::fprintf(stderr, "Webm2Pes: Cannot parse first block in %s.\n",
@@ -241,13 +241,13 @@ bool Webm2Pes::ConvertToFile() {
 
     // Walk blocks in cluster.
     while (block_entry != nullptr && block_entry->EOS() == false) {
-      const mkvparser::Block* block = block_entry->GetBlock();
+      const adhoc::mkvparser::Block* block = block_entry->GetBlock();
       if (block->GetTrackNumber() == video_track_num_) {
         const int frame_count = block->GetFrameCount();
 
         // Walk frames in block.
         for (int frame_num = 0; frame_num < frame_count; ++frame_num) {
-          const mkvparser::Block::Frame& mkvparser_frame =
+          const adhoc::mkvparser::Block::Frame& mkvparser_frame =
               block->GetFrame(frame_num);
 
           // Read the frame.
@@ -299,9 +299,9 @@ bool Webm2Pes::ConvertToPacketReceiver() {
   }
 
   // Walk clusters in segment.
-  const mkvparser::Cluster* cluster = webm_parser_->GetFirst();
+  const adhoc::mkvparser::Cluster* cluster = webm_parser_->GetFirst();
   while (cluster != nullptr && cluster->EOS() == false) {
-    const mkvparser::BlockEntry* block_entry = nullptr;
+    const adhoc::mkvparser::BlockEntry* block_entry = nullptr;
     std::int64_t block_status = cluster->GetFirst(block_entry);
     if (block_status < 0) {
       std::fprintf(stderr, "Webm2Pes: Cannot parse first block in %s.\n",
@@ -311,13 +311,13 @@ bool Webm2Pes::ConvertToPacketReceiver() {
 
     // Walk blocks in cluster.
     while (block_entry != nullptr && block_entry->EOS() == false) {
-      const mkvparser::Block* block = block_entry->GetBlock();
+      const adhoc::mkvparser::Block* block = block_entry->GetBlock();
       if (block->GetTrackNumber() == video_track_num_) {
         const int frame_count = block->GetFrameCount();
 
         // Walk frames in block.
         for (int frame_num = 0; frame_num < frame_count; ++frame_num) {
-          const mkvparser::Block::Frame& mkvparser_frame =
+          const adhoc::mkvparser::Block::Frame& mkvparser_frame =
               block->GetFrame(frame_num);
 
           // Read the frame.
@@ -360,7 +360,7 @@ bool Webm2Pes::InitWebmParser() {
     return false;
   }
 
-  using mkvparser::Segment;
+  using adhoc::mkvparser::Segment;
   Segment* webm_parser = nullptr;
   if (Segment::CreateInstance(&webm_reader_, 0 /* pos */,
                               webm_parser /* Segment*& */) != 0) {
@@ -376,7 +376,7 @@ bool Webm2Pes::InitWebmParser() {
   }
 
   // Make sure there's a video track.
-  const mkvparser::Tracks* tracks = webm_parser_->GetTracks();
+  const adhoc::mkvparser::Tracks* tracks = webm_parser_->GetTracks();
   if (tracks == nullptr) {
     std::fprintf(stderr, "Webm2Pes: %s has no tracks.\n",
                  input_file_name_.c_str());
@@ -388,8 +388,8 @@ bool Webm2Pes::InitWebmParser() {
   for (int track_index = 0;
        track_index < static_cast<int>(tracks->GetTracksCount());
        ++track_index) {
-    const mkvparser::Track* track = tracks->GetTrackByIndex(track_index);
-    if (track && track->GetType() == mkvparser::Track::kVideo) {
+    const adhoc::mkvparser::Track* track = tracks->GetTrackByIndex(track_index);
+    if (track && track->GetType() == adhoc::mkvparser::Track::kVideo) {
       const std::string codec_id = ToString(track->GetCodecId());
       if (codec_id == std::string("V_VP8")) {
         codec_ = VideoFrame::kVP8;
@@ -411,7 +411,7 @@ bool Webm2Pes::InitWebmParser() {
   return true;
 }
 
-bool Webm2Pes::ReadVideoFrame(const mkvparser::Block::Frame& mkvparser_frame,
+bool Webm2Pes::ReadVideoFrame(const adhoc::mkvparser::Block::Frame& mkvparser_frame,
                               VideoFrame* frame) {
   if (mkvparser_frame.len < 1 || frame == nullptr)
     return false;
@@ -548,4 +548,4 @@ bool CopyAndEscapeStartCodes(const std::uint8_t* raw_input,
   return true;
 }
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm

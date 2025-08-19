@@ -13,12 +13,12 @@
 #include "webm/id.h"
 #include "webm/status.h"
 
-using webm::ElementParserTest;
-using webm::Id;
-using webm::kUnknownElementSize;
-using webm::Status;
-using webm::VirtualBlock;
-using webm::VirtualBlockParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Status;
+using adhoc::webm::VirtualBlock;
+using adhoc::webm::VirtualBlockParser;
 
 namespace {
 

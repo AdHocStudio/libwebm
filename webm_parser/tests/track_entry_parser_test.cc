@@ -15,16 +15,16 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::Audio;
-using webm::ContentEncoding;
-using webm::ContentEncodings;
-using webm::DisplayUnit;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::TrackEntry;
-using webm::TrackEntryParser;
-using webm::TrackType;
-using webm::Video;
+using adhoc::webm::Audio;
+using adhoc::webm::ContentEncoding;
+using adhoc::webm::ContentEncodings;
+using adhoc::webm::DisplayUnit;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::TrackEntry;
+using adhoc::webm::TrackEntryParser;
+using adhoc::webm::TrackType;
+using adhoc::webm::Video;
 
 namespace {
 

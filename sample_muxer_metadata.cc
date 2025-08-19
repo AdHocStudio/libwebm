@@ -19,7 +19,7 @@
 
 SampleMuxerMetadata::SampleMuxerMetadata() : segment_(NULL) {}
 
-bool SampleMuxerMetadata::Init(mkvmuxer::Segment* segment) {
+bool SampleMuxerMetadata::Init(adhoc::mkvmuxer::Segment* segment) {
   if (segment == NULL || segment_ != NULL)
     return false;
 
@@ -101,7 +101,7 @@ bool SampleMuxerMetadata::ParseChapters(const char* file,
   cue_list_t& cues = *cues_ptr;
   cues.clear();
 
-  libwebvtt::VttReader r;
+  adhoc::libwebvtt::VttReader r;
   int e = r.Open(file);
 
   if (e) {
@@ -109,7 +109,7 @@ bool SampleMuxerMetadata::ParseChapters(const char* file,
     return false;
   }
 
-  libwebvtt::Parser p(&r);
+  adhoc::libwebvtt::Parser p(&r);
   e = p.Init();
 
   if (e < 0) {  // error
@@ -117,7 +117,7 @@ bool SampleMuxerMetadata::ParseChapters(const char* file,
     return false;
   }
 
-  libwebvtt::Time t;
+  adhoc::libwebvtt::Time t;
   t.hours = -1;
 
   for (;;) {
@@ -150,7 +150,7 @@ bool SampleMuxerMetadata::ParseChapters(const char* file,
 bool SampleMuxerMetadata::AddChapter(const cue_t& cue) {
   // TODO(matthewjheaney): support language and country
 
-  mkvmuxer::Chapter* const chapter = segment_->AddChapter();
+  adhoc::mkvmuxer::Chapter* const chapter = segment_->AddChapter();
 
   if (chapter == NULL) {
     printf("Unable to add chapter\n");
@@ -167,7 +167,7 @@ bool SampleMuxerMetadata::AddChapter(const cue_t& cue) {
     }
   }
 
-  typedef libwebvtt::presentation_t time_ms_t;
+  typedef adhoc::libwebvtt::presentation_t time_ms_t;
   const time_ms_t start_time_ms = cue.start_time.presentation();
   const time_ms_t stop_time_ms = cue.stop_time.presentation();
 
@@ -177,7 +177,7 @@ bool SampleMuxerMetadata::AddChapter(const cue_t& cue) {
 
   chapter->set_time(*segment_, start_time_ns, stop_time_ns);
 
-  typedef libwebvtt::Cue::payload_t::const_iterator iter_t;
+  typedef adhoc::libwebvtt::Cue::payload_t::const_iterator iter_t;
   iter_t i = cue.payload.begin();
   const iter_t j = cue.payload.end();
 
@@ -205,7 +205,7 @@ bool SampleMuxerMetadata::AddTrack(Kind kind, uint64_t* track_num) {
   *track_num = 0;
 
   // Track number value 0 means "let muxer choose track number"
-  mkvmuxer::Track* const track = segment_->AddTrack(0);
+  adhoc::mkvmuxer::Track* const track = segment_->AddTrack(0);
 
   if (track == NULL)  // error
     return false;
@@ -251,7 +251,7 @@ bool SampleMuxerMetadata::AddTrack(Kind kind, uint64_t* track_num) {
 
 bool SampleMuxerMetadata::Parse(const char* file, Kind /* kind */,
                                 uint64_t track_num) {
-  libwebvtt::VttReader r;
+  adhoc::libwebvtt::VttReader r;
   int e = r.Open(file);
 
   if (e) {
@@ -259,7 +259,7 @@ bool SampleMuxerMetadata::Parse(const char* file, Kind /* kind */,
     return false;
   }
 
-  libwebvtt::Parser p(&r);
+  adhoc::libwebvtt::Parser p(&r);
 
   e = p.Init();
 
@@ -271,7 +271,7 @@ bool SampleMuxerMetadata::Parse(const char* file, Kind /* kind */,
   SortableCue cue;
   cue.track_num = track_num;
 
-  libwebvtt::Time t;
+  adhoc::libwebvtt::Time t;
   t.hours = -1;
 
   for (;;) {
@@ -328,7 +328,7 @@ void SampleMuxerMetadata::WriteCueSettings(const cue_t::settings_t& settings,
   const iter_t j = settings.end();
 
   for (;;) {
-    const libwebvtt::Setting& setting = *i++;
+    const adhoc::libwebvtt::Setting& setting = *i++;
 
     pf->append(setting.name);
     pf->push_back(':');
@@ -357,7 +357,7 @@ void SampleMuxerMetadata::WriteCuePayload(const cue_t::payload_t& payload,
   }
 }
 
-bool SampleMuxerMetadata::SortableCue::Write(mkvmuxer::Segment* segment) const {
+bool SampleMuxerMetadata::SortableCue::Write(adhoc::mkvmuxer::Segment* segment) const {
   // Cue start time expressed in milliseconds
   const int64_t start_ms = cue.start_time.presentation();
 
@@ -380,7 +380,7 @@ bool SampleMuxerMetadata::SortableCue::Write(mkvmuxer::Segment* segment) const {
   const data_t buf = reinterpret_cast<data_t>(frame.data());
   const uint64_t len = frame.length();
 
-  mkvmuxer::Frame muxer_frame;
+  adhoc::mkvmuxer::Frame muxer_frame;
   if (!muxer_frame.Init(buf, len))
     return 0;
   muxer_frame.set_track_number(track_num);
