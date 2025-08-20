@@ -9,7 +9,7 @@
 
 #include "gtest/gtest.h"
 
-using webm::CountLeadingZeros;
+using adhoc::webm::CountLeadingZeros;
 
 namespace {
 

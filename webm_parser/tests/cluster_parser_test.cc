@@ -21,16 +21,16 @@ using testing::NotNull;
 using testing::Return;
 using testing::SetArgPointee;
 
-using webm::Action;
-using webm::Ancestory;
-using webm::BlockGroup;
-using webm::Cluster;
-using webm::ClusterParser;
-using webm::ElementMetadata;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::SimpleBlock;
-using webm::Status;
+using adhoc::webm::Action;
+using adhoc::webm::Ancestory;
+using adhoc::webm::BlockGroup;
+using adhoc::webm::Cluster;
+using adhoc::webm::ClusterParser;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::SimpleBlock;
+using adhoc::webm::Status;
 
 namespace {
 

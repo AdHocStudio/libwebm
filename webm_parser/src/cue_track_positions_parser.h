@@ -13,7 +13,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#CueTrackPositions
@@ -34,6 +34,5 @@ class CueTrackPositionsParser : public MasterValueParser<CueTrackPositions> {
                                          &CueTrackPositions::block_number)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_CUE_TRACK_POSITIONS_PARSER_H_

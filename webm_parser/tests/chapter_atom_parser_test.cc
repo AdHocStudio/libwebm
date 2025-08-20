@@ -13,12 +13,12 @@
 #include "webm/id.h"
 #include "webm/status.h"
 
-using webm::ChapterAtom;
-using webm::ChapterAtomParser;
-using webm::ChapterDisplay;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::Status;
+using adhoc::webm::ChapterAtom;
+using adhoc::webm::ChapterAtomParser;
+using adhoc::webm::ChapterDisplay;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::Status;
 
 namespace {
 

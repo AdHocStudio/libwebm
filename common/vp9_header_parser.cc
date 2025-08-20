@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-namespace vp9_parser {
+namespace adhoc::vp9_parser {
 
 bool Vp9HeaderParser::SetFrame(const uint8_t* frame, size_t length) {
   if (!frame || length == 0)

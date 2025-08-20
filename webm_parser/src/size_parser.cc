@@ -17,7 +17,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec references:
 // http://matroska.org/technical/specs/index.html#EBML_ex
@@ -53,4 +53,4 @@ std::uint64_t SizeParser::size() const {
   return uint_parser_.value();
 }
 
-}  // namespace webm
+}  // namespace adhoc::webm

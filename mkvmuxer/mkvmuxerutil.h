@@ -12,14 +12,14 @@
 
 #include "stdint.h"
 
-namespace mkvmuxer {
+namespace adhoc::mkvmuxer {
 class Cluster;
 class Frame;
 class IMkvWriter;
 
-// TODO(tomfinegan): mkvmuxer:: integer types continue to be used here because
+// TODO(tomfinegan): adhoc::mkvmuxer:: integer types continue to be used here because
 // changing them causes pain for downstream projects. It would be nice if a
-// solution that allows removal of the mkvmuxer:: integer types while avoiding
+// solution that allows removal of the adhoc::mkvmuxer:: integer types while avoiding
 // pain for downstream users of libwebm. Considering that mkvmuxerutil.{cc,h}
 // are really, for the great majority of cases, EBML size calculation and writer
 // functions, perhaps a more EBML focused utility would be the way to go as a
@@ -110,6 +110,5 @@ bool IsColourRangeValueValid(uint64_t value);
 bool IsTransferCharacteristicsValueValid(uint64_t value);
 bool IsPrimariesValueValid(uint64_t value);
 
-}  // namespace mkvmuxer
-
+}  // namespace adhoc::mkvmuxer
 #endif  // MKVMUXER_MKVMUXERUTIL_H_

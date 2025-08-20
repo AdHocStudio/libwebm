@@ -13,11 +13,11 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::CuePoint;
-using webm::CuePointParser;
-using webm::CueTrackPositions;
-using webm::ElementParserTest;
-using webm::Id;
+using adhoc::webm::CuePoint;
+using adhoc::webm::CuePointParser;
+using adhoc::webm::CueTrackPositions;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
 
 namespace {
 

@@ -12,11 +12,11 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/status.h"
 
-using webm::BinaryParser;
-using webm::ElementParserTest;
-using webm::kUnknownElementSize;
-using webm::Status;
-using webm::StringParser;
+using adhoc::webm::BinaryParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Status;
+using adhoc::webm::StringParser;
 
 namespace {
 

@@ -13,7 +13,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://www.webmproject.org/docs/webm-encryption/#42-new-matroskawebm-elements
@@ -27,6 +27,5 @@ class ContentEncAesSettingsParser
                 &ContentEncAesSettings::aes_settings_cipher_mode)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_CONTENT_ENC_AES_SETTINGS_PARSER_H_

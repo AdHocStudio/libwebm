@@ -23,7 +23,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Video
@@ -117,6 +117,5 @@ class VideoParser : public MasterValueParser<Video> {
   }
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_VIDEO_PARSER_H_

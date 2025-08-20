@@ -17,7 +17,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Parses an EBML float from a byte stream.
 class FloatParser : public ElementParser {
@@ -60,6 +60,5 @@ class FloatParser : public ElementParser {
   bool use_32_bits_;
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_FLOAT_PARSER_H_

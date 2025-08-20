@@ -12,11 +12,11 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::AesSettingsCipherMode;
-using webm::ContentEncAesSettings;
-using webm::ContentEncAesSettingsParser;
-using webm::ElementParserTest;
-using webm::Id;
+using adhoc::webm::AesSettingsCipherMode;
+using adhoc::webm::ContentEncAesSettings;
+using adhoc::webm::ContentEncAesSettingsParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
 
 namespace {
 

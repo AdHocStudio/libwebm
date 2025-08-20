@@ -12,7 +12,7 @@
 
 #include "gtest/gtest.h"
 
-using webm::Element;
+using adhoc::webm::Element;
 
 namespace {
 

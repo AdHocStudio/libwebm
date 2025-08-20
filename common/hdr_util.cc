@@ -13,24 +13,24 @@
 
 #include "mkvparser/mkvparser.h"
 
-namespace libwebm {
+namespace adhoc::libwebm {
 const int Vp9CodecFeatures::kValueNotPresent = INT_MAX;
 
-bool CopyPrimaryChromaticity(const mkvparser::PrimaryChromaticity& parser_pc,
+bool CopyPrimaryChromaticity(const adhoc::mkvparser::PrimaryChromaticity& parser_pc,
                              PrimaryChromaticityPtr* muxer_pc) {
   muxer_pc->reset(new (std::nothrow)
-                      mkvmuxer::PrimaryChromaticity(parser_pc.x, parser_pc.y));
+                      adhoc::mkvmuxer::PrimaryChromaticity(parser_pc.x, parser_pc.y));
   if (!muxer_pc->get())
     return false;
   return true;
 }
 
 bool MasteringMetadataValuePresent(double value) {
-  return value != mkvparser::MasteringMetadata::kValueNotPresent;
+  return value != adhoc::mkvparser::MasteringMetadata::kValueNotPresent;
 }
 
-bool CopyMasteringMetadata(const mkvparser::MasteringMetadata& parser_mm,
-                           mkvmuxer::MasteringMetadata* muxer_mm) {
+bool CopyMasteringMetadata(const adhoc::mkvparser::MasteringMetadata& parser_mm,
+                           adhoc::mkvmuxer::MasteringMetadata* muxer_mm) {
   if (MasteringMetadataValuePresent(parser_mm.luminance_max))
     muxer_mm->set_luminance_max(parser_mm.luminance_max);
   if (MasteringMetadataValuePresent(parser_mm.luminance_min))
@@ -67,11 +67,11 @@ bool CopyMasteringMetadata(const mkvparser::MasteringMetadata& parser_mm,
 }
 
 bool ColourValuePresent(long long value) {
-  return value != mkvparser::Colour::kValueNotPresent;
+  return value != adhoc::mkvparser::Colour::kValueNotPresent;
 }
 
-bool CopyColour(const mkvparser::Colour& parser_colour,
-                mkvmuxer::Colour* muxer_colour) {
+bool CopyColour(const adhoc::mkvparser::Colour& parser_colour,
+                adhoc::mkvmuxer::Colour* muxer_colour) {
   if (!muxer_colour)
     return false;
 
@@ -109,7 +109,7 @@ bool CopyColour(const mkvparser::Colour& parser_colour,
     muxer_colour->set_max_fall(parser_colour.max_fall);
 
   if (parser_colour.mastering_metadata) {
-    mkvmuxer::MasteringMetadata muxer_mm;
+    adhoc::mkvmuxer::MasteringMetadata muxer_mm;
     if (!CopyMasteringMetadata(*parser_colour.mastering_metadata, &muxer_mm))
       return false;
     if (!muxer_colour->SetMasteringMetadata(muxer_mm))
@@ -217,4 +217,4 @@ bool ParseVpxCodecPrivate(const uint8_t* private_data, int32_t length,
 
   return true;
 }
-}  // namespace libwebm
+}  // namespace adhoc::libwebm

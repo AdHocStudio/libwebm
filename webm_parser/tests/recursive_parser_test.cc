@@ -17,14 +17,14 @@
 #include "webm/element.h"
 #include "webm/status.h"
 
-using webm::Callback;
-using webm::ElementMetadata;
-using webm::ElementParser;
-using webm::ElementParserTest;
-using webm::Reader;
-using webm::RecursiveParser;
-using webm::Status;
-using webm::StringParser;
+using adhoc::webm::Callback;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::ElementParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Reader;
+using adhoc::webm::RecursiveParser;
+using adhoc::webm::Status;
+using adhoc::webm::StringParser;
 
 namespace {
 

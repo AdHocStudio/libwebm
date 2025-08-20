@@ -20,17 +20,17 @@ using testing::InSequence;
 using testing::NotNull;
 using testing::Return;
 
-using webm::BufferReader;
-using webm::Ebml;
-using webm::ElementMetadata;
-using webm::Id;
-using webm::Info;
-using webm::kUnknownElementPosition;
-using webm::kUnknownElementSize;
-using webm::kUnknownHeaderSize;
-using webm::MockCallback;
-using webm::Status;
-using webm::WebmParser;
+using adhoc::webm::BufferReader;
+using adhoc::webm::Ebml;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::Id;
+using adhoc::webm::Info;
+using adhoc::webm::kUnknownElementPosition;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::kUnknownHeaderSize;
+using adhoc::webm::MockCallback;
+using adhoc::webm::Status;
+using adhoc::webm::WebmParser;
 
 namespace {
 

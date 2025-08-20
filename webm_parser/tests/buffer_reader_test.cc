@@ -12,8 +12,8 @@
 
 #include "gtest/gtest.h"
 
-using webm::BufferReader;
-using webm::Status;
+using adhoc::webm::BufferReader;
+using adhoc::webm::Status;
 
 namespace {
 

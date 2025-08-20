@@ -24,17 +24,17 @@
 #include "mkvparser/mkvreader.h"
 #include "testing/test_util.h"
 
-using mkvmuxer::AudioTrack;
-using mkvmuxer::Chapter;
-using mkvmuxer::Frame;
-using mkvmuxer::MkvWriter;
-using mkvmuxer::Segment;
-using mkvmuxer::SegmentInfo;
-using mkvmuxer::Tag;
-using mkvmuxer::Track;
-using mkvmuxer::VideoTrack;
+using adhoc::mkvmuxer::AudioTrack;
+using adhoc::mkvmuxer::Chapter;
+using adhoc::mkvmuxer::Frame;
+using adhoc::mkvmuxer::MkvWriter;
+using adhoc::mkvmuxer::Segment;
+using adhoc::mkvmuxer::SegmentInfo;
+using adhoc::mkvmuxer::Tag;
+using adhoc::mkvmuxer::Track;
+using adhoc::mkvmuxer::VideoTrack;
 
-namespace test {
+namespace adhoc::test {
 
 // Base class containing boiler plate stuff.
 class MuxerTest : public testing::Test {
@@ -48,10 +48,10 @@ class MuxerTest : public testing::Test {
   // are fatal, but the ASSERT_* gtest macros cannot be used in a constructor.
   void Init() {
     ASSERT_TRUE(GetTestDataDir().length() > 0);
-    filename_ = libwebm::GetTempFileName();
+    filename_ = adhoc::libwebm::GetTempFileName();
     ASSERT_GT(filename_.length(), 0u);
-    temp_file_ = libwebm::FilePtr(std::fopen(filename_.c_str(), "wb"),
-                                  libwebm::FILEDeleter());
+    temp_file_ = adhoc::libwebm::FilePtr(std::fopen(filename_.c_str(), "wb"),
+                                  adhoc::libwebm::FILEDeleter());
     ASSERT_TRUE(temp_file_.get() != nullptr);
     writer_.reset(new MkvWriter(temp_file_.get()));
     is_writer_open_ = true;
@@ -107,14 +107,14 @@ class MuxerTest : public testing::Test {
  protected:
   virtual void TearDown() {
     remove(filename_.c_str());
-    testing::Test::TearDown();
+    testing::adhoc::test::TearDown();
   }
 
   std::unique_ptr<MkvWriter> writer_;
   bool is_writer_open_ = false;
   Segment segment_;
   std::string filename_;
-  libwebm::FilePtr temp_file_;
+  adhoc::libwebm::FilePtr temp_file_;
   std::uint8_t dummy_data_[kFrameLength];
 };
 
@@ -484,14 +484,14 @@ TEST_F(MuxerTest, CuesBeforeClusters) {
   segment_.Finalize();
   CloseWriter();
 #ifdef _MSC_VER
-  // Close the output file: the MS run time won't allow mkvparser::MkvReader
+  // Close the output file: the MS run time won't allow adhoc::mkvparser::MkvReader
   // to open a file for reading when it's still open for writing.
   temp_file_.reset();
 #endif
-  mkvparser::MkvReader reader;
+  adhoc::mkvparser::MkvReader reader;
   ASSERT_EQ(0, reader.Open(filename_.c_str()));
   MkvWriter cues_writer;
-  std::string cues_filename = libwebm::GetTempFileName();
+  std::string cues_filename = adhoc::libwebm::GetTempFileName();
   ASSERT_GT(cues_filename.length(), 0u);
   cues_writer.Open(cues_filename.c_str());
   EXPECT_TRUE(segment_.CopyAndMoveCuesBeforeClusters(&reader, &cues_writer));
@@ -794,25 +794,25 @@ TEST_F(MuxerTest, Colour) {
   EXPECT_TRUE(SegmentInit(false, false, false));
   AddVideoTrack();
 
-  mkvmuxer::PrimaryChromaticity muxer_pc(.1, .2);
-  mkvmuxer::MasteringMetadata muxer_mm;
+  adhoc::mkvmuxer::PrimaryChromaticity muxer_pc(.1, .2);
+  adhoc::mkvmuxer::MasteringMetadata muxer_mm;
   muxer_mm.set_luminance_min(30.0);
   muxer_mm.set_luminance_max(40.0);
   ASSERT_TRUE(
       muxer_mm.SetChromaticity(&muxer_pc, &muxer_pc, &muxer_pc, &muxer_pc));
 
-  mkvmuxer::Colour muxer_colour;
-  muxer_colour.set_matrix_coefficients(mkvmuxer::Colour::kGbr);
+  adhoc::mkvmuxer::Colour muxer_colour;
+  muxer_colour.set_matrix_coefficients(adhoc::mkvmuxer::Colour::kGbr);
   muxer_colour.set_bits_per_channel(1);
   muxer_colour.set_chroma_subsampling_horz(2);
   muxer_colour.set_chroma_subsampling_vert(3);
   muxer_colour.set_cb_subsampling_horz(4);
   muxer_colour.set_cb_subsampling_vert(5);
-  muxer_colour.set_chroma_siting_horz(mkvmuxer::Colour::kLeftCollocated);
-  muxer_colour.set_chroma_siting_vert(mkvmuxer::Colour::kTopCollocated);
-  muxer_colour.set_range(mkvmuxer::Colour::kFullRange);
-  muxer_colour.set_transfer_characteristics(mkvmuxer::Colour::kLog);
-  muxer_colour.set_primaries(mkvmuxer::Colour::kSmpteSt4281P);
+  muxer_colour.set_chroma_siting_horz(adhoc::mkvmuxer::Colour::kLeftCollocated);
+  muxer_colour.set_chroma_siting_vert(adhoc::mkvmuxer::Colour::kTopCollocated);
+  muxer_colour.set_range(adhoc::mkvmuxer::Colour::kFullRange);
+  muxer_colour.set_transfer_characteristics(adhoc::mkvmuxer::Colour::kLog);
+  muxer_colour.set_primaries(adhoc::mkvmuxer::Colour::kSmpteSt4281P);
   muxer_colour.set_max_cll(11);
   muxer_colour.set_max_fall(12);
   ASSERT_TRUE(muxer_colour.SetMasteringMetadata(muxer_mm));
@@ -826,10 +826,10 @@ TEST_F(MuxerTest, Colour) {
   MkvParser parser;
   ASSERT_TRUE(ParseMkvFileReleaseParser(filename_, &parser));
 
-  const mkvparser::VideoTrack* const parser_track =
-      static_cast<const mkvparser::VideoTrack*>(
+  const adhoc::mkvparser::VideoTrack* const parser_track =
+      static_cast<const adhoc::mkvparser::VideoTrack*>(
           parser.segment->GetTracks()->GetTrackByIndex(0));
-  const mkvparser::Colour* parser_colour = parser_track->GetColour();
+  const adhoc::mkvparser::Colour* parser_colour = parser_track->GetColour();
   ASSERT_TRUE(parser_colour != nullptr);
   EXPECT_EQ(static_cast<long long>(muxer_colour.matrix_coefficients()),
             parser_colour->matrix_coefficients);
@@ -857,7 +857,7 @@ TEST_F(MuxerTest, Colour) {
   EXPECT_EQ(static_cast<long long>(muxer_colour.max_fall()),
             parser_colour->max_fall);
 
-  const mkvparser::MasteringMetadata* const parser_mm =
+  const adhoc::mkvparser::MasteringMetadata* const parser_mm =
       parser_colour->mastering_metadata;
   ASSERT_TRUE(parser_mm != nullptr);
   EXPECT_FLOAT_EQ(muxer_mm.luminance_min(), parser_mm->luminance_min);
@@ -876,9 +876,9 @@ TEST_F(MuxerTest, Colour) {
 TEST_F(MuxerTest, ColourPartial) {
   EXPECT_TRUE(SegmentInit(false, false, false));
   AddVideoTrack();
-  mkvmuxer::Colour muxer_colour;
+  adhoc::mkvmuxer::Colour muxer_colour;
   muxer_colour.set_matrix_coefficients(
-      mkvmuxer::Colour::kBt2020NonConstantLuminance);
+      adhoc::mkvmuxer::Colour::kBt2020NonConstantLuminance);
 
   VideoTrack* const video_track =
       dynamic_cast<VideoTrack*>(segment_.GetTrackByNumber(kVideoTrackNumber));
@@ -889,10 +889,10 @@ TEST_F(MuxerTest, ColourPartial) {
   MkvParser parser;
   ASSERT_TRUE(ParseMkvFileReleaseParser(filename_, &parser));
 
-  const mkvparser::VideoTrack* const parser_track =
-      static_cast<const mkvparser::VideoTrack*>(
+  const adhoc::mkvparser::VideoTrack* const parser_track =
+      static_cast<const adhoc::mkvparser::VideoTrack*>(
           parser.segment->GetTracks()->GetTrackByIndex(0));
-  const mkvparser::Colour* parser_colour = parser_track->GetColour();
+  const adhoc::mkvparser::Colour* parser_colour = parser_track->GetColour();
   EXPECT_EQ(static_cast<long long>(muxer_colour.matrix_coefficients()),
             parser_colour->matrix_coefficients);
 }
@@ -901,8 +901,8 @@ TEST_F(MuxerTest, Projection) {
   EXPECT_TRUE(SegmentInit(false, false, false));
   AddVideoTrack();
 
-  mkvmuxer::Projection muxer_proj;
-  muxer_proj.set_type(mkvmuxer::Projection::kRectangular);
+  adhoc::mkvmuxer::Projection muxer_proj;
+  muxer_proj.set_type(adhoc::mkvmuxer::Projection::kRectangular);
   muxer_proj.set_pose_yaw(1);
   muxer_proj.set_pose_pitch(2);
   muxer_proj.set_pose_roll(3);
@@ -920,11 +920,11 @@ TEST_F(MuxerTest, Projection) {
   MkvParser parser;
   ASSERT_TRUE(ParseMkvFileReleaseParser(filename_, &parser));
 
-  const mkvparser::VideoTrack* const parser_track =
-      static_cast<const mkvparser::VideoTrack*>(
+  const adhoc::mkvparser::VideoTrack* const parser_track =
+      static_cast<const adhoc::mkvparser::VideoTrack*>(
           parser.segment->GetTracks()->GetTrackByIndex(0));
 
-  const mkvparser::Projection* const parser_proj =
+  const adhoc::mkvparser::Projection* const parser_proj =
       parser_track->GetProjection();
   ASSERT_TRUE(parser_proj != nullptr);
   EXPECT_FLOAT_EQ(muxer_proj.pose_yaw(), parser_proj->pose_yaw);
@@ -935,7 +935,7 @@ TEST_F(MuxerTest, Projection) {
             parser_proj->private_data_length);
 
   EXPECT_EQ(muxer_proj.private_data()[0], parser_proj->private_data[0]);
-  typedef mkvparser::Projection::ProjectionType ParserProjType;
+  typedef adhoc::mkvparser::Projection::ProjectionType ParserProjType;
   EXPECT_EQ(static_cast<ParserProjType>(muxer_proj.type()), parser_proj->type);
   EXPECT_TRUE(CompareFiles(GetTestFilePath("projection.webm"), filename_));
 }
@@ -1002,8 +1002,7 @@ TEST_F(MuxerTest, LongTagString) {
   EXPECT_TRUE(CompareFiles(GetTestFilePath("long_tag_string.webm"), filename_));
 }
 
-}  // namespace test
-
+}  // namespace adhoc::test
 int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

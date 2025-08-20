@@ -8,7 +8,7 @@
 
 #include "webvtt/vttreader.h"
 
-namespace libwebvtt {
+namespace adhoc::libwebvtt {
 
 VttReader::VttReader() : file_(NULL) {}
 

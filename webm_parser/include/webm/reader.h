@@ -18,7 +18,7 @@
  An interface that acts as a data source for the parser to read from.
  */
 
-namespace webm {
+namespace adhoc::webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -89,6 +89,5 @@ class Reader {
  @}
  */
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // INCLUDE_WEBM_READER_H_

@@ -14,7 +14,7 @@
 
 #include "common/vp9_header_parser.h"
 
-namespace vp9_parser {
+namespace adhoc::vp9_parser {
 
 const int kMaxVp9RefFrames = 8;
 

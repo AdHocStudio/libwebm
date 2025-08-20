@@ -18,7 +18,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // An adapter that uses an underlying reader to read data, but with added
 // limitations on how much data can be read/skipped. Its primary use is for

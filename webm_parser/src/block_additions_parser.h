@@ -13,7 +13,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#BlockAdditions
@@ -25,6 +25,5 @@ class BlockAdditionsParser : public MasterValueParser<BlockAdditions> {
             Id::kBlockMore, &BlockAdditions::block_mores)) {}
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_BLOCK_ADDITIONS_PARSER_H_

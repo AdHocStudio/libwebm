@@ -12,17 +12,17 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::AspectRatioType;
-using webm::Colour;
-using webm::DisplayUnit;
-using webm::ElementParserTest;
-using webm::FlagInterlaced;
-using webm::Id;
-using webm::Projection;
-using webm::ProjectionType;
-using webm::StereoMode;
-using webm::Video;
-using webm::VideoParser;
+using adhoc::webm::AspectRatioType;
+using adhoc::webm::Colour;
+using adhoc::webm::DisplayUnit;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::FlagInterlaced;
+using adhoc::webm::Id;
+using adhoc::webm::Projection;
+using adhoc::webm::ProjectionType;
+using adhoc::webm::StereoMode;
+using adhoc::webm::Video;
+using adhoc::webm::VideoParser;
 
 namespace {
 

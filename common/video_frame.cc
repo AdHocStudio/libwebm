@@ -9,7 +9,7 @@
 
 #include <cstdio>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 bool VideoFrame::Buffer::Init(std::size_t new_length) {
   capacity = 0;

@@ -14,7 +14,7 @@
 #include "mkvmuxer/mkvmuxer.h"
 #include "mkvmuxer/mkvmuxertypes.h"
 
-namespace mkvmuxer {
+namespace adhoc::mkvmuxer {
 
 // Default implementation of the IMkvWriter interface on Windows.
 class MkvWriter : public IMkvWriter {
@@ -46,6 +46,5 @@ class MkvWriter : public IMkvWriter {
   LIBWEBM_DISALLOW_COPY_AND_ASSIGN(MkvWriter);
 };
 
-}  // namespace mkvmuxer
-
+}  // namespace adhoc::mkvmuxer
 #endif  // MKVMUXER_MKVWRITER_H_

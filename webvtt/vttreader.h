@@ -12,9 +12,9 @@
 #include <cstdio>
 #include "./webvttparser.h"
 
-namespace libwebvtt {
+namespace adhoc::libwebvtt {
 
-class VttReader : public libwebvtt::Reader {
+class VttReader : public adhoc::libwebvtt::Reader {
  public:
   VttReader();
   virtual ~VttReader();

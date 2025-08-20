@@ -19,7 +19,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#BlockVirtual
@@ -64,6 +64,5 @@ class VirtualBlockParser : public ElementParser {
   } state_ = State::kReadingHeader;
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_VIRTUAL_BLOCK_PARSER_H_

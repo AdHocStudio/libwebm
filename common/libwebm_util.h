@@ -14,7 +14,7 @@
 #include <memory>
 #include <vector>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 const double kNanosecondsPerSecond = 1000000000.0;
 
@@ -60,6 +60,6 @@ bool WriteUint8(std::uint8_t val, std::FILE* fileptr);
 // is a nullptr.
 std::uint16_t ReadUint16(const std::uint8_t* buf);
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm
 
 #endif  // LIBWEBM_COMMON_LIBWEBM_UTIL_H_

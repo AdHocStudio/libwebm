@@ -20,7 +20,7 @@
 #include "mkvparser/mkvparser.h"
 #include "mkvparser/mkvreader.h"
 
-namespace test {
+namespace adhoc::test {
 
 std::string GetTestDataDir() {
   const char* test_data_path = std::getenv("LIBWEBM_TEST_DATA_PATH");
@@ -37,10 +37,10 @@ bool CompareFiles(const std::string& file1, const std::string& file2) {
   std::uint8_t buf1[kBlockSize] = {0};
   std::uint8_t buf2[kBlockSize] = {0};
 
-  libwebm::FilePtr f1 =
-      libwebm::FilePtr(std::fopen(file1.c_str(), "rb"), libwebm::FILEDeleter());
-  libwebm::FilePtr f2 =
-      libwebm::FilePtr(std::fopen(file2.c_str(), "rb"), libwebm::FILEDeleter());
+  adhoc::libwebm::FilePtr f1 =
+      adhoc::libwebm::FilePtr(std::fopen(file1.c_str(), "rb"), adhoc::libwebm::FILEDeleter());
+  adhoc::libwebm::FilePtr f2 =
+      adhoc::libwebm::FilePtr(std::fopen(file2.c_str(), "rb"), adhoc::libwebm::FILEDeleter());
 
   if (!f1.get() || !f2.get()) {
     // Files cannot match if one or both couldn't be opened.
@@ -60,12 +60,12 @@ bool CompareFiles(const std::string& file1, const std::string& file2) {
   return std::feof(f1.get()) && std::feof(f2.get());
 }
 
-bool HasCuePoints(const mkvparser::Segment* segment,
+bool HasCuePoints(const adhoc::mkvparser::Segment* segment,
                   std::int64_t* cues_offset) {
   if (!segment || !cues_offset) {
     return false;
   }
-  using mkvparser::SeekHead;
+  using adhoc::mkvparser::SeekHead;
   const SeekHead* const seek_head = segment->GetSeekHead();
   if (!seek_head) {
     return false;
@@ -74,7 +74,7 @@ bool HasCuePoints(const mkvparser::Segment* segment,
   std::int64_t offset = 0;
   for (int i = 0; i < seek_head->GetCount(); ++i) {
     const SeekHead::Entry* const entry = seek_head->GetEntry(i);
-    if (entry->id == libwebm::kMkvCues) {
+    if (entry->id == adhoc::libwebm::kMkvCues) {
       offset = entry->pos;
     }
   }
@@ -88,7 +88,7 @@ bool HasCuePoints(const mkvparser::Segment* segment,
   return true;
 }
 
-bool ValidateCues(mkvparser::Segment* segment, mkvparser::IMkvReader* reader) {
+bool ValidateCues(adhoc::mkvparser::Segment* segment, adhoc::mkvparser::IMkvReader* reader) {
   if (!segment) {
     return false;
   }
@@ -109,11 +109,11 @@ bool ValidateCues(mkvparser::Segment* segment, mkvparser::IMkvReader* reader) {
   // Get a pointer to the video track if it exists. Otherwise, we assume
   // that Cues are based on the first track (which is true for all our test
   // files).
-  const mkvparser::Tracks* const tracks = segment->GetTracks();
-  const mkvparser::Track* cues_track = tracks->GetTrackByIndex(0);
+  const adhoc::mkvparser::Tracks* const tracks = segment->GetTracks();
+  const adhoc::mkvparser::Track* cues_track = tracks->GetTrackByIndex(0);
   for (int i = 1; i < static_cast<int>(tracks->GetTracksCount()); ++i) {
-    const mkvparser::Track* const track = tracks->GetTrackByIndex(i);
-    if (track->GetType() == mkvparser::Track::kVideo) {
+    const adhoc::mkvparser::Track* const track = tracks->GetTrackByIndex(i);
+    if (track->GetType() == adhoc::mkvparser::Track::kVideo) {
       cues_track = track;
       break;
     }
@@ -121,15 +121,15 @@ bool ValidateCues(mkvparser::Segment* segment, mkvparser::IMkvReader* reader) {
 
   // Iterate through Cues and verify if they are pointing to the correct
   // Cluster position.
-  const mkvparser::Cues* const cues = segment->GetCues();
-  const mkvparser::CuePoint* cue_point = NULL;
+  const adhoc::mkvparser::Cues* const cues = segment->GetCues();
+  const adhoc::mkvparser::CuePoint* cue_point = NULL;
   while (cues->LoadCuePoint()) {
     if (!cue_point) {
       cue_point = cues->GetFirst();
     } else {
       cue_point = cues->GetNext(cue_point);
     }
-    const mkvparser::CuePoint::TrackPosition* const track_position =
+    const adhoc::mkvparser::CuePoint::TrackPosition* const track_position =
         cue_point->Find(cues_track);
     const long long cluster_pos = track_position->m_pos +  // NOLINT
                                   segment->m_start;
@@ -137,34 +137,34 @@ bool ValidateCues(mkvparser::Segment* segment, mkvparser::IMkvReader* reader) {
     // If a cluster does not begin at |cluster_pos|, then the file is
     // incorrect.
     long length;  // NOLINT
-    const std::int64_t id = mkvparser::ReadID(reader, cluster_pos, length);
-    if (id != libwebm::kMkvCluster) {
+    const std::int64_t id = adhoc::mkvparser::ReadID(reader, cluster_pos, length);
+    if (id != adhoc::libwebm::kMkvCluster) {
       return false;
     }
   }
   return true;
 }
 
-MkvParser::~MkvParser() {
+adhoc::mkvparser::~MkvParser() {
   delete segment;
   delete reader;
 }
 
 bool ParseMkvFileReleaseParser(const std::string& webm_file,
                                MkvParser* parser_out) {
-  parser_out->reader = new (std::nothrow) mkvparser::MkvReader;
-  mkvparser::MkvReader& reader = *parser_out->reader;
+  parser_out->reader = new (std::nothrow) adhoc::mkvparser::MkvReader;
+  adhoc::mkvparser::MkvReader& reader = *parser_out->reader;
   if (!parser_out->reader || reader.Open(webm_file.c_str()) < 0) {
     return false;
   }
 
   long long pos = 0;  // NOLINT
-  mkvparser::EBMLHeader ebml_header;
+  adhoc::mkvparser::EBMLHeader ebml_header;
   if (ebml_header.Parse(&reader, pos)) {
     return false;
   }
 
-  using mkvparser::Segment;
+  using adhoc::mkvparser::Segment;
   Segment* segment_ptr = nullptr;
   if (Segment::CreateInstance(&reader, pos, segment_ptr)) {
     return false;
@@ -176,7 +176,7 @@ bool ParseMkvFileReleaseParser(const std::string& webm_file,
     return false;
   }
 
-  const mkvparser::Cluster* cluster = segment->GetFirst();
+  const adhoc::mkvparser::Cluster* cluster = segment->GetFirst();
   if (!cluster || cluster->EOS()) {
     return false;
   }
@@ -186,7 +186,7 @@ bool ParseMkvFileReleaseParser(const std::string& webm_file,
       return false;
     }
 
-    const mkvparser::BlockEntry* block = nullptr;
+    const adhoc::mkvparser::BlockEntry* block = nullptr;
     if (cluster->GetFirst(block) < 0) {
       return false;
     }
@@ -212,4 +212,4 @@ bool ParseMkvFile(const std::string& webm_file) {
   return result;
 }
 
-}  // namespace test
+}  // namespace adhoc::test

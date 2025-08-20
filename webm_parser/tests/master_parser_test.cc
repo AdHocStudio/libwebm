@@ -27,16 +27,16 @@ using testing::NotNull;
 using testing::Return;
 using testing::SetArgPointee;
 
-using webm::Action;
-using webm::BinaryParser;
-using webm::ElementMetadata;
-using webm::ElementParser;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::kUnknownElementSize;
-using webm::LimitedReader;
-using webm::MasterParser;
-using webm::Status;
+using adhoc::webm::Action;
+using adhoc::webm::BinaryParser;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::ElementParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::LimitedReader;
+using adhoc::webm::MasterParser;
+using adhoc::webm::Status;
 
 namespace {
 

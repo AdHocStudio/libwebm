@@ -15,7 +15,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 class IdElementParser : public ElementParser {
  public:
@@ -51,6 +51,5 @@ class IdElementParser : public ElementParser {
   int num_bytes_remaining_ = -1;
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_ID_ELEMENT_PARSER_H_

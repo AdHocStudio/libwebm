@@ -25,7 +25,7 @@
 #include "mkvmuxer/mkvmuxer.h"
 #include "mkvmuxer/mkvwriter.h"
 
-namespace mkvmuxer {
+namespace adhoc::mkvmuxer {
 
 namespace {
 
@@ -42,19 +42,19 @@ uint64 WriteBlock(IMkvWriter* writer, const Frame* const frame, int64 timecode,
   uint64 block_additions_elem_size = 0;
   if (frame->additional()) {
     block_additional_elem_size =
-        EbmlElementSize(libwebm::kMkvBlockAdditional, frame->additional(),
+        EbmlElementSize(adhoc::libwebm::kMkvBlockAdditional, frame->additional(),
                         frame->additional_length());
     block_addid_elem_size = EbmlElementSize(
-        libwebm::kMkvBlockAddID, static_cast<uint64>(frame->add_id()));
+        adhoc::libwebm::kMkvBlockAddID, static_cast<uint64>(frame->add_id()));
 
     block_more_payload_size =
         block_addid_elem_size + block_additional_elem_size;
     block_more_elem_size =
-        EbmlMasterElementSize(libwebm::kMkvBlockMore, block_more_payload_size) +
+        EbmlMasterElementSize(adhoc::libwebm::kMkvBlockMore, block_more_payload_size) +
         block_more_payload_size;
     block_additions_payload_size = block_more_elem_size;
     block_additions_elem_size =
-        EbmlMasterElementSize(libwebm::kMkvBlockAdditions,
+        EbmlMasterElementSize(adhoc::libwebm::kMkvBlockAdditions,
                               block_additions_payload_size) +
         block_additions_payload_size;
   }
@@ -62,7 +62,7 @@ uint64 WriteBlock(IMkvWriter* writer, const Frame* const frame, int64 timecode,
   uint64 discard_padding_elem_size = 0;
   if (frame->discard_padding() != 0) {
     discard_padding_elem_size =
-        EbmlElementSize(libwebm::kMkvDiscardPadding,
+        EbmlElementSize(adhoc::libwebm::kMkvDiscardPadding,
                         static_cast<int64>(frame->discard_padding()));
   }
 
@@ -71,30 +71,30 @@ uint64 WriteBlock(IMkvWriter* writer, const Frame* const frame, int64 timecode,
   uint64 reference_block_elem_size = 0;
   if (!frame->is_key()) {
     reference_block_elem_size =
-        EbmlElementSize(libwebm::kMkvReferenceBlock, reference_block_timestamp);
+        EbmlElementSize(adhoc::libwebm::kMkvReferenceBlock, reference_block_timestamp);
   }
 
   const uint64 duration = frame->duration() / timecode_scale;
   uint64 block_duration_elem_size = 0;
   if (duration > 0)
     block_duration_elem_size =
-        EbmlElementSize(libwebm::kMkvBlockDuration, duration);
+        EbmlElementSize(adhoc::libwebm::kMkvBlockDuration, duration);
 
   const uint64 block_payload_size = 4 + frame->length();
   const uint64 block_elem_size =
-      EbmlMasterElementSize(libwebm::kMkvBlock, block_payload_size) +
+      EbmlMasterElementSize(adhoc::libwebm::kMkvBlock, block_payload_size) +
       block_payload_size;
 
   const uint64 block_group_payload_size =
       block_elem_size + block_additions_elem_size + block_duration_elem_size +
       discard_padding_elem_size + reference_block_elem_size;
 
-  if (!WriteEbmlMasterElement(writer, libwebm::kMkvBlockGroup,
+  if (!WriteEbmlMasterElement(writer, adhoc::libwebm::kMkvBlockGroup,
                               block_group_payload_size)) {
     return 0;
   }
 
-  if (!WriteEbmlMasterElement(writer, libwebm::kMkvBlock, block_payload_size))
+  if (!WriteEbmlMasterElement(writer, adhoc::libwebm::kMkvBlock, block_payload_size))
     return 0;
 
   if (WriteUInt(writer, frame->track_number()))
@@ -111,48 +111,48 @@ uint64 WriteBlock(IMkvWriter* writer, const Frame* const frame, int64 timecode,
     return 0;
 
   if (frame->additional()) {
-    if (!WriteEbmlMasterElement(writer, libwebm::kMkvBlockAdditions,
+    if (!WriteEbmlMasterElement(writer, adhoc::libwebm::kMkvBlockAdditions,
                                 block_additions_payload_size)) {
       return 0;
     }
 
-    if (!WriteEbmlMasterElement(writer, libwebm::kMkvBlockMore,
+    if (!WriteEbmlMasterElement(writer, adhoc::libwebm::kMkvBlockMore,
                                 block_more_payload_size))
       return 0;
 
-    if (!WriteEbmlElement(writer, libwebm::kMkvBlockAddID,
+    if (!WriteEbmlElement(writer, adhoc::libwebm::kMkvBlockAddID,
                           static_cast<uint64>(frame->add_id())))
       return 0;
 
-    if (!WriteEbmlElement(writer, libwebm::kMkvBlockAdditional,
+    if (!WriteEbmlElement(writer, adhoc::libwebm::kMkvBlockAdditional,
                           frame->additional(), frame->additional_length())) {
       return 0;
     }
   }
 
   if (frame->discard_padding() != 0 &&
-      !WriteEbmlElement(writer, libwebm::kMkvDiscardPadding,
+      !WriteEbmlElement(writer, adhoc::libwebm::kMkvDiscardPadding,
                         static_cast<int64>(frame->discard_padding()))) {
     return false;
   }
 
-  if (!frame->is_key() && !WriteEbmlElement(writer, libwebm::kMkvReferenceBlock,
+  if (!frame->is_key() && !WriteEbmlElement(writer, adhoc::libwebm::kMkvReferenceBlock,
                                             reference_block_timestamp)) {
     return false;
   }
 
   if (duration > 0 &&
-      !WriteEbmlElement(writer, libwebm::kMkvBlockDuration, duration)) {
+      !WriteEbmlElement(writer, adhoc::libwebm::kMkvBlockDuration, duration)) {
     return false;
   }
-  return EbmlMasterElementSize(libwebm::kMkvBlockGroup,
+  return EbmlMasterElementSize(adhoc::libwebm::kMkvBlockGroup,
                                block_group_payload_size) +
          block_group_payload_size;
 }
 
 uint64 WriteSimpleBlock(IMkvWriter* writer, const Frame* const frame,
                         int64 timecode) {
-  if (WriteID(writer, libwebm::kMkvSimpleBlock))
+  if (WriteID(writer, adhoc::libwebm::kMkvSimpleBlock))
     return 0;
 
   const int32 size = static_cast<int32>(frame->length()) + 4;
@@ -175,7 +175,7 @@ uint64 WriteSimpleBlock(IMkvWriter* writer, const Frame* const frame,
   if (writer->Write(frame->frame(), static_cast<uint32>(frame->length())))
     return 0;
 
-  return GetUIntSize(libwebm::kMkvSimpleBlock) + GetCodedUIntSize(size) + 4 +
+  return GetUIntSize(adhoc::libwebm::kMkvSimpleBlock) + GetCodedUIntSize(size) + 4 +
          frame->length();
 }
 
@@ -574,7 +574,7 @@ uint64 WriteVoidElement(IMkvWriter* writer, uint64 size) {
 
   // Subtract one for the void ID and the coded size.
   uint64 void_entry_size = size - 1 - GetCodedUIntSize(size - 1);
-  uint64 void_size = EbmlMasterElementSize(libwebm::kMkvVoid, void_entry_size) +
+  uint64 void_size = EbmlMasterElementSize(adhoc::libwebm::kMkvVoid, void_entry_size) +
                      void_entry_size;
 
   if (void_size != size)
@@ -584,7 +584,7 @@ uint64 WriteVoidElement(IMkvWriter* writer, uint64 size) {
   if (payload_position < 0)
     return 0;
 
-  if (WriteID(writer, libwebm::kMkvVoid))
+  if (WriteID(writer, adhoc::libwebm::kMkvVoid))
     return 0;
 
   if (WriteUInt(writer, void_entry_size))
@@ -649,17 +649,17 @@ uint64 MakeUID(unsigned int* seed) {
 
 bool IsMatrixCoefficientsValueValid(uint64_t value) {
   switch (value) {
-    case mkvmuxer::Colour::kGbr:
-    case mkvmuxer::Colour::kBt709:
-    case mkvmuxer::Colour::kUnspecifiedMc:
-    case mkvmuxer::Colour::kReserved:
-    case mkvmuxer::Colour::kFcc:
-    case mkvmuxer::Colour::kBt470bg:
-    case mkvmuxer::Colour::kSmpte170MMc:
-    case mkvmuxer::Colour::kSmpte240MMc:
-    case mkvmuxer::Colour::kYcocg:
-    case mkvmuxer::Colour::kBt2020NonConstantLuminance:
-    case mkvmuxer::Colour::kBt2020ConstantLuminance:
+    case adhoc::mkvmuxer::Colour::kGbr:
+    case adhoc::mkvmuxer::Colour::kBt709:
+    case adhoc::mkvmuxer::Colour::kUnspecifiedMc:
+    case adhoc::mkvmuxer::Colour::kReserved:
+    case adhoc::mkvmuxer::Colour::kFcc:
+    case adhoc::mkvmuxer::Colour::kBt470bg:
+    case adhoc::mkvmuxer::Colour::kSmpte170MMc:
+    case adhoc::mkvmuxer::Colour::kSmpte240MMc:
+    case adhoc::mkvmuxer::Colour::kYcocg:
+    case adhoc::mkvmuxer::Colour::kBt2020NonConstantLuminance:
+    case adhoc::mkvmuxer::Colour::kBt2020ConstantLuminance:
       return true;
   }
   return false;
@@ -667,9 +667,9 @@ bool IsMatrixCoefficientsValueValid(uint64_t value) {
 
 bool IsChromaSitingHorzValueValid(uint64_t value) {
   switch (value) {
-    case mkvmuxer::Colour::kUnspecifiedCsh:
-    case mkvmuxer::Colour::kLeftCollocated:
-    case mkvmuxer::Colour::kHalfCsh:
+    case adhoc::mkvmuxer::Colour::kUnspecifiedCsh:
+    case adhoc::mkvmuxer::Colour::kLeftCollocated:
+    case adhoc::mkvmuxer::Colour::kHalfCsh:
       return true;
   }
   return false;
@@ -677,9 +677,9 @@ bool IsChromaSitingHorzValueValid(uint64_t value) {
 
 bool IsChromaSitingVertValueValid(uint64_t value) {
   switch (value) {
-    case mkvmuxer::Colour::kUnspecifiedCsv:
-    case mkvmuxer::Colour::kTopCollocated:
-    case mkvmuxer::Colour::kHalfCsv:
+    case adhoc::mkvmuxer::Colour::kUnspecifiedCsv:
+    case adhoc::mkvmuxer::Colour::kTopCollocated:
+    case adhoc::mkvmuxer::Colour::kHalfCsv:
       return true;
   }
   return false;
@@ -687,10 +687,10 @@ bool IsChromaSitingVertValueValid(uint64_t value) {
 
 bool IsColourRangeValueValid(uint64_t value) {
   switch (value) {
-    case mkvmuxer::Colour::kUnspecifiedCr:
-    case mkvmuxer::Colour::kBroadcastRange:
-    case mkvmuxer::Colour::kFullRange:
-    case mkvmuxer::Colour::kMcTcDefined:
+    case adhoc::mkvmuxer::Colour::kUnspecifiedCr:
+    case adhoc::mkvmuxer::Colour::kBroadcastRange:
+    case adhoc::mkvmuxer::Colour::kFullRange:
+    case adhoc::mkvmuxer::Colour::kMcTcDefined:
       return true;
   }
   return false;
@@ -698,24 +698,24 @@ bool IsColourRangeValueValid(uint64_t value) {
 
 bool IsTransferCharacteristicsValueValid(uint64_t value) {
   switch (value) {
-    case mkvmuxer::Colour::kIturBt709Tc:
-    case mkvmuxer::Colour::kUnspecifiedTc:
-    case mkvmuxer::Colour::kReservedTc:
-    case mkvmuxer::Colour::kGamma22Curve:
-    case mkvmuxer::Colour::kGamma28Curve:
-    case mkvmuxer::Colour::kSmpte170MTc:
-    case mkvmuxer::Colour::kSmpte240MTc:
-    case mkvmuxer::Colour::kLinear:
-    case mkvmuxer::Colour::kLog:
-    case mkvmuxer::Colour::kLogSqrt:
-    case mkvmuxer::Colour::kIec6196624:
-    case mkvmuxer::Colour::kIturBt1361ExtendedColourGamut:
-    case mkvmuxer::Colour::kIec6196621:
-    case mkvmuxer::Colour::kIturBt202010bit:
-    case mkvmuxer::Colour::kIturBt202012bit:
-    case mkvmuxer::Colour::kSmpteSt2084:
-    case mkvmuxer::Colour::kSmpteSt4281Tc:
-    case mkvmuxer::Colour::kAribStdB67Hlg:
+    case adhoc::mkvmuxer::Colour::kIturBt709Tc:
+    case adhoc::mkvmuxer::Colour::kUnspecifiedTc:
+    case adhoc::mkvmuxer::Colour::kReservedTc:
+    case adhoc::mkvmuxer::Colour::kGamma22Curve:
+    case adhoc::mkvmuxer::Colour::kGamma28Curve:
+    case adhoc::mkvmuxer::Colour::kSmpte170MTc:
+    case adhoc::mkvmuxer::Colour::kSmpte240MTc:
+    case adhoc::mkvmuxer::Colour::kLinear:
+    case adhoc::mkvmuxer::Colour::kLog:
+    case adhoc::mkvmuxer::Colour::kLogSqrt:
+    case adhoc::mkvmuxer::Colour::kIec6196624:
+    case adhoc::mkvmuxer::Colour::kIturBt1361ExtendedColourGamut:
+    case adhoc::mkvmuxer::Colour::kIec6196621:
+    case adhoc::mkvmuxer::Colour::kIturBt202010bit:
+    case adhoc::mkvmuxer::Colour::kIturBt202012bit:
+    case adhoc::mkvmuxer::Colour::kSmpteSt2084:
+    case adhoc::mkvmuxer::Colour::kSmpteSt4281Tc:
+    case adhoc::mkvmuxer::Colour::kAribStdB67Hlg:
       return true;
   }
   return false;
@@ -723,21 +723,21 @@ bool IsTransferCharacteristicsValueValid(uint64_t value) {
 
 bool IsPrimariesValueValid(uint64_t value) {
   switch (value) {
-    case mkvmuxer::Colour::kReservedP0:
-    case mkvmuxer::Colour::kIturBt709P:
-    case mkvmuxer::Colour::kUnspecifiedP:
-    case mkvmuxer::Colour::kReservedP3:
-    case mkvmuxer::Colour::kIturBt470M:
-    case mkvmuxer::Colour::kIturBt470Bg:
-    case mkvmuxer::Colour::kSmpte170MP:
-    case mkvmuxer::Colour::kSmpte240MP:
-    case mkvmuxer::Colour::kFilm:
-    case mkvmuxer::Colour::kIturBt2020:
-    case mkvmuxer::Colour::kSmpteSt4281P:
-    case mkvmuxer::Colour::kJedecP22Phosphors:
+    case adhoc::mkvmuxer::Colour::kReservedP0:
+    case adhoc::mkvmuxer::Colour::kIturBt709P:
+    case adhoc::mkvmuxer::Colour::kUnspecifiedP:
+    case adhoc::mkvmuxer::Colour::kReservedP3:
+    case adhoc::mkvmuxer::Colour::kIturBt470M:
+    case adhoc::mkvmuxer::Colour::kIturBt470Bg:
+    case adhoc::mkvmuxer::Colour::kSmpte170MP:
+    case adhoc::mkvmuxer::Colour::kSmpte240MP:
+    case adhoc::mkvmuxer::Colour::kFilm:
+    case adhoc::mkvmuxer::Colour::kIturBt2020:
+    case adhoc::mkvmuxer::Colour::kSmpteSt4281P:
+    case adhoc::mkvmuxer::Colour::kJedecP22Phosphors:
       return true;
   }
   return false;
 }
 
-}  // namespace mkvmuxer
+}  // namespace adhoc::mkvmuxer

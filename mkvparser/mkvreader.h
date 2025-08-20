@@ -12,7 +12,7 @@
 
 #include "mkvparser/mkvparser.h"
 
-namespace mkvparser {
+namespace adhoc::mkvparser {
 
 class MkvReader : public IMkvReader {
  public:
@@ -40,6 +40,5 @@ class MkvReader : public IMkvReader {
   bool reader_owns_file_;
 };
 
-}  // namespace mkvparser
-
+}  // namespace adhoc::mkvparser
 #endif  // MKVPARSER_MKVREADER_H_

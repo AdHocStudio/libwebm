@@ -13,12 +13,12 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::ElementParserTest;
-using webm::Id;
-using webm::SimpleTag;
-using webm::Tag;
-using webm::TagParser;
-using webm::Targets;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::SimpleTag;
+using adhoc::webm::Tag;
+using adhoc::webm::TagParser;
+using adhoc::webm::Targets;
 
 namespace {
 

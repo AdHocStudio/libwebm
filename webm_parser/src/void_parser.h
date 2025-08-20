@@ -15,7 +15,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Parses a Void element by delegating to Callback::OnVoid.
 // Spec reference:
@@ -36,6 +36,5 @@ class VoidParser : public ElementParser {
   std::uint64_t bytes_remaining_ = 0;
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_VOID_PARSER_H_

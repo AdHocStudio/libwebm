@@ -17,10 +17,10 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-using webm::BufferReader;
-using webm::LimitedReader;
-using webm::Reader;
-using webm::Status;
+using adhoc::webm::BufferReader;
+using adhoc::webm::LimitedReader;
+using adhoc::webm::Reader;
+using adhoc::webm::Status;
 
 namespace {
 

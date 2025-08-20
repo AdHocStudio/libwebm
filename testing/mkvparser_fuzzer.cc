@@ -18,7 +18,7 @@
 
 namespace {
 
-class MemoryReader : public mkvparser::IMkvReader {
+class MemoryReader : public adhoc::mkvparser::IMkvReader {
  public:
   MemoryReader(const uint8_t* data, size_t size) : data_(data), size_(size) {}
 
@@ -48,8 +48,8 @@ class MemoryReader : public mkvparser::IMkvReader {
   size_t size_;
 };
 
-void ParseCues(const mkvparser::Segment& segment) {
-  const mkvparser::Cues* const cues = segment.GetCues();
+void ParseCues(const adhoc::mkvparser::Segment& segment) {
+  const adhoc::mkvparser::Cues* const cues = segment.GetCues();
   if (cues == nullptr) {
     return;
   }
@@ -59,60 +59,60 @@ void ParseCues(const mkvparser::Segment& segment) {
   }
 }
 
-const mkvparser::BlockEntry* GetBlockEntryFromCues(
-    const void* ctx, const mkvparser::CuePoint* cue,
-    const mkvparser::CuePoint::TrackPosition* track_pos) {
-  const auto* const cues = static_cast<const mkvparser::Cues*>(ctx);
+const adhoc::mkvparser::BlockEntry* GetBlockEntryFromCues(
+    const void* ctx, const adhoc::mkvparser::CuePoint* cue,
+    const adhoc::mkvparser::CuePoint::TrackPosition* track_pos) {
+  const auto* const cues = static_cast<const adhoc::mkvparser::Cues*>(ctx);
   return cues->GetBlock(cue, track_pos);
 }
 
-const mkvparser::BlockEntry* GetBlockEntryFromCluster(
-    const void* ctx, const mkvparser::CuePoint* cue,
-    const mkvparser::CuePoint::TrackPosition* track_pos) {
+const adhoc::mkvparser::BlockEntry* GetBlockEntryFromCluster(
+    const void* ctx, const adhoc::mkvparser::CuePoint* cue,
+    const adhoc::mkvparser::CuePoint::TrackPosition* track_pos) {
   if (track_pos == nullptr) {
     return nullptr;
   }
-  const auto* const cluster = static_cast<const mkvparser::Cluster*>(ctx);
-  const mkvparser::BlockEntry* block_entry =
+  const auto* const cluster = static_cast<const adhoc::mkvparser::Cluster*>(ctx);
+  const adhoc::mkvparser::BlockEntry* block_entry =
       cluster->GetEntry(*cue, *track_pos);
   return block_entry;
 }
 
-void WalkCues(const mkvparser::Segment& segment,
-              std::function<const mkvparser::BlockEntry*(
-                  const void*, const mkvparser::CuePoint*,
-                  const mkvparser::CuePoint::TrackPosition*)>
+void WalkCues(const adhoc::mkvparser::Segment& segment,
+              std::function<const adhoc::mkvparser::BlockEntry*(
+                  const void*, const adhoc::mkvparser::CuePoint*,
+                  const adhoc::mkvparser::CuePoint::TrackPosition*)>
                   get_block_entry,
               const void* ctx) {
-  const mkvparser::Cues* const cues = segment.GetCues();
-  const mkvparser::Tracks* tracks = segment.GetTracks();
+  const adhoc::mkvparser::Cues* const cues = segment.GetCues();
+  const adhoc::mkvparser::Tracks* tracks = segment.GetTracks();
   if (cues == nullptr || tracks == nullptr) {
     return;
   }
   const unsigned long num_tracks = tracks->GetTracksCount();
 
-  for (const mkvparser::CuePoint* cue = cues->GetFirst(); cue != nullptr;
+  for (const adhoc::mkvparser::CuePoint* cue = cues->GetFirst(); cue != nullptr;
        cue = cues->GetNext(cue)) {
     for (unsigned long track_num = 0; track_num < num_tracks; ++track_num) {
-      const mkvparser::Track* const track = tracks->GetTrackByIndex(track_num);
-      const mkvparser::CuePoint::TrackPosition* const track_pos =
+      const adhoc::mkvparser::Track* const track = tracks->GetTrackByIndex(track_num);
+      const adhoc::mkvparser::CuePoint::TrackPosition* const track_pos =
           cue->Find(track);
-      const mkvparser::BlockEntry* block_entry =
+      const adhoc::mkvparser::BlockEntry* block_entry =
           get_block_entry(ctx, cue, track_pos);
       static_cast<void>(block_entry);
     }
   }
 }
 
-void ParseCluster(const mkvparser::Cluster& cluster) {
-  const mkvparser::BlockEntry* block_entry;
+void ParseCluster(const adhoc::mkvparser::Cluster& cluster) {
+  const adhoc::mkvparser::BlockEntry* block_entry;
   long status = cluster.GetFirst(block_entry);
   if (status != 0) {
     return;
   }
 
   while (block_entry != nullptr && !block_entry->EOS()) {
-    const mkvparser::Block* const block = block_entry->GetBlock();
+    const adhoc::mkvparser::Block* const block = block_entry->GetBlock();
     if (block == nullptr) {
       return;
     }
@@ -130,17 +130,17 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   MemoryReader reader(data, size);
 
   long long int pos = 0;
-  std::unique_ptr<mkvparser::EBMLHeader> ebml_header(
-      new (std::nothrow) mkvparser::EBMLHeader());  // NOLINT
+  std::unique_ptr<adhoc::mkvparser::EBMLHeader> ebml_header(
+      new (std::nothrow) adhoc::mkvparser::EBMLHeader());  // NOLINT
   if (ebml_header->Parse(&reader, pos) < 0) {
     return 0;
   }
 
-  mkvparser::Segment* temp_segment;
-  if (mkvparser::Segment::CreateInstance(&reader, pos, temp_segment) != 0) {
+  adhoc::mkvparser::Segment* temp_segment;
+  if (adhoc::mkvparser::Segment::CreateInstance(&reader, pos, temp_segment) != 0) {
     return 0;
   }
-  std::unique_ptr<mkvparser::Segment> segment(temp_segment);
+  std::unique_ptr<adhoc::mkvparser::Segment> segment(temp_segment);
 
   if (segment->Load() < 0) {
     return 0;
@@ -149,7 +149,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   ParseCues(*segment);
   WalkCues(*segment, GetBlockEntryFromCues, segment->GetCues());
 
-  const mkvparser::Cluster* cluster = segment->GetFirst();
+  const adhoc::mkvparser::Cluster* cluster = segment->GetFirst();
   while (cluster != nullptr && !cluster->EOS()) {
     ParseCluster(*cluster);
     WalkCues(*segment, GetBlockEntryFromCluster, cluster);

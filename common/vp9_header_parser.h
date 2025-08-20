@@ -11,7 +11,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-namespace vp9_parser {
+namespace adhoc::vp9_parser {
 
 const int kVp9FrameMarker = 2;
 const int kMinTileWidthB64 = 4;

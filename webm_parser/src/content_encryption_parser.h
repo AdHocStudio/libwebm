@@ -14,7 +14,7 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#ContentEncryption
@@ -32,6 +32,5 @@ class ContentEncryptionParser : public MasterValueParser<ContentEncryption> {
   }
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_CONTENT_ENCRYPTION_PARSER_H_

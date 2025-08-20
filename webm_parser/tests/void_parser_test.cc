@@ -17,11 +17,11 @@
 
 using testing::NotNull;
 
-using webm::ElementParserTest;
-using webm::Id;
-using webm::kUnknownElementSize;
-using webm::Status;
-using webm::VoidParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::kUnknownElementSize;
+using adhoc::webm::Status;
+using adhoc::webm::VoidParser;
 
 namespace {
 

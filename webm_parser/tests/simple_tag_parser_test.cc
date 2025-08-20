@@ -15,11 +15,11 @@
 #include "webm/id.h"
 #include "webm/status.h"
 
-using webm::ElementParserTest;
-using webm::Id;
-using webm::SimpleTag;
-using webm::SimpleTagParser;
-using webm::Status;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::SimpleTag;
+using adhoc::webm::SimpleTagParser;
+using adhoc::webm::Status;
 
 namespace {
 

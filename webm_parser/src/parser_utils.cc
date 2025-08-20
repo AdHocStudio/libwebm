@@ -13,7 +13,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 Status ReadByte(Reader* reader, std::uint8_t* byte) {
   assert(reader != nullptr);
@@ -31,4 +31,4 @@ Status ReadByte(Reader* reader, std::uint8_t* byte) {
   return status;
 }
 
-}  // namespace webm
+}  // namespace adhoc::webm

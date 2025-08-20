@@ -13,7 +13,7 @@
 #include <climits>
 #include <cstddef>
 
-namespace libwebvtt {
+namespace adhoc::libwebvtt {
 
 // NOLINT'ing this enum because clang-format puts it in a single line which
 // makes it look really unreadable.

@@ -12,9 +12,9 @@
 #include "test_utils/parser_test.h"
 #include "webm/status.h"
 
-using webm::BlockHeader;
-using webm::BlockHeaderParser;
-using webm::ParserTest;
+using adhoc::webm::BlockHeader;
+using adhoc::webm::BlockHeaderParser;
+using adhoc::webm::ParserTest;
 
 namespace {
 

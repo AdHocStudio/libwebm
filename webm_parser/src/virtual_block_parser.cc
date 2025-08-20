@@ -12,7 +12,7 @@
 
 #include "webm/element.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 Status VirtualBlockParser::Init(const ElementMetadata& metadata,
                                 std::uint64_t max_size) {

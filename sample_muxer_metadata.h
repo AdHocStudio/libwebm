@@ -17,7 +17,7 @@
 
 #include "webvtt/webvttparser.h"
 
-namespace mkvmuxer {
+namespace adhoc::mkvmuxer {
 class Chapter;
 class Frame;
 class Segment;
@@ -32,7 +32,7 @@ class SampleMuxerMetadata {
 
   // Bind this metadata object to the muxer instance.  Returns false
   // if segment equals NULL, or Init has already been called.
-  bool Init(mkvmuxer::Segment* segment);
+  bool Init(adhoc::mkvmuxer::Segment* segment);
 
   // Parse the WebVTT file |filename| having the indicated |kind|, and
   // create a corresponding track (or chapters element) in the
@@ -47,7 +47,7 @@ class SampleMuxerMetadata {
   bool Write(int64_t time_ns);
 
  private:
-  typedef libwebvtt::Cue cue_t;
+  typedef adhoc::libwebvtt::Cue cue_t;
 
   // Used to sort cues as they are loaded.
   struct SortableCue {
@@ -73,7 +73,7 @@ class SampleMuxerMetadata {
 
     // Write this cue as a metablock to |segment|.  Returns false on
     // error.
-    bool Write(mkvmuxer::Segment* segment) const;
+    bool Write(adhoc::mkvmuxer::Segment* segment) const;
 
     uint64_t track_num;
     cue_t cue;
@@ -120,7 +120,7 @@ class SampleMuxerMetadata {
   static void WriteCuePayload(const cue_t::payload_t& payload,
                               std::string* frame);
 
-  mkvmuxer::Segment* segment_;
+  adhoc::mkvmuxer::Segment* segment_;
 
   // Set of cues ordered by time and then by track number.
   cues_set_t cues_set_;

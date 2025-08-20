@@ -13,10 +13,10 @@
 #include "webm/id.h"
 #include "webm/status.h"
 
-using webm::Id;
-using webm::IdParser;
-using webm::ParserTest;
-using webm::Status;
+using adhoc::webm::Id;
+using adhoc::webm::IdParser;
+using adhoc::webm::ParserTest;
+using adhoc::webm::Status;
 
 namespace {
 

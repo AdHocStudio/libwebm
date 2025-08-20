@@ -23,13 +23,13 @@ using testing::NotNull;
 using testing::Return;
 using testing::SetArgPointee;
 
-using webm::Action;
-using webm::Ancestory;
-using webm::ElementMetadata;
-using webm::ElementParserTest;
-using webm::Id;
-using webm::SegmentParser;
-using webm::Status;
+using adhoc::webm::Action;
+using adhoc::webm::Ancestory;
+using adhoc::webm::ElementMetadata;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
+using adhoc::webm::SegmentParser;
+using adhoc::webm::Status;
 
 namespace {
 

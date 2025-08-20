@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 
 // Swaps unsigned 32 bit values to big endian if needed. Returns |value| if
 // architecture is big endian. Returns big endian value if architecture is
@@ -33,6 +33,5 @@ uint64_t host_to_bigendian(uint64_t value);
 // little endian. Returns 0 otherwise.
 uint64_t bigendian_to_host(uint64_t value);
 
-}  // namespace libwebm
-
+}  // namespace adhoc::libwebm
 #endif  // LIBWEBM_COMMON_WEBM_ENDIAN_H_

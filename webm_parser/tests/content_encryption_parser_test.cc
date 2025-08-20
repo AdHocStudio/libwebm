@@ -14,13 +14,13 @@
 #include "test_utils/element_parser_test.h"
 #include "webm/id.h"
 
-using webm::AesSettingsCipherMode;
-using webm::ContentEncAesSettings;
-using webm::ContentEncAlgo;
-using webm::ContentEncryption;
-using webm::ContentEncryptionParser;
-using webm::ElementParserTest;
-using webm::Id;
+using adhoc::webm::AesSettingsCipherMode;
+using adhoc::webm::ContentEncAesSettings;
+using adhoc::webm::ContentEncAlgo;
+using adhoc::webm::ContentEncryption;
+using adhoc::webm::ContentEncryptionParser;
+using adhoc::webm::ElementParserTest;
+using adhoc::webm::Id;
 
 namespace {
 

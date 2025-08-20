@@ -20,12 +20,12 @@
 #include "webm/status.h"
 #include "webm/webm_parser.h"
 
-using webm::BufferReader;
-using webm::Callback;
-using webm::FileReader;
-using webm::Reader;
-using webm::Status;
-using webm::WebmParser;
+using adhoc::webm::BufferReader;
+using adhoc::webm::Callback;
+using adhoc::webm::FileReader;
+using adhoc::webm::Reader;
+using adhoc::webm::Status;
+using adhoc::webm::WebmParser;
 
 static int Run(Reader* reader) {
   Callback callback;

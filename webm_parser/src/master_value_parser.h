@@ -25,7 +25,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Parses Master elements from an EBML stream, storing child values in a
 // structure of type T. This class differs from MasterParser in that
@@ -528,6 +528,5 @@ class MasterValueParser : public ElementParser {
   }
 };
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // SRC_MASTER_VALUE_PARSER_H_

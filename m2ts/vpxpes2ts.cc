@@ -12,7 +12,7 @@
 #include <cstdio>
 #include <vector>
 
-namespace libwebm {
+namespace adhoc::libwebm {
 // TODO(tomfinegan): Dedupe this and PesHeaderField.
 // Stores a value and its size in bits for writing into a MPEG2 TS Header.
 // Maximum size is 64 bits. Users may call the Check() method to perform minimal
@@ -214,4 +214,4 @@ bool VpxPes2Ts::ReceivePacket(const PacketDataBuffer& packet_data) {
   return true;
 }
 
-}  // namespace libwebm
+}  // namespace adhoc::libwebm

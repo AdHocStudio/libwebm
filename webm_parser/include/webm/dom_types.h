@@ -23,7 +23,7 @@
  the element that each type/member represents.
  */
 
-namespace webm {
+namespace adhoc::webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -1776,6 +1776,5 @@ struct Tag {
  @}
  */
 
-}  // namespace webm
-
+}  // namespace adhoc::webm
 #endif  // INCLUDE_WEBM_DOM_TYPES_H_

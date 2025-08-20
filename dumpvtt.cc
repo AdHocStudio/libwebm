@@ -17,7 +17,7 @@ int main(int argc, const char* argv[]) {
     return EXIT_SUCCESS;
   }
 
-  libwebvtt::VttReader reader;
+  adhoc::libwebvtt::VttReader reader;
   const char* const filename = argv[1];
 
   if (int e = reader.Open(filename)) {
@@ -26,7 +26,7 @@ int main(int argc, const char* argv[]) {
     return EXIT_FAILURE;
   }
 
-  libwebvtt::Parser parser(&reader);
+  adhoc::libwebvtt::Parser parser(&reader);
 
   if (int e = parser.Init()) {
     (void)e;
@@ -34,7 +34,7 @@ int main(int argc, const char* argv[]) {
     return EXIT_FAILURE;
   }
 
-  for (libwebvtt::Cue cue;;) {
+  for (adhoc::libwebvtt::Cue cue;;) {
     const int e = parser.Parse(&cue);
 
     if (e < 0) {  // error
@@ -47,16 +47,16 @@ int main(int argc, const char* argv[]) {
 
     fprintf(stdout, "cue identifier: \"%s\"\n", cue.identifier.c_str());
 
-    const libwebvtt::Time& st = cue.start_time;
+    const adhoc::libwebvtt::Time& st = cue.start_time;
     fprintf(stdout, "cue start time: \"HH=%i MM=%i SS=%i SSS=%i\"\n", st.hours,
             st.minutes, st.seconds, st.milliseconds);
 
-    const libwebvtt::Time& sp = cue.stop_time;
+    const adhoc::libwebvtt::Time& sp = cue.stop_time;
     fprintf(stdout, "cue stop time: \"HH=%i MM=%i SS=%i SSS=%i\"\n", sp.hours,
             sp.minutes, sp.seconds, sp.milliseconds);
 
     {
-      typedef libwebvtt::Cue::settings_t::const_iterator iter_t;
+      typedef adhoc::libwebvtt::Cue::settings_t::const_iterator iter_t;
       iter_t i = cue.settings.begin();
       const iter_t j = cue.settings.end();
 
@@ -64,7 +64,7 @@ int main(int argc, const char* argv[]) {
         fprintf(stdout, "cue setting: <no settings present>\n");
       } else {
         while (i != j) {
-          const libwebvtt::Setting& setting = *i++;
+          const adhoc::libwebvtt::Setting& setting = *i++;
           fprintf(stdout, "cue setting: name=%s value=%s\n",
                   setting.name.c_str(), setting.value.c_str());
         }
@@ -72,7 +72,7 @@ int main(int argc, const char* argv[]) {
     }
 
     {
-      typedef libwebvtt::Cue::payload_t::const_iterator iter_t;
+      typedef adhoc::libwebvtt::Cue::payload_t::const_iterator iter_t;
       iter_t i = cue.payload.begin();
       const iter_t j = cue.payload.end();
 

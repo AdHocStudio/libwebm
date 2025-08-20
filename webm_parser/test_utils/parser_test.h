@@ -21,7 +21,7 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace webm {
+namespace adhoc::webm {
 
 // Base class for unit tests that test an instance of the Parser inteface. The
 // template parameter T is the parser class being tested.
@@ -62,8 +62,8 @@ class ParserTest : public testing::Test {
   virtual void IncrementalParseAndVerify() {
     const std::uint64_t expected_num_bytes_read = reader_.size();
 
-    webm::LimitedReader limited_reader(
-        std::unique_ptr<webm::Reader>(new BufferReader(std::move(reader_))));
+    adhoc::webm::LimitedReader limited_reader(
+        std::unique_ptr<adhoc::webm::Reader>(new BufferReader(std::move(reader_))));
 
     Status status;
     std::uint64_t num_bytes_read = 0;

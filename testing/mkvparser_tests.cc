@@ -19,21 +19,21 @@
 #include "mkvparser/mkvreader.h"
 #include "testing/test_util.h"
 
-using mkvparser::AudioTrack;
-using mkvparser::Block;
-using mkvparser::BlockEntry;
-using mkvparser::BlockGroup;
-using mkvparser::Cluster;
-using mkvparser::CuePoint;
-using mkvparser::Cues;
-using mkvparser::MkvReader;
-using mkvparser::Segment;
-using mkvparser::SegmentInfo;
-using mkvparser::Track;
-using mkvparser::Tracks;
-using mkvparser::VideoTrack;
+using adhoc::mkvparser::AudioTrack;
+using adhoc::mkvparser::Block;
+using adhoc::mkvparser::BlockEntry;
+using adhoc::mkvparser::BlockGroup;
+using adhoc::mkvparser::Cluster;
+using adhoc::mkvparser::CuePoint;
+using adhoc::mkvparser::Cues;
+using adhoc::mkvparser::MkvReader;
+using adhoc::mkvparser::Segment;
+using adhoc::mkvparser::SegmentInfo;
+using adhoc::mkvparser::Track;
+using adhoc::mkvparser::Tracks;
+using adhoc::mkvparser::VideoTrack;
 
-namespace test {
+namespace adhoc::test {
 
 // Base class containing boiler plate stuff.
 class ParserTest : public testing::Test {
@@ -66,7 +66,7 @@ class ParserTest : public testing::Test {
     }
     is_reader_open_ = true;
     pos_ = 0;
-    mkvparser::EBMLHeader ebml_header;
+    adhoc::mkvparser::EBMLHeader ebml_header;
     ebml_header.Parse(&reader_, pos_);
     EXPECT_EQ(1, ebml_header.m_version);
     EXPECT_EQ(1, ebml_header.m_readVersion);
@@ -74,7 +74,7 @@ class ParserTest : public testing::Test {
     EXPECT_EQ(expected_doc_type_ver, ebml_header.m_docTypeVersion);
     EXPECT_EQ(2, ebml_header.m_docTypeReadVersion);
 
-    if (mkvparser::Segment::CreateInstance(&reader_, pos_, segment_)) {
+    if (adhoc::mkvparser::Segment::CreateInstance(&reader_, pos_, segment_)) {
       return false;
     }
     return !HasFailure() && segment_->Load() >= 0;
@@ -88,9 +88,9 @@ class ParserTest : public testing::Test {
     filename_ = GetTestFilePath(filename);
     ASSERT_NE(0u, filename_.length());
     ASSERT_EQ(0, reader_.Open(filename_.c_str()));
-    mkvparser::EBMLHeader ebml_header;
+    adhoc::mkvparser::EBMLHeader ebml_header;
     ASSERT_EQ(0, ebml_header.Parse(&reader_, pos_));
-    ASSERT_EQ(0, mkvparser::Segment::CreateInstance(&reader_, pos_, segment_));
+    ASSERT_EQ(0, adhoc::mkvparser::Segment::CreateInstance(&reader_, pos_, segment_));
   }
 
   void CompareBlockContents(const Cluster* const cluster,
@@ -613,7 +613,7 @@ TEST_F(ParserTest, CanParseColour) {
   const VideoTrack* const video_track = dynamic_cast<const VideoTrack*>(
       segment_->GetTracks()->GetTrackByIndex(0));
 
-  const mkvparser::Colour* const colour = video_track->GetColour();
+  const adhoc::mkvparser::Colour* const colour = video_track->GetColour();
   ASSERT_TRUE(colour != nullptr);
   EXPECT_EQ(0u, colour->matrix_coefficients);
   EXPECT_EQ(1u, colour->bits_per_channel);
@@ -629,7 +629,7 @@ TEST_F(ParserTest, CanParseColour) {
   EXPECT_EQ(11u, colour->max_cll);
   EXPECT_EQ(12u, colour->max_fall);
 
-  const mkvparser::MasteringMetadata* const mm =
+  const adhoc::mkvparser::MasteringMetadata* const mm =
       video_track->GetColour()->mastering_metadata;
   ASSERT_TRUE(mm != nullptr);
   ASSERT_TRUE(mm->r != nullptr);
@@ -655,9 +655,9 @@ TEST_F(ParserTest, CanParseProjection) {
   const VideoTrack* const video_track =
       static_cast<const VideoTrack*>(segment_->GetTracks()->GetTrackByIndex(0));
 
-  const mkvparser::Projection* const projection = video_track->GetProjection();
+  const adhoc::mkvparser::Projection* const projection = video_track->GetProjection();
   ASSERT_TRUE(projection != nullptr);
-  EXPECT_EQ(mkvparser::Projection::kRectangular, projection->type);
+  EXPECT_EQ(adhoc::mkvparser::Projection::kRectangular, projection->type);
   EXPECT_FLOAT_EQ(1, projection->pose_yaw);
   EXPECT_FLOAT_EQ(2, projection->pose_pitch);
   EXPECT_FLOAT_EQ(3, projection->pose_roll);
@@ -669,59 +669,59 @@ TEST_F(ParserTest, CanParseProjection) {
 TEST_F(ParserTest, Vp9CodecLevelTest) {
   const int kCodecPrivateLength = 3;
   const uint8_t good_codec_private_level[kCodecPrivateLength] = {2, 1, 11};
-  libwebm::Vp9CodecFeatures features;
-  EXPECT_TRUE(libwebm::ParseVpxCodecPrivate(&good_codec_private_level[0],
+  adhoc::libwebm::Vp9CodecFeatures features;
+  EXPECT_TRUE(adhoc::libwebm::ParseVpxCodecPrivate(&good_codec_private_level[0],
                                             kCodecPrivateLength, &features));
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.profile);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.profile);
   EXPECT_EQ(11, features.level);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.bit_depth);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent,
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.bit_depth);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent,
             features.chroma_subsampling);
 }
 
 TEST_F(ParserTest, Vp9CodecProfileTest) {
   const int kCodecPrivateLength = 3;
   const uint8_t good_codec_private_profile[kCodecPrivateLength] = {1, 1, 1};
-  libwebm::Vp9CodecFeatures features;
-  EXPECT_TRUE(libwebm::ParseVpxCodecPrivate(&good_codec_private_profile[0],
+  adhoc::libwebm::Vp9CodecFeatures features;
+  EXPECT_TRUE(adhoc::libwebm::ParseVpxCodecPrivate(&good_codec_private_profile[0],
                                             kCodecPrivateLength, &features));
   EXPECT_EQ(1, features.profile);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.level);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.bit_depth);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent,
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.level);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.bit_depth);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent,
             features.chroma_subsampling);
 }
 
 TEST_F(ParserTest, Vp9CodecBitDepthTest) {
   const int kCodecPrivateLength = 3;
   const uint8_t good_codec_private_profile[kCodecPrivateLength] = {3, 1, 8};
-  libwebm::Vp9CodecFeatures features;
-  EXPECT_TRUE(libwebm::ParseVpxCodecPrivate(&good_codec_private_profile[0],
+  adhoc::libwebm::Vp9CodecFeatures features;
+  EXPECT_TRUE(adhoc::libwebm::ParseVpxCodecPrivate(&good_codec_private_profile[0],
                                             kCodecPrivateLength, &features));
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.profile);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.level);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.profile);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.level);
   EXPECT_EQ(8, features.bit_depth);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent,
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent,
             features.chroma_subsampling);
 }
 
 TEST_F(ParserTest, Vp9CodecChromaSubsamplingTest) {
   const int kCodecPrivateLength = 3;
   const uint8_t good_codec_private_profile[kCodecPrivateLength] = {4, 1, 0};
-  libwebm::Vp9CodecFeatures features;
-  EXPECT_TRUE(libwebm::ParseVpxCodecPrivate(&good_codec_private_profile[0],
+  adhoc::libwebm::Vp9CodecFeatures features;
+  EXPECT_TRUE(adhoc::libwebm::ParseVpxCodecPrivate(&good_codec_private_profile[0],
                                             kCodecPrivateLength, &features));
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.profile);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.level);
-  EXPECT_EQ(libwebm::Vp9CodecFeatures::kValueNotPresent, features.bit_depth);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.profile);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.level);
+  EXPECT_EQ(adhoc::libwebm::Vp9CodecFeatures::kValueNotPresent, features.bit_depth);
   EXPECT_EQ(0, features.chroma_subsampling);
 }
 
 TEST_F(ParserTest, Vp9CodecProfileLevelTest) {
   const int kCodecPrivateLength = 6;
   const uint8_t codec_private[kCodecPrivateLength] = {1, 1, 1, 2, 1, 11};
-  libwebm::Vp9CodecFeatures features;
-  EXPECT_TRUE(libwebm::ParseVpxCodecPrivate(&codec_private[0],
+  adhoc::libwebm::Vp9CodecFeatures features;
+  EXPECT_TRUE(adhoc::libwebm::ParseVpxCodecPrivate(&codec_private[0],
                                             kCodecPrivateLength, &features));
   EXPECT_EQ(1, features.profile);
   EXPECT_EQ(11, features.level);
@@ -731,8 +731,8 @@ TEST_F(ParserTest, Vp9CodecAllTest) {
   const int kCodecPrivateLength = 12;
   const uint8_t codec_private[kCodecPrivateLength] = {1, 1, 1, 2, 1, 11,
                                                       3, 1, 8, 4, 1, 0};
-  libwebm::Vp9CodecFeatures features;
-  EXPECT_TRUE(libwebm::ParseVpxCodecPrivate(&codec_private[0],
+  adhoc::libwebm::Vp9CodecFeatures features;
+  EXPECT_TRUE(adhoc::libwebm::ParseVpxCodecPrivate(&codec_private[0],
                                             kCodecPrivateLength, &features));
   EXPECT_EQ(1, features.profile);
   EXPECT_EQ(11, features.level);
@@ -742,44 +742,44 @@ TEST_F(ParserTest, Vp9CodecAllTest) {
 
 TEST_F(ParserTest, Vp9CodecPrivateBadTest) {
   const int kCodecPrivateLength = 3;
-  libwebm::Vp9CodecFeatures features;
+  adhoc::libwebm::Vp9CodecFeatures features;
   // Test invalid codec private data; all of these should return false.
   const uint8_t bad_codec_private[kCodecPrivateLength] = {0, 0, 0};
   EXPECT_FALSE(
-      libwebm::ParseVpxCodecPrivate(NULL, kCodecPrivateLength, &features));
+      adhoc::libwebm::ParseVpxCodecPrivate(NULL, kCodecPrivateLength, &features));
   EXPECT_FALSE(
-      libwebm::ParseVpxCodecPrivate(&bad_codec_private[0], 0, &features));
-  EXPECT_FALSE(libwebm::ParseVpxCodecPrivate(&bad_codec_private[0],
+      adhoc::libwebm::ParseVpxCodecPrivate(&bad_codec_private[0], 0, &features));
+  EXPECT_FALSE(adhoc::libwebm::ParseVpxCodecPrivate(&bad_codec_private[0],
                                              kCodecPrivateLength, &features));
   const uint8_t good_codec_private_level[kCodecPrivateLength] = {2, 1, 11};
 
   // Test parse of codec private chunks, but lie about length.
   EXPECT_FALSE(
-      libwebm::ParseVpxCodecPrivate(&bad_codec_private[0], 0, &features));
-  EXPECT_FALSE(libwebm::ParseVpxCodecPrivate(&good_codec_private_level[0], 0,
+      adhoc::libwebm::ParseVpxCodecPrivate(&bad_codec_private[0], 0, &features));
+  EXPECT_FALSE(adhoc::libwebm::ParseVpxCodecPrivate(&good_codec_private_level[0], 0,
                                              &features));
-  EXPECT_FALSE(libwebm::ParseVpxCodecPrivate(&good_codec_private_level[0],
+  EXPECT_FALSE(adhoc::libwebm::ParseVpxCodecPrivate(&good_codec_private_level[0],
                                              kCodecPrivateLength, NULL));
 }
 
 TEST_F(ParserTest, InvalidTruncatedChapterString) {
   ASSERT_NO_FATAL_FAILURE(CreateSegmentNoHeaderChecks(
       "invalid/chapters_truncated_chapter_string.mkv"));
-  EXPECT_EQ(mkvparser::E_PARSE_FAILED, segment_->Load());
+  EXPECT_EQ(adhoc::mkvparser::E_PARSE_FAILED, segment_->Load());
 }
 
 TEST_F(ParserTest, InvalidTruncatedChapterString2) {
   ASSERT_NO_FATAL_FAILURE(CreateSegmentNoHeaderChecks(
       "invalid/chapters_truncated_chapter_string_2.mkv"));
-  EXPECT_EQ(mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
+  EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
 }
 
 TEST_F(ParserTest, InvalidFixedLacingSize) {
   ASSERT_NO_FATAL_FAILURE(
       CreateSegmentNoHeaderChecks("invalid/fixed_lacing_bad_lace_size.mkv"));
   ASSERT_EQ(0, segment_->Load());
-  const mkvparser::BlockEntry* block_entry = NULL;
-  EXPECT_EQ(mkvparser::E_FILE_FORMAT_INVALID,
+  const adhoc::mkvparser::BlockEntry* block_entry = NULL;
+  EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID,
             segment_->GetFirst()->GetFirst(block_entry));
 }
 
@@ -787,9 +787,9 @@ TEST_F(ParserTest, InvalidBlockEndsBeyondCluster) {
   ASSERT_NO_FATAL_FAILURE(
       CreateSegmentNoHeaderChecks("invalid/block_ends_beyond_cluster.mkv"));
   ASSERT_EQ(0, segment_->Load());
-  const mkvparser::BlockEntry* block_entry = NULL;
+  const adhoc::mkvparser::BlockEntry* block_entry = NULL;
   EXPECT_EQ(0, segment_->GetFirst()->GetFirst(block_entry));
-  EXPECT_EQ(mkvparser::E_FILE_FORMAT_INVALID,
+  EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID,
             segment_->GetFirst()->GetNext(block_entry, block_entry));
 }
 
@@ -797,26 +797,25 @@ TEST_F(ParserTest, InvalidBlockGroupBlockEndsBlockGroup) {
   ASSERT_NO_FATAL_FAILURE(CreateSegmentNoHeaderChecks(
       "invalid/blockgroup_block_ends_beyond_blockgroup.mkv"));
   ASSERT_EQ(0, segment_->Load());
-  const mkvparser::BlockEntry* block_entry = NULL;
+  const adhoc::mkvparser::BlockEntry* block_entry = NULL;
   EXPECT_EQ(0, segment_->GetFirst()->GetFirst(block_entry));
-  EXPECT_EQ(mkvparser::E_FILE_FORMAT_INVALID,
+  EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID,
             segment_->GetFirst()->GetNext(block_entry, block_entry));
 }
 
 TEST_F(ParserTest, InvalidProjectionFloatOverflow) {
   ASSERT_NO_FATAL_FAILURE(
       CreateSegmentNoHeaderChecks("invalid/projection_float_overflow.webm"));
-  EXPECT_EQ(mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
+  EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
 }
 
 TEST_F(ParserTest, InvalidPrimaryChromaticityParseFail) {
   ASSERT_NO_FATAL_FAILURE(CreateSegmentNoHeaderChecks(
       "invalid/primarychromaticity_fieldtoolarge.webm"));
-  EXPECT_EQ(mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
+  EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
 }
 
-}  // namespace test
-
+}  // namespace adhoc::test
 int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
