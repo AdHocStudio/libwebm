@@ -20,7 +20,8 @@
 
 using std::string;
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 namespace vttdemux {
 
 typedef long long mkvtime_t;  // NOLINT
@@ -215,8 +216,9 @@ bool WriteCueTime(FILE* f, mkvtime_t time_ns);
 // them to the associated output file.  Returns false if there was an
 // error writing to the file.
 bool WriteCuePayload(FILE* f, FrameParser* parser);
-}  // namespace vttdemux
+} }} // namespace adhoc::vttdemux
 
+namespace adhoc {
 namespace vttdemux {
 
 FrameParser::FrameParser(const adhoc::mkvparser::BlockGroup* block_group)
@@ -285,7 +287,7 @@ void ChapterAtomParser::UngetChar(char /* c */) {
   --str_;
 }
 
-}  // namespace vttdemux
+} } // namespace adhoc::vttdemux
 
 bool vttdemux::ParseHeader(adhoc::mkvparser::IMkvReader* reader, mkvpos_t* pos) {
   adhoc::mkvparser::EBMLHeader h;
@@ -951,7 +953,7 @@ bool vttdemux::WriteCuePayload(FILE* f, FrameParser* parser) {
   return true;
 }
 
-}  // namespace adhoc::libwebm
+}  } // namespace adhoc::libwebm
 
 int main(int argc, const char* argv[]) {
   if (argc != 2) {

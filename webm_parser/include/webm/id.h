@@ -15,7 +15,8 @@
  A full enumeration of WebM's EBML IDs.
  */
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -1080,6 +1081,6 @@ enum class Id : std::uint32_t {
  @}
  */
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // INCLUDE_WEBM_ID_H_

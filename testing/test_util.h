@@ -13,12 +13,14 @@
 #include <cstddef>
 #include <string>
 
-namespace adhoc::mkvparser {
+namespace adhoc {
+namespace mkvparser {
 class IMkvReader;
 class MkvReader;
 class Segment;
-}  // namespace adhoc::mkvparser
-namespace adhoc::test {
+}} // namespace adhoc::mkvparser
+namespace adhoc {
+namespace test {
 
 // constants for muxer and parser tests
 const char kAppString[] = "mkvmuxer_unit_tests";
@@ -82,5 +84,5 @@ bool ParseMkvFile(const std::string& webm_file);
 bool ParseMkvFileReleaseParser(const std::string& webm_file,
                                MkvParser* parser_out);
 
-}  // namespace adhoc::test
+}} // namespace adhoc::test
 #endif  // LIBWEBM_TESTING_TEST_UTIL_H_

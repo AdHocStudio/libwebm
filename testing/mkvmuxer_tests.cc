@@ -34,7 +34,8 @@ using adhoc::mkvmuxer::Tag;
 using adhoc::mkvmuxer::Track;
 using adhoc::mkvmuxer::VideoTrack;
 
-namespace adhoc::test {
+namespace adhoc {
+namespace test {
 
 // Base class containing boiler plate stuff.
 class MuxerTest : public testing::Test {
@@ -1002,8 +1003,7 @@ TEST_F(MuxerTest, LongTagString) {
   EXPECT_TRUE(CompareFiles(GetTestFilePath("long_tag_string.webm"), filename_));
 }
 
-}  // namespace adhoc::test
-int main(int argc, char* argv[]) {
+}} //namespace adhoc::testint main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

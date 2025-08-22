@@ -15,7 +15,8 @@
 
 #include "common/file_util.h"
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 VpxPesParser::BcmvHeader::BcmvHeader(std::uint32_t len) : length(len) {
   id[0] = 'B';
@@ -406,4 +407,4 @@ bool VpxPesParser::ParseNextPacket(PesHeader* header, VideoFrame* frame) {
   return true;
 }
 
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm

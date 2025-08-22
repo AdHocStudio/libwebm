@@ -64,7 +64,8 @@ uint64_t swap64_check_little_endian(uint64_t value) {
 
 }  // namespace
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 uint32_t host_to_bigendian(uint32_t value) {
   return swap32_check_little_endian(value);
@@ -82,4 +83,4 @@ uint64_t bigendian_to_host(uint64_t value) {
   return swap64_check_little_endian(value);
 }
 
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm

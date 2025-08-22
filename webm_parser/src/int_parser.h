@@ -20,7 +20,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses an EBML signed/unsigned int from a byte stream.
 // Spec reference:
@@ -116,5 +117,5 @@ class IntParser : public ElementParser {
 using SignedIntParser = IntParser<std::int64_t>;
 using UnsignedIntParser = IntParser<std::uint64_t>;
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_INT_PARSER_H_

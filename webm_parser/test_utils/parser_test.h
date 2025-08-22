@@ -21,7 +21,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Base class for unit tests that test an instance of the Parser inteface. The
 // template parameter T is the parser class being tested.
@@ -103,6 +104,6 @@ class ParserTest : public testing::Test {
   BufferReader reader_;
 };
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // TEST_UTILS_PARSER_TEST_H_

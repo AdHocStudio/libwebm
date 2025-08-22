@@ -13,7 +13,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#ContentEncodings
@@ -25,5 +26,5 @@ class ContentEncodingsParser : public MasterValueParser<ContentEncodings> {
             Id::kContentEncoding, &ContentEncodings::encodings)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_CONTENT_ENCODINGS_PARSER_H_

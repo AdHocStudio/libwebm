@@ -9,7 +9,8 @@
 #ifndef COMMON_WEBMIDS_H_
 #define COMMON_WEBMIDS_H_
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 enum MkvId {
   kMkvEBML = 0x1A45DFA3,
@@ -188,5 +189,5 @@ enum MkvId {
   kMkvTagString = 0x4487
 };
 
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm
 #endif  // COMMON_WEBMIDS_H_

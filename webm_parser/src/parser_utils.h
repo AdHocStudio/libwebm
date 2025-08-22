@@ -15,7 +15,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Reads a single byte from the reader, and returns the status of the read. If
 // the status is not Status::kOkCompleted, then no data was read.
@@ -59,5 +60,5 @@ Status AccumulateIntegerBytes(int num_to_read, Reader* reader, T* integer,
   return Status(Status::kOkCompleted);
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_PARSER_UTILS_H_

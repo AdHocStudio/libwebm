@@ -13,7 +13,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Slices
@@ -25,5 +26,5 @@ class SlicesParser : public MasterValueParser<Slices> {
             MakeChild<TimeSliceParser>(Id::kTimeSlice, &Slices::slices)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_SLICES_PARSER_H_

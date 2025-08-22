@@ -20,7 +20,8 @@
 #include "mkvparser/mkvparser.h"
 #include "mkvparser/mkvreader.h"
 
-namespace adhoc::test {
+namespace adhoc {
+namespace test {
 
 std::string GetTestDataDir() {
   const char* test_data_path = std::getenv("LIBWEBM_TEST_DATA_PATH");
@@ -212,4 +213,4 @@ bool ParseMkvFile(const std::string& webm_file) {
   return result;
 }
 
-}  // namespace adhoc::test
+}} // namespace adhoc::test

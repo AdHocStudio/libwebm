@@ -11,7 +11,8 @@
 
 #include <cassert>
 
-namespace adhoc::mkvparser {
+namespace adhoc {
+namespace mkvparser {
 
 MkvReader::MkvReader() : m_file(NULL), reader_owns_file_(true) {}
 
@@ -132,4 +133,4 @@ int MkvReader::Read(long long offset, long len, unsigned char* buffer) {
   return 0;  // success
 }
 
-}  // namespace adhoc::mkvparser
+}} // namespace adhoc::mkvparser

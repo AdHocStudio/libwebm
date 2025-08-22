@@ -16,7 +16,8 @@
 #include "webm/callback.h"
 #include "webm/element.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses an element from a WebM byte stream. Objects that implement this
 // interface are expected to be used as follows in order to parse the specific
@@ -97,5 +98,5 @@ class ElementParser : public Parser {
   virtual bool WasSkipped() const { return false; }
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_ELEMENT_PARSER_H_

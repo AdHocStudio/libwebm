@@ -21,7 +21,8 @@
  A `Reader` implementation that reads from a `std::vector<std::uint8_t>`.
  */
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -133,5 +134,4 @@ class BufferReader : public Reader {
  @}
  */
 
-}  // namespace adhoc::webm
-#endif  // INCLUDE_WEBM_BUFFER_READER_H_
+}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_BUFFER_READER_H_

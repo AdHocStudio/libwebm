@@ -22,7 +22,8 @@
 
 #include "common/webmids.h"
 
-namespace adhoc::mkvparser {
+namespace adhoc {
+namespace mkvparser {
 const long long kStringElementSizeLimit = 20 * 1000 * 1000;
 const float MasteringMetadata::kValueNotPresent = FLT_MAX;
 const long long Colour::kValueNotPresent = LLONG_MAX;
@@ -8098,4 +8099,4 @@ long Block::Frame::Read(IMkvReader* pReader, unsigned char* buf) const {
 
 long long Block::GetDiscardPadding() const { return m_discard_padding; }
 
-}  // namespace adhoc::mkvparser
+}} // namespace adhoc::mkvparser

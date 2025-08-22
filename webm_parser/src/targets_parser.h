@@ -14,7 +14,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Targets
@@ -30,5 +31,5 @@ class TargetsParser : public MasterValueParser<Targets> {
                                          &Targets::track_uids)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_TARGETS_PARSER_H_

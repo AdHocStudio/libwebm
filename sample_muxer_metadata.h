@@ -17,12 +17,13 @@
 
 #include "webvtt/webvttparser.h"
 
-namespace adhoc::mkvmuxer {
+namespace adhoc {
+namespace mkvmuxer {
 class Chapter;
 class Frame;
 class Segment;
 class Track;
-}  // namespace mkvmuxer
+}} //namespace mkvmuxer
 
 class SampleMuxerMetadata {
  public:

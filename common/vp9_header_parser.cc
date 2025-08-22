@@ -9,7 +9,8 @@
 
 #include <stdio.h>
 
-namespace adhoc::vp9_parser {
+namespace adhoc {
+namespace vp9_parser {
 
 bool Vp9HeaderParser::SetFrame(const uint8_t* frame, size_t length) {
   if (!frame || length == 0)
@@ -266,4 +267,4 @@ int Vp9HeaderParser::AlignPowerOfTwo(int value, int n) {
   return (((value) + ((1 << (n)) - 1)) & ~((1 << (n)) - 1));
 }
 
-}  // namespace vp9_parser
+}} // namespace vp9_parser

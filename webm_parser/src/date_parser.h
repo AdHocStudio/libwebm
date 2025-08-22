@@ -17,7 +17,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses an EBML date from a byte stream. EBML dates are signed integer values
 // that represent the offset, in nanoseconds, from 2001-01-01T00:00:00.00 UTC.
@@ -59,5 +60,5 @@ class DateParser : public ElementParser {
   int num_bytes_remaining_ = -1;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_DATE_PARSER_H_

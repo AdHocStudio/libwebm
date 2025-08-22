@@ -16,7 +16,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 class VarIntParser : public Parser {
  public:
@@ -51,6 +52,6 @@ class VarIntParser : public Parser {
   std::uint64_t value_;
 };
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // SRC_VAR_INT_PARSER_H_

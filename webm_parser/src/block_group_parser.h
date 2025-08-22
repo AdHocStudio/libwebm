@@ -17,7 +17,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#BlockGroup
@@ -66,6 +67,6 @@ class BlockGroupParser : public MasterValueParser<BlockGroup> {
   }
 };
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // SRC_BLOCK_GROUP_PARSER_H_

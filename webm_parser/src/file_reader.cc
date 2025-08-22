@@ -29,7 +29,8 @@
   std::fseek(stream, static_cast<long>(offset), whence)
 #endif
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 FileReader::FileReader(FILE* file) : file_(file) { assert(file); }
 
@@ -139,4 +140,4 @@ Status FileReader::Seek(std::uint64_t seek_position) {
 
 std::uint64_t FileReader::Position() const { return position_; }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

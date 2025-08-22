@@ -18,7 +18,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#EBML_ex
@@ -295,4 +296,4 @@ void MasterParser::PrepareForNextChild() {
   action_ = Action::kRead;
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

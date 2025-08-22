@@ -43,7 +43,8 @@
 // emulation prevention bytes must be stripped from the output stream before
 // it can be parsed.
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 // Stores a value and its size in bits for writing into a PES Optional Header.
 // Maximum size is 64 bits. Users may call the Check() method to perform minimal
@@ -269,5 +270,5 @@ class Webm2Pes {
 bool CopyAndEscapeStartCodes(const std::uint8_t* raw_input,
                              std::size_t raw_input_length,
                              PacketDataBuffer* packet_buffer);
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm
 #endif  // LIBWEBM_M2TS_WEBM2PES_H_

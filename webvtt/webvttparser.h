@@ -12,7 +12,8 @@
 #include <list>
 #include <string>
 
-namespace adhoc::libwebvtt {
+namespace adhoc {
+namespace libwebvtt {
 
 class Reader {
  public:
@@ -153,6 +154,6 @@ class Parser : private LineReader {
   Parser& operator=(const Parser&);
 };
 
-}  // namespace libwebvtt
+}} // namespace libwebvtt
 
 #endif  // WEBVTT_WEBVTTPARSER_H_

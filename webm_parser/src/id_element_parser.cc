@@ -17,7 +17,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 Status IdElementParser::Init(const ElementMetadata& metadata,
                              std::uint64_t max_size) {
@@ -46,4 +47,4 @@ Status IdElementParser::Feed(Callback* callback, Reader* reader,
   return status;
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

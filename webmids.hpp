@@ -12,12 +12,13 @@
 // New projects should not include this file: include the file included below.
 #include "common/webmids.h"
 
-namespace adhoc::mkvmuxer {
+namespace adhoc {
+namespace mkvmuxer {
 // MkvId moved from the mkvmuxer namespace to the libwebm namespace. Pull all
 // of libwebm into mkvmuxer to ease transition to the new namespace. New
 // projects should use adhoc::libwebm::MkvId and should not expect to find MkvId in
 // mkvmuxer.
 using namespace libwebm;
-}  // namespace adhoc::mkvmuxer
+}} // namespace adhoc::mkvmuxer
 
 #endif  // LIBWEBM_WEBMIDS_HPP_

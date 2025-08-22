@@ -17,7 +17,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // A simple version of Callback that can be used with Google Mock. By default,
 // the mocked methods will call through to the corresponding Callback methods.
@@ -242,6 +243,6 @@ class MockCallback : public Callback {
   }
 };
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // TEST_UTILS_MOCK_CALLBACK_H_

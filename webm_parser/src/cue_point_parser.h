@@ -14,7 +14,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#CuePoint
@@ -33,5 +34,5 @@ class CuePointParser : public MasterValueParser<CuePoint> {
   }
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_CUE_POINT_PARSER_H_

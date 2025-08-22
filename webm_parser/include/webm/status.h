@@ -16,7 +16,8 @@
  throughout the API.
  */
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -161,5 +162,4 @@ struct Status {
  @}
  */
 
-}  // namespace adhoc::webm
-#endif  // INCLUDE_WEBM_STATUS_H_
+}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_STATUS_H_

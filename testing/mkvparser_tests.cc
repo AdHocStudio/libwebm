@@ -33,7 +33,8 @@ using adhoc::mkvparser::Track;
 using adhoc::mkvparser::Tracks;
 using adhoc::mkvparser::VideoTrack;
 
-namespace adhoc::test {
+namespace adhoc {
+namespace test {
 
 // Base class containing boiler plate stuff.
 class ParserTest : public testing::Test {
@@ -815,7 +816,7 @@ TEST_F(ParserTest, InvalidPrimaryChromaticityParseFail) {
   EXPECT_EQ(adhoc::mkvparser::E_FILE_FORMAT_INVALID, segment_->Load());
 }
 
-}  // namespace adhoc::test
+}} // namespace adhoc::test
 int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

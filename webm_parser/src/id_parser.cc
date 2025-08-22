@@ -16,7 +16,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 Status IdParser::Feed(Callback* callback, Reader* reader,
                       std::uint64_t* num_bytes_read) {
@@ -72,4 +73,4 @@ Id IdParser::id() const {
   return id_;
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

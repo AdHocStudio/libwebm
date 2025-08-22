@@ -25,7 +25,8 @@
 #include "mkvmuxer/mkvmuxer.h"
 #include "mkvmuxer/mkvwriter.h"
 
-namespace adhoc::mkvmuxer {
+namespace adhoc {
+namespace mkvmuxer {
 
 namespace {
 
@@ -740,4 +741,4 @@ bool IsPrimariesValueValid(uint64_t value) {
   return false;
 }
 
-}  // namespace adhoc::mkvmuxer
+}} // namespace adhoc::mkvmuxer

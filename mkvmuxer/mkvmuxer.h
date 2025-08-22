@@ -21,10 +21,12 @@
 // For a description of the WebM elements see
 // http://www.webmproject.org/code/specs/container/.
 
-namespace adhoc::mkvparser {
+namespace adhoc {
+namespace mkvparser {
 class IMkvReader;
-}  // namespace adhoc::mkvparser
-namespace adhoc::mkvmuxer {
+}} // namespace adhoc::mkvparser
+namespace adhoc {
+namespace mkvmuxer {
 
 class MkvWriter;
 class Segment;
@@ -1918,5 +1920,5 @@ class Segment {
   LIBWEBM_DISALLOW_COPY_AND_ASSIGN(Segment);
 };
 
-}  // namespace adhoc::mkvmuxer
+}} // namespace adhoc::mkvmuxer
 #endif  // MKVMUXER_MKVMUXER_H_

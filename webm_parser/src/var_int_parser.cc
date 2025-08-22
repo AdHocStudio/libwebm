@@ -16,7 +16,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec references:
 // http://matroska.org/technical/specs/index.html#EBML_ex
@@ -68,4 +69,4 @@ Status VarIntParser::Feed(Callback* callback, Reader* reader,
   return Status(Status::kOkCompleted);
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
