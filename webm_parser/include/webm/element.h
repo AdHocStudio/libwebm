@@ -204,4 +204,5 @@ constexpr std::uint64_t kUnknownElementPosition =
  @}
  */
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_ELEMENT_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_ELEMENT_H_

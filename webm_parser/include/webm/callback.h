@@ -359,4 +359,5 @@ class Callback {
  @}
  */
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_CALLBACK_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_CALLBACK_H_

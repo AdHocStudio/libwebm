@@ -17,7 +17,8 @@ typedef int int32;
 typedef unsigned int uint32;
 typedef long long int64;
 typedef unsigned long long uint64;
-}} //namespace adhoc::mkvmuxer
+}} // namespace adhoc::mkvmuxer
+
 // Copied from Chromium basictypes.h
 // A macro to disallow the copy constructor and operator= functions
 // This should be used in the private: declarations for a class

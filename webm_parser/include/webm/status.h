@@ -162,4 +162,5 @@ struct Status {
  @}
  */
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_STATUS_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_STATUS_H_

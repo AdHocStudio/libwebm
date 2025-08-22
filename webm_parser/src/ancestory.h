@@ -79,4 +79,5 @@ class Ancestory {
   const Id* end_ = nullptr;
 };
 
-}} //namespace adhoc::webm#endif  // SRC_ANCESTORY_H_
+}} // namespace adhoc::webm
+#endif  // SRC_ANCESTORY_H_

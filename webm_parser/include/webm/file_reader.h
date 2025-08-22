@@ -99,4 +99,5 @@ class FileReader : public Reader {
   std::uint64_t position_ = 0;
 };
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_FILE_READER_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_FILE_READER_H_

@@ -1003,7 +1003,9 @@ TEST_F(MuxerTest, LongTagString) {
   EXPECT_TRUE(CompareFiles(GetTestFilePath("long_tag_string.webm"), filename_));
 }
 
-}} //namespace adhoc::testint main(int argc, char* argv[]) {
+}} // namespace adhoc::test
+
+int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

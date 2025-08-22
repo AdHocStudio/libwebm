@@ -90,4 +90,5 @@ class Reader {
  @}
  */
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_READER_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_READER_H_

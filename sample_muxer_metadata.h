@@ -23,7 +23,7 @@ class Chapter;
 class Frame;
 class Segment;
 class Track;
-}} //namespace mkvmuxer
+}} // namespace mkvmuxer
 
 class SampleMuxerMetadata {
  public:

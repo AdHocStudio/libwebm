@@ -80,4 +80,5 @@ class AudioParser : public MasterValueParser<Audio> {
   }
 };
 
-}} //namespace adhoc::webm#endif  // SRC_AUDIO_PARSER_H_
+}} // namespace adhoc::webm
+#endif  // SRC_AUDIO_PARSER_H_

@@ -129,4 +129,5 @@ void swap(WebmParser& left, WebmParser& right);
  @}
  */
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_WEBM_PARSER_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_WEBM_PARSER_H_

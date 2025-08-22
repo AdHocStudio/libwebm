@@ -1777,4 +1777,5 @@ struct Tag {
  @}
  */
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_DOM_TYPES_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_DOM_TYPES_H_

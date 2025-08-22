@@ -26,4 +26,5 @@ class BlockAdditionsParser : public MasterValueParser<BlockAdditions> {
             Id::kBlockMore, &BlockAdditions::block_mores)) {}
 };
 
-}} //namespace adhoc::webm#endif  // SRC_BLOCK_ADDITIONS_PARSER_H_
+}} // namespace adhoc::webm
+#endif  // SRC_BLOCK_ADDITIONS_PARSER_H_

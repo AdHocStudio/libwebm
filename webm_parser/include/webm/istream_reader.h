@@ -95,4 +95,5 @@ class IstreamReader : public Reader {
   std::uint64_t position_ = 0;
 };
 
-}} //namespace adhoc::webm#endif  // INCLUDE_WEBM_ISTREAM_READER_H_
+}} // namespace adhoc::webm
+#endif  // INCLUDE_WEBM_ISTREAM_READER_H_
