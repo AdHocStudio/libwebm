@@ -216,9 +216,8 @@ bool WriteCueTime(FILE* f, mkvtime_t time_ns);
 // them to the associated output file.  Returns false if there was an
 // error writing to the file.
 bool WriteCuePayload(FILE* f, FrameParser* parser);
-} }} // namespace adhoc::vttdemux
+} // namespace vttdemux
 
-namespace adhoc {
 namespace vttdemux {
 
 FrameParser::FrameParser(const adhoc::mkvparser::BlockGroup* block_group)
@@ -287,7 +286,7 @@ void ChapterAtomParser::UngetChar(char /* c */) {
   --str_;
 }
 
-} } // namespace adhoc::vttdemux
+} // namespace vttdemux
 
 bool vttdemux::ParseHeader(adhoc::mkvparser::IMkvReader* reader, mkvpos_t* pos) {
   adhoc::mkvparser::EBMLHeader h;
