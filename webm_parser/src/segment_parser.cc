@@ -17,7 +17,8 @@
 #include "src/tracks_parser.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 SegmentParser::SegmentParser()
     : MasterParser(MakeChild<ChaptersParser>(Id::kChapters),
@@ -83,4 +84,4 @@ Status SegmentParser::Feed(Callback* callback, Reader* reader,
 
 bool SegmentParser::WasSkipped() const { return action_ == Action::kSkip; }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

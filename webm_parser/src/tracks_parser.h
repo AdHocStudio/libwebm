@@ -12,7 +12,8 @@
 #include "src/track_entry_parser.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Tracks
@@ -22,5 +23,5 @@ class TracksParser : public MasterParser {
   TracksParser() : MasterParser(MakeChild<TrackEntryParser>(Id::kTrackEntry)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_TRACKS_PARSER_H_

@@ -12,7 +12,8 @@
 #include <cstdio>
 #include <limits>
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 std::int64_t NanosecondsTo90KhzTicks(std::int64_t nanoseconds) {
   const double pts_seconds = nanoseconds / kNanosecondsPerSecond;
@@ -107,4 +108,4 @@ std::uint16_t ReadUint16(const std::uint8_t* buf) {
   return ((buf[0] << 8) | buf[1]);
 }
 
-}  // namespace libwebm
+}} // namespace libwebm

@@ -9,7 +9,8 @@
 
 #include <cstdint>
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 std::uint8_t CountLeadingZeros(std::uint8_t value) {
   // Special case for 0 since we can't shift by sizeof(T) * 8 bytes.
@@ -23,4 +24,4 @@ std::uint8_t CountLeadingZeros(std::uint8_t value) {
   return count;
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

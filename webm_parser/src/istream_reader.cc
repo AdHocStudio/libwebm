@@ -16,7 +16,8 @@
 
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 IstreamReader::IstreamReader(IstreamReader&& other)
     : istream_(std::move(other.istream_)), position_(other.position_) {
@@ -130,4 +131,4 @@ Status IstreamReader::Skip(std::uint64_t num_to_skip,
 
 std::uint64_t IstreamReader::Position() const { return position_; }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

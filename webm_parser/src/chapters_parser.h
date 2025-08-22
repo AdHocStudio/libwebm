@@ -12,7 +12,8 @@
 #include "src/master_parser.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Chapters
@@ -23,5 +24,5 @@ class ChaptersParser : public MasterParser {
       : MasterParser(MakeChild<EditionEntryParser>(Id::kEditionEntry)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_CHAPTERS_PARSER_H_

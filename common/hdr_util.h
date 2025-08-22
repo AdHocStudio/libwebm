@@ -14,13 +14,15 @@
 
 #include "mkvmuxer/mkvmuxer.h"
 
-namespace adhoc::mkvparser {
+namespace adhoc {
+namespace mkvparser {
 struct Colour;
 struct MasteringMetadata;
 struct PrimaryChromaticity;
-}  // namespace adhoc::mkvparser
+}} // namespace adhoc::mkvparser
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 // Utility types and functions for working with the Colour element and its
 // children. Copiers return true upon success. Presence functions return true
 // when the specified element is present.
@@ -66,6 +68,6 @@ bool CopyColour(const adhoc::mkvparser::Colour& parser_colour,
 bool ParseVpxCodecPrivate(const uint8_t* private_data, int32_t length,
                           Vp9CodecFeatures* features);
 
-}  // namespace libwebm
+}} // namespace libwebm
 
 #endif  // LIBWEBM_COMMON_HDR_UTIL_H_

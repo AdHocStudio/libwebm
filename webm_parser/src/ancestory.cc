@@ -9,7 +9,8 @@
 
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 bool Ancestory::ById(Id id, Ancestory* ancestory) {
   // These lists of IDs were generated and must match the switch statement and
@@ -331,4 +332,4 @@ bool Ancestory::ById(Id id, Ancestory* ancestory) {
   }
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

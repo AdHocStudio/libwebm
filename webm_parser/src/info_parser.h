@@ -16,7 +16,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Info
@@ -39,5 +40,5 @@ class InfoParser : public MasterValueParser<Info> {
   }
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_INFO_PARSER_H_

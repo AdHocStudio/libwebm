@@ -12,7 +12,8 @@
 
 #include "stdint.h"
 
-namespace adhoc::mkvmuxer {
+namespace adhoc {
+namespace mkvmuxer {
 class Cluster;
 class Frame;
 class IMkvWriter;
@@ -110,5 +111,5 @@ bool IsColourRangeValueValid(uint64_t value);
 bool IsTransferCharacteristicsValueValid(uint64_t value);
 bool IsPrimariesValueValid(uint64_t value);
 
-}  // namespace adhoc::mkvmuxer
+}} // namespace adhoc::mkvmuxer
 #endif  // MKVMUXER_MKVMUXERUTIL_H_

@@ -16,7 +16,8 @@
 #include "src/parser_utils.h"
 #include "webm/element.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 namespace {
 
@@ -282,4 +283,4 @@ bool BasicBlockParser<T>::WasSkipped() const {
 template class BasicBlockParser<Block>;
 template class BasicBlockParser<SimpleBlock>;
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

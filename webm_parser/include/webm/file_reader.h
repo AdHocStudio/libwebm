@@ -21,7 +21,8 @@
  A `Reader` implementation that reads from a `FILE*`.
  */
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 /**
  A `Reader` implementation that can read from `FILE*` resources.
@@ -98,5 +99,5 @@ class FileReader : public Reader {
   std::uint64_t position_ = 0;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // INCLUDE_WEBM_FILE_READER_H_

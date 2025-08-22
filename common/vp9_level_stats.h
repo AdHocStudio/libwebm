@@ -14,7 +14,8 @@
 
 #include "common/vp9_header_parser.h"
 
-namespace adhoc::vp9_parser {
+namespace adhoc {
+namespace vp9_parser {
 
 const int kMaxVp9RefFrames = 8;
 
@@ -203,6 +204,6 @@ class Vp9LevelStats {
   bool estimate_last_frame_duration_;
 };
 
-}  // namespace vp9_parser
+}} // namespace vp9_parser
 
 #endif  // LIBWEBM_COMMON_VP9_LEVEL_STATS_H_

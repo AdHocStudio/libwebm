@@ -16,7 +16,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses an EBML ID from a byte stream.
 class IdParser : public Parser {
@@ -40,5 +41,5 @@ class IdParser : public Parser {
   Id id_;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_ID_PARSER_H_

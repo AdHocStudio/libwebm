@@ -17,7 +17,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 struct BlockHeader {
   std::uint64_t track_number;
@@ -60,5 +61,5 @@ class BlockHeaderParser : public Parser {
   } state_ = State::kReadingTrackNumber;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_BLOCK_HEADER_PARSER_H_

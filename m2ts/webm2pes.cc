@@ -16,7 +16,8 @@
 
 #include "common/libwebm_util.h"
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 const std::size_t Webm2Pes::kMaxPayloadSize = 32768;
 
@@ -548,4 +549,4 @@ bool CopyAndEscapeStartCodes(const std::uint8_t* raw_input,
   return true;
 }
 
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm

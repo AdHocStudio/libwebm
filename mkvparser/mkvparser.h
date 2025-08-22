@@ -10,7 +10,8 @@
 
 #include <cstddef>
 
-namespace adhoc::mkvparser {
+namespace adhoc {
+namespace mkvparser {
 
 const int E_PARSE_FAILED = -1;
 const int E_FILE_FORMAT_INVALID = -2;
@@ -1133,7 +1134,7 @@ class Segment {
   const BlockEntry* GetBlock(const CuePoint&, const CuePoint::TrackPosition&);
 };
 
-}  // namespace adhoc::mkvparser
+}} // namespace adhoc::mkvparser
 inline long adhoc::mkvparser::Segment::LoadCluster() {
   long long pos;
   long size;

@@ -14,7 +14,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#Tag
@@ -32,5 +33,5 @@ class TagParser : public MasterValueParser<Tag> {
   }
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_TAG_PARSER_H_

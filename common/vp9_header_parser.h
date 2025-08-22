@@ -11,7 +11,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-namespace adhoc::vp9_parser {
+namespace adhoc {
+namespace vp9_parser {
 
 const int kVp9FrameMarker = 2;
 const int kMinTileWidthB64 = 4;
@@ -124,6 +125,6 @@ class Vp9HeaderParser {
   int frame_parallel_mode_;
 };
 
-}  // namespace vp9_parser
+}} // namespace vp9_parser
 
 #endif  // LIBWEBM_COMMON_VP9_HEADER_PARSER_H_

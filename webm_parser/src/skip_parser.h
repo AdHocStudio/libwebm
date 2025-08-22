@@ -15,7 +15,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // A simple parser that merely skips (via Reader::Skip) ahead in the stream
 // until the element has been fully skipped.
@@ -30,5 +31,5 @@ class SkipParser : public ElementParser {
   std::uint64_t num_bytes_remaining_;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_SKIP_PARSER_H_

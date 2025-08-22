@@ -12,7 +12,8 @@
 #include <cstdio>
 #include "./webvttparser.h"
 
-namespace adhoc::libwebvtt {
+namespace adhoc {
+namespace libwebvtt {
 
 class VttReader : public adhoc::libwebvtt::Reader {
  public:
@@ -39,6 +40,6 @@ class VttReader : public adhoc::libwebvtt::Reader {
   VttReader& operator=(const VttReader&);
 };
 
-}  // namespace libwebvtt
+}} // namespace libwebvtt
 
 #endif  // WEBVTT_VTTREADER_H_

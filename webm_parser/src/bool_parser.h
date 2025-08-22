@@ -18,7 +18,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses a boolean from a byte stream. EBML does not have a boolean type, but
 // the Matroska spec defines some unsigned integer elements that have a range of
@@ -90,5 +91,5 @@ class BoolParser : public ElementParser {
   int size_;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_BOOL_PARSER_H_

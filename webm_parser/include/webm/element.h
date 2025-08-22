@@ -20,7 +20,8 @@
  metadata.
  */
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 /**
  \addtogroup PUBLIC_API
@@ -203,5 +204,5 @@ constexpr std::uint64_t kUnknownElementPosition =
  @}
  */
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // INCLUDE_WEBM_ELEMENT_H_

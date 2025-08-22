@@ -16,7 +16,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 class SizeParser : public Parser {
  public:
@@ -38,5 +39,5 @@ class SizeParser : public Parser {
   VarIntParser uint_parser_;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_SIZE_PARSER_H_

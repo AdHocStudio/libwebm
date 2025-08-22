@@ -18,7 +18,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // An adapter that uses an underlying reader to read data, but with added
 // limitations on how much data can be read/skipped. Its primary use is for
@@ -110,6 +111,6 @@ class LimitedReader : public Reader {
   std::unique_ptr<Reader> impl_;
 };
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // TEST_UTILS_LIMITED_READER_H_

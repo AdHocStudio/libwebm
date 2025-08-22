@@ -15,7 +15,8 @@
 #include "common/libwebm_util.h"
 #include "common/video_frame.h"
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 // Parser for VPx PES. Requires that the _entire_ PES stream can be stored in
 // a std::vector<std::uint8_t> and read into memory when Open() is called.
@@ -172,5 +173,5 @@ class VpxPesParser {
   ParseState parse_state_ = kFindStartCode;
 };
 
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm
 #endif  // LIBWEBM_M2TS_VPXPES_PARSER_H_

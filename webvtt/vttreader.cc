@@ -8,7 +8,8 @@
 
 #include "webvtt/vttreader.h"
 
-namespace adhoc::libwebvtt {
+namespace adhoc {
+namespace libwebvtt {
 
 VttReader::VttReader() : file_(NULL) {}
 
@@ -51,4 +52,4 @@ int VttReader::GetChar(char* c) {
   return -1;  // weird
 }
 
-}  // namespace libwebvtt
+}} // namespace libwebvtt

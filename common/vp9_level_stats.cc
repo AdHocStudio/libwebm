@@ -14,7 +14,8 @@
 
 #include "common/webm_constants.h"
 
-namespace adhoc::vp9_parser {
+namespace adhoc {
+namespace vp9_parser {
 
 const Vp9LevelRow Vp9LevelStats::Vp9LevelTable[kNumVp9Levels] = {
     {LEVEL_1, 829440, 36864, 512, 200, 400, 2, 1, 4, 8},
@@ -266,4 +267,4 @@ int Vp9LevelStats::GetMaxReferenceFrames() const {
   return max_frames_refreshed_;
 }
 
-}  // namespace vp9_parser
+}} // namespace vp9_parser

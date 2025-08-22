@@ -9,11 +9,12 @@
 #ifndef LIBWEBM_COMMON_WEBM_CONSTANTS_H_
 #define LIBWEBM_COMMON_WEBM_CONSTANTS_H_
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 
 const double kNanosecondsPerSecond = 1000000000.0;
 const int kNanosecondsPerSecondi = 1000000000;
 const int kNanosecondsPerMillisecond = 1000000;
 
-}  // namespace adhoc::libwebm
+}} // namespace adhoc::libwebm
 #endif  // LIBWEBM_COMMON_WEBM_CONSTANTS_H_

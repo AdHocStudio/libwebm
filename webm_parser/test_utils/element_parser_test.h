@@ -19,7 +19,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Base class for unit tests that test an instance of the ElementParser
 // inteface. The template parameter T is the parser class being tested, and the
@@ -109,6 +110,6 @@ class ElementParserTest : public ParserTest<T> {
   ElementMetadata metadata_ = {id, 0, 0, 0};
 };
 
-}  // namespace webm
+}} // namespace webm
 
 #endif  // TEST_UTILS_ELEMENT_PARSER_TEST_H_

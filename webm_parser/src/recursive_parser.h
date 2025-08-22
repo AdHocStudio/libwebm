@@ -18,7 +18,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Lazily instantiates a parser of type T, and uses that parser to handle all
 // parsing operations. The parser is allocated when Init is called. This class
@@ -88,5 +89,5 @@ class RecursiveParser : public ElementParser {
   std::size_t max_recursion_depth_;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_RECURSIVE_PARSER_H_

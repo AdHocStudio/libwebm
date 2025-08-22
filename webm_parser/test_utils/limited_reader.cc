@@ -7,7 +7,8 @@
 // be found in the AUTHORS file in the root of the source tree.
 #include "test_utils/limited_reader.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 LimitedReader::LimitedReader(std::unique_ptr<Reader> impl)
     : impl_(std::move(impl)) {}
@@ -110,4 +111,4 @@ void LimitedReader::set_total_read_skip_limit(std::uint64_t max_num_bytes) {
   total_read_skip_limit_ = max_num_bytes;
 }
 
-}  // namespace webm
+}} // namespace webm

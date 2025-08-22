@@ -13,7 +13,8 @@
 
 #include "mkvparser/mkvparser.h"
 
-namespace adhoc::libwebm {
+namespace adhoc {
+namespace libwebm {
 const int Vp9CodecFeatures::kValueNotPresent = INT_MAX;
 
 bool CopyPrimaryChromaticity(const adhoc::mkvparser::PrimaryChromaticity& parser_pc,
@@ -217,4 +218,4 @@ bool ParseVpxCodecPrivate(const uint8_t* private_data, int32_t length,
 
   return true;
 }
-}  // namespace adhoc::libwebm
+} } // namespace adhoc::libwebm

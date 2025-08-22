@@ -15,7 +15,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#ChapterAtom
@@ -37,5 +38,5 @@ class ChapterAtomParser : public MasterValueParser<ChapterAtom> {
                                          max_recursive_depth)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_CHAPTER_ATOM_PARSER_H_

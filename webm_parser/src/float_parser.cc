@@ -17,7 +17,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 FloatParser::FloatParser(double default_value)
     : default_value_(default_value) {}
@@ -74,4 +75,4 @@ Status FloatParser::Feed(Callback* callback, Reader* reader,
   return status;
 }
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm

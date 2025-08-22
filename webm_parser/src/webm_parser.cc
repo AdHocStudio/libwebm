@@ -16,7 +16,8 @@
 #include "src/unknown_parser.h"
 #include "webm/element.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses WebM EBML documents (i.e. level-0 WebM elements).
 class WebmParser::DocumentParser {
@@ -279,4 +280,4 @@ void WebmParser::Swap(WebmParser* other) {
 
 void swap(WebmParser& left, WebmParser& right) { left.Swap(&right); }
 
-}  // namespace webm
+}} // namespace webm

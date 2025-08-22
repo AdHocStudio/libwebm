@@ -15,7 +15,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses Segment elements from a WebM byte stream. This class adheres to the
 // ElementParser interface; see element_parser.h for further documentation on
@@ -48,5 +49,5 @@ class SegmentParser : public MasterParser {
   Action action_ = Action::kRead;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_SEGMENT_PARSER_H_

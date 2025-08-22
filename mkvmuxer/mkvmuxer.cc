@@ -26,7 +26,8 @@
 #include "mkvmuxer/mkvwriter.h"
 #include "mkvparser/mkvparser.h"
 
-namespace adhoc::mkvmuxer {
+namespace adhoc {
+namespace mkvmuxer {
 
 const float PrimaryChromaticity::kChromaticityMin = 0.0f;
 const float PrimaryChromaticity::kChromaticityMax = 1.0f;
@@ -4201,4 +4202,4 @@ bool Segment::DocTypeIsWebm() const {
   return true;
 }
 
-}  // namespace adhoc::mkvmuxer
+}} // namespace adhoc::mkvmuxer

@@ -14,7 +14,8 @@
 #include "webm/dom_types.h"
 #include "webm/id.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Spec reference:
 // http://matroska.org/technical/specs/index.html#SimpleTag
@@ -32,5 +33,5 @@ class SimpleTagParser : public MasterValueParser<SimpleTag> {
                                        max_recursive_depth)) {}
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_SIMPLE_TAG_PARSER_H_

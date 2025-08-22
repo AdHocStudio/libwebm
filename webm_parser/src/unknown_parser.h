@@ -15,7 +15,8 @@
 #include "webm/reader.h"
 #include "webm/status.h"
 
-namespace adhoc::webm {
+namespace adhoc {
+namespace webm {
 
 // Parses unknown elements by delegating to Callback::OnUnknownElement.
 class UnknownParser : public ElementParser {
@@ -33,5 +34,5 @@ class UnknownParser : public ElementParser {
   std::uint64_t bytes_remaining_;
 };
 
-}  // namespace adhoc::webm
+}} // namespace adhoc::webm
 #endif  // SRC_UNKNOWN_PARSER_H_

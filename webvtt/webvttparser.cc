@@ -13,7 +13,8 @@
 #include <climits>
 #include <cstddef>
 
-namespace adhoc::libwebvtt {
+namespace adhoc {
+namespace libwebvtt {
 
 // NOLINT'ing this enum because clang-format puts it in a single line which
 // makes it look really unreadable.
@@ -703,4 +704,4 @@ presentation_t Time::operator-(const Time& t) const {
   return result;
 }
 
-}  // namespace libwebvtt
+}} // namespace libwebvtt
