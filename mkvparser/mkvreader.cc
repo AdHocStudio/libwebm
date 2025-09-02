@@ -121,6 +121,9 @@ int MkvReader::Read(long long offset, long len, unsigned char* buffer) {
     return -1;  // error
 #elif defined(_WIN32)
   fseeko64(m_file, static_cast<off_t>(offset), SEEK_SET);
+#elif defined(PLATFORM_PS5)
+  // PS5 doesn't have fseeko
+  fseek(m_file, static_cast<long>(offset), SEEK_SET);
 #else
   fseeko(m_file, static_cast<off_t>(offset), SEEK_SET);
 #endif

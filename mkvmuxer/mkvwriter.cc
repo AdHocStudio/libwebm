@@ -81,6 +81,9 @@ int32 MkvWriter::Position(int64 position) {
   return _fseeki64(file_, position, SEEK_SET);
 #elif defined(_WIN32)
   return fseeko64(file_, static_cast<off_t>(position), SEEK_SET);
+#elif defined(PLATFORM_PS5)
+  // PS5 doesn't have fseeko
+  return fseek(file_, static_cast<long>(position), SEEK_SET);
 #else
   return fseeko(file_, static_cast<off_t>(position), SEEK_SET);
 #endif
